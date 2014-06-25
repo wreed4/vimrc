@@ -19,3 +19,5 @@ set secure
 
 " set default project options
 set makeprg=rakefds
+
+"this is a comment
