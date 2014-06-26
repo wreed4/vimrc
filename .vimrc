@@ -43,9 +43,13 @@ set makeprg=rakefds
 
 "{{{ *****  PLUGINS  ***** "
 
+" Pathogen
+call pathogen#infect()
+
 " PyMode options
 let pymode_lint_ignore="E501,E401,E225,W191,W391,W404"
 " use rope code assist instead of a complete function
-au FileType python inoremap <expr> <S-Space> '<C-r>=RopeCodeAssistInsertMode()<CR><C-r>=pumvisible() ? "\<lt>C-p>\<lt>Down>" : ""<CR>'
+" au FileType python inoremap <expr> <S-Space> '<C-r>=RopeCodeAssistInsertMode()<CR><C-r>=pumvisible() ? "\<lt>C-p>\<lt>Down>" : ""<CR>'
+
 " }}}
 
