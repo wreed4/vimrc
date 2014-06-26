@@ -13,7 +13,7 @@ set modeline
 "{{{ ***** VISUALS ***** "
 " set number
 set relativenumber
-" set foldmethod=syntax
+set foldmethod=syntax
 set foldcolumn=3
 
 set expandtab
