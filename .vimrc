@@ -52,9 +52,14 @@ set showcmd
 "}}}
 
 "{{{ ***** KEY MAPPINGS ***** "
+" make backspace work
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+set whichwrap+=<,>,h,l
+
 set pastetoggle=<F2>
-nmap <F12> :mks!
-nmap <F4> :make!
+nmap <F12> :mks!<CR>
+nmap <F4> :make!<CR>
 
 " treat wrapped lines as multiple lines when navigating
 map j gj
