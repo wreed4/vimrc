@@ -59,7 +59,11 @@ set whichwrap+=<,>,h,l
 
 set pastetoggle=<F2>
 nmap <F12> :mks!<CR>
-nmap <F4> :make!<CR>
+nnoremap <F3> :!rakefds build release && source X86_64/environment.sh<CR>
+nnoremap <F4> :!rakefds build debug && source X86_64/environment.sh<CR>
+
+" look up things in opengrok
+noremap <leader>K :!elinks http://opengrok.factset.com/source/search?defs=<cword>&project=%2Fonline%2Fmakefds<CR>
 
 " treat wrapped lines as multiple lines when navigating
 map j gj
@@ -75,6 +79,6 @@ map <C-l> <C-W>l
 "{{{ ***** PROJECTS ***** "
 
 " set default project options
-set makeprg=rakefds
+"set makeprg=rakefds 
 " }}}
 
