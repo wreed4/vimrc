@@ -12,6 +12,22 @@ let pymode_lint_ignore="E501,E401,E225,W191,W391,W404"
 " use rope code assist instead of a complete function
 " au FileType python inoremap <expr> <S-Space> '<C-r>=RopeCodeAssistInsertMode()<CR><C-r>=pumvisible() ? "\<lt>C-p>\<lt>Down>" : ""<CR>'
 
+" Tlist
+" Toggle tag list
+" nnoremap <C-T> :TlistToggle<CR>
+
+" Tagbar options
+let g:tagbar_autofocus = 1
+let g:tagbar_left = 1
+let g:tagbar_zoomwidth = 0
+let g:tagbar_autofocus = 1
+
+" open Tagbar automatically when viewing a supported file/files
+autocmd VimEnter * nested :call tagbar#autoopen(1)
+
+" Toggle Tagbar
+nnoremap <C-T> :TagbarToggle<CR>
+
 " }}}
 
 "{{{ ***** VIM FEATURES ***** "
@@ -59,12 +75,11 @@ set whichwrap+=<,>,h,l
 
 set pastetoggle=<F2>
 nmap <F12> :mks!<CR>
-nnoremap <F3> :!rakefds build release && source X86_64/environment.sh<CR>
-nnoremap <F4> :!rakefds build debug && source X86_64/environment.sh<CR>
+nnoremap <F3> :make! build release 
+nnoremap <F4> :make! build debug 
 
 " look up things in opengrok
-noremap <leader>K :!elinks http://opengrok.factset.com/source/search?defs=<cword>&project=%2Fonline%2Fmakefds<CR>
-
+noremap <leader>K :call OpenGrok()<CR>
 " treat wrapped lines as multiple lines when navigating
 map j gj
 map k gk
@@ -79,6 +94,19 @@ map <C-l> <C-W>l
 "{{{ ***** PROJECTS ***** "
 
 " set default project options
-"set makeprg=rakefds 
+set makeprg=rakefds 
 " }}}
 
+
+"{{{ ***** FUNCTIONS ***** "
+" open OpenGrok in midori
+function! OpenGrok()
+    :!midori http://opengrok.factset.com/source/search?defs=<cword>&project=%2Fonline%2Fmakefds<CR>
+endfunction
+
+" }}}
+
+
+"{{{ ***** COMMANDS ***** " 
+" make todo list
+command -nargs=* -complete=file Todos vimgrep /asdf:/gj *|cw
