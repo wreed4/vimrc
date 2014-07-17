@@ -41,14 +41,20 @@ set autoread
 " turn ruler on
 set ruler
 " set incremental search
+set hlsearch
 set incsearch
 " set status line always on
 set laststatus=2
+
+"turn omnicomplete on
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
 
 " }}}
 
 "{{{ ***** VISUALS ***** "
 " set number
+set number
 set relativenumber
 set foldmethod=syntax
 set foldcolumn=3
@@ -61,7 +67,12 @@ set smartindent
 set cindent
 filetype plugin indent on
 
-colorscheme carvedwoodcool
+"colorscheme carvedwoodcool
+colorscheme wombat256
+"colorscheme devbox-dark-256
+"set background=light
+"colorscheme solarized
+
 syntax on
 
 set showcmd
@@ -75,8 +86,9 @@ set whichwrap+=<,>,h,l
 
 set pastetoggle=<F2>
 nmap <F12> :mks!<CR>
-nnoremap <F3> :make! build release 
-nnoremap <F4> :make! build debug 
+nnoremap <F3> :MakeRelease<CR><CR>
+nnoremap <F4> :MakeDebug<CR><CR>
+nnoremap <F5> :so ~/.vimrc<CR>
 
 " look up things in opengrok
 noremap <leader>K :call OpenGrok()<CR>
@@ -94,7 +106,10 @@ map <C-l> <C-W>l
 "{{{ ***** PROJECTS ***** "
 
 " set default project options
-set makeprg=rakefds 
+set makeprg=rfds 
+
+command! -nargs=* MakeRelease Make build release
+command! -nargs=* MakeDebug Make build debug
 " }}}
 
 
@@ -109,4 +124,8 @@ endfunction
 
 "{{{ ***** COMMANDS ***** " 
 " make todo list
-command -nargs=* -complete=file Todos vimgrep /asdf:/gj *|cw
+command! -nargs=* -complete=file Todos vimgrep /asdf:/gj *|cw
+
+"Wrapper for make sequence
+command! -nargs=* Make execute '!clear' | make! <args> | cw
+" }}}
