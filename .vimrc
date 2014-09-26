@@ -24,9 +24,46 @@ let g:tagbar_autofocus = 1
 
 " open Tagbar automatically when viewing a supported file/files
 autocmd VimEnter * nested :call tagbar#autoopen(1)
+" open Tagbar automatically when entering a buffer of supported file/files
+"autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 " Toggle Tagbar
-nnoremap <C-T> :TagbarToggle<CR>
+nnoremap <leader>tt :TagbarToggle<CR>
+
+
+" Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
+
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
+
+"NERDTree
+let g:NERDTreeDirArrows = 0
+nnoremap <leader>nt :NERDTreeToggle<CR>
+
+" UltiSnips
+let g:UltiSnipsEditSplit = "vertical"
+let g:UltiSnipsJumpForwardTrigger="<TAB>"
+let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
+let g:UltiSnipsSnippetsDir="~/.vim/bundle/vim-snippets/UltiSnips"
+
+
+" CCTree
+nnoremap <leader>ct :CCTreeWindowToggle<CR>
+
+" ConqueTerm
+"let g:ConqueTerm_CloseOnEnd = 1
+
+" Pyclewn
+" Only map keys if we're in Pyclewn
+if has("netbeans_enabled")
+    "nmap <silent> <C-p> :exe ":Cprint " .  expand("<cword>")<CR>
+    nmap <silent> <C-p> "pyiw :Cprint <C-R>p<CR>
+    nmap <silent> <C-x> :exe ":Cdbgvar " .  expand("<cword>")<CR>
+    vmap <silent> <C-p> "py :Cprint <C-R>p<CR>
+endif
 
 " }}}
 
@@ -45,6 +82,8 @@ set hlsearch
 set incsearch
 " set status line always on
 set laststatus=2
+" set mouse always on.  I like the mouse sometimes
+set mouse=a
 
 "turn omnicomplete on
 filetype plugin on
@@ -100,6 +139,9 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" Open tag in new tab
+nnoremap <M-]> <C-W><C-]><C-W>T
 
 " }}}
 
