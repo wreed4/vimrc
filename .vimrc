@@ -54,7 +54,7 @@ let g:UltiSnipsSnippetsDir="~/.vim/bundle/vim-snippets/UltiSnips"
 nnoremap <leader>ct :CCTreeWindowToggle<CR>
 
 " ConqueTerm
-"let g:ConqueTerm_CloseOnEnd = 1
+let g:ConqueTerm_CloseOnEnd = 1
 
 " Pyclewn
 " Only map keys if we're in Pyclewn
@@ -65,6 +65,14 @@ if has("netbeans_enabled")
     vmap <silent> <C-p> "py :Cprint <C-R>p<CR>
 endif
 
+" YouCompleteMe
+" Auto Close preview window
+let g:ycm_autoclose_preview_window_after_completion = 0
+" Disable Tab for cycling through commands so that UtilSnips will still work
+let g:ycm_key_list_select_completion=['<Down>']
+let g:ycm_key_list_previous_completion=['<Up>']
+let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_key_invoke_completion = '<C-N>'
 " }}}
 
 "{{{ ***** VIM FEATURES ***** "
@@ -107,8 +115,13 @@ set cindent
 filetype plugin indent on
 
 "colorscheme carvedwoodcool
-colorscheme wombat256
-"colorscheme devbox-dark-256
+"colorscheme wombat256
+"colorscheme zenburn
+"colorscheme kolor
+"colorscheme jellybeans
+"colorscheme hybrid
+"colorscheme bubblegum
+colorscheme devbox-dark-256
 "set background=light
 "colorscheme solarized
 
