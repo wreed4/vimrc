@@ -3,12 +3,12 @@
 
 "{{{ *****  PLUGINS  ***** "
 
-" Pathogen
+" #####Pathogen#####
 call pathogen#infect()
 call pathogen#helptags()
 
-" PyMode options
-let pymode_lint_ignore="E501,E401,E225,W191,W391,W404"
+" #####PyMode##### 
+"let pymode_lint_ignore="E501,E401,E225,W191,W391,W404"
 " use rope code assist instead of a complete function
 " au FileType python inoremap <expr> <S-Space> '<C-r>=RopeCodeAssistInsertMode()<CR><C-r>=pumvisible() ? "\<lt>C-p>\<lt>Down>" : ""<CR>'
 
@@ -16,14 +16,13 @@ let pymode_lint_ignore="E501,E401,E225,W191,W391,W404"
 " Toggle tag list
 " nnoremap <C-T> :TlistToggle<CR>
 
-" Tagbar options
+" #####Tagbar##### 
 let g:tagbar_autofocus = 1
 let g:tagbar_left = 1
 let g:tagbar_zoomwidth = 0
-let g:tagbar_autofocus = 1
 
 " open Tagbar automatically when viewing a supported file/files
-autocmd VimEnter * nested :call tagbar#autoopen(1)
+"autocmd VimEnter * nested :call tagbar#autoopen(1)
 " open Tagbar automatically when entering a buffer of supported file/files
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 
@@ -31,32 +30,41 @@ autocmd VimEnter * nested :call tagbar#autoopen(1)
 nnoremap <leader>tt :TagbarToggle<CR>
 
 
-" Airline
+" #####Airline#####
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#whitespace#enabled = 0
+"let g:airline#extensions#tmuxline#enabled = 1
 
-"NERDTree
+" #####NERDTree#####
 let g:NERDTreeDirArrows = 0
+let g:NERDTreeWinPos = "right"
 nnoremap <leader>nt :NERDTreeToggle<CR>
 
-" UltiSnips
+" #####NerdCommenter#####
+imap <C-c> <plug>NERDCommenterInsert
+
+" #####UltiSnips#####
 let g:UltiSnipsEditSplit = "vertical"
 let g:UltiSnipsJumpForwardTrigger="<TAB>"
 let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
 let g:UltiSnipsSnippetsDir="~/.vim/bundle/vim-snippets/UltiSnips"
 
 
-" CCTree
+" #####CCTree#####
 nnoremap <leader>ct :CCTreeWindowToggle<CR>
 
-" ConqueTerm
+" #####ConqueTerm#####
 let g:ConqueTerm_CloseOnEnd = 1
+"Conque spits out an error about CursorHoldI making it run slow.  repress
+"these warnings
+let g:ConqueTerm_StartMessages = 0
 
-" Pyclewn
+
+" #####Pyclewn#####
 " Only map keys if we're in Pyclewn
 if has("netbeans_enabled")
     "nmap <silent> <C-p> :exe ":Cprint " .  expand("<cword>")<CR>
@@ -65,9 +73,11 @@ if has("netbeans_enabled")
     vmap <silent> <C-p> "py :Cprint <C-R>p<CR>
 endif
 
-" YouCompleteMe
+" #####YouCompleteMe#####
+" Open preview window when completing
+let g:ycm_add_preview_to_completeopt = 1
 " Auto Close preview window
-let g:ycm_autoclose_preview_window_after_completion = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
 " Disable Tab for cycling through commands so that UtilSnips will still work
 let g:ycm_key_list_select_completion=['<Down>']
 let g:ycm_key_list_previous_completion=['<Up>']
@@ -114,16 +124,17 @@ set smartindent
 set cindent
 filetype plugin indent on
 
+"set background=light
+"let g:solarized_termcolors=256
+"colorscheme solarized
 "colorscheme carvedwoodcool
 "colorscheme wombat256
 "colorscheme zenburn
-"colorscheme kolor
+colorscheme kolor
 "colorscheme jellybeans
 "colorscheme hybrid
 "colorscheme bubblegum
-colorscheme devbox-dark-256
-"set background=light
-"colorscheme solarized
+"colorscheme devbox-dark-256
 
 syntax on
 
@@ -156,6 +167,10 @@ map <C-l> <C-W>l
 " Open tag in new tab
 nnoremap <M-]> <C-W><C-]><C-W>T
 
+" Toggle TODOs as done or not
+nnoremap <silent> <leader>x :s/\[ \]TODO/[X]TODO/<CR>:nohl<CR>
+nnoremap <silent> <leader><space> :s/\[X\]TODO/[ ]TODO/<CR>:nohl<CR>
+
 " }}}
 
 "{{{ ***** PROJECTS ***** "
@@ -179,8 +194,11 @@ endfunction
 
 "{{{ ***** COMMANDS ***** " 
 " make todo list
-command! -nargs=* -complete=file Todos vimgrep /asdf:/gj *|cw
+command! -nargs=* -complete=file Todos vimgrep /TODO(wreed):/gj *|cw
 
 "Wrapper for make sequence
 command! -nargs=* Make execute '!clear' | make! <args> | cw
+
+" Perforce commands
+command! -nargs=0 PerfEdit execute "!p4 edit %" 
 " }}}

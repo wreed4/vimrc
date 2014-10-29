@@ -16,9 +16,6 @@
 [submodule "bundle/vim-easymotion"]
 	path = bundle/vim-easymotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
-[submodule "bundle/vim-snippets"]
-	path = bundle/vim-snippets
-	url = https://github.com/honza/vim-snippets.git
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = https://github.com/tmhedberg/matchit.git
@@ -46,9 +43,12 @@
 [submodule "bundle/tabline"]
 	path = bundle/tabline
 	url = https://github.com/mkitt/tabline.vim.git
-[submodule "bundle/ultisnips"]
-	path = bundle/ultisnips
-	url = https://github.com/SirVer/ultisnips.git
 [submodule "bundle/YouCompleteMe"]
 	path = bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "bundle/vim-multiple-cursors"]
+	path = bundle/vim-multiple-cursors
+	url = https://github.com/wreed4/vim-multiple-cursors.git
+[submodule "ultisnips"]
+	path = ultisnips
+	url = https://github.com/wreed4/ultisnips.git
