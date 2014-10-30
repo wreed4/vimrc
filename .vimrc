@@ -1,6 +1,9 @@
 " wreed vimrc
 " vim: set foldmethod=marker:
 
+" allow python in vimrc
+python import vim
+
 "{{{ *****  PLUGINS  ***** "
 
 " #####Pathogen#####
@@ -102,6 +105,11 @@ set incsearch
 set laststatus=2
 " set mouse always on.  I like the mouse sometimes
 set mouse=a
+" 256 stuff
+
+" New Splits default to right, or below
+set splitbelow
+set splitright
 
 "turn omnicomplete on
 filetype plugin on
@@ -164,6 +172,12 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" easy resize windows
+nnoremap <C-Up> <C-W>+
+nnoremap <C-Down> <C-W>-
+nnoremap <C-Left> 3<C-W><
+nnoremap <C-Right> 3<C-W>>
+
 " Open tag in new tab
 nnoremap <M-]> <C-W><C-]><C-W>T
 
@@ -189,6 +203,13 @@ function! OpenGrok()
     :!midori http://opengrok.factset.com/source/search?defs=<cword>&project=%2Fonline%2Fmakefds<CR>
 endfunction
 
+"function! OpenDepotFile(version, fname)
+python << END
+def OpenDepotFile(version, fname):
+    vim.command("edit /home/dev/fonix/online/" + version + "/src/" + fname)
+END
+"endfunction
+
 " }}}
 
 
@@ -201,4 +222,11 @@ command! -nargs=* Make execute '!clear' | make! <args> | cw
 
 " Perforce commands
 command! -nargs=0 PerfEdit execute "!p4 edit %" 
+
+" Open Depot File
+command! -nargs=+ OpenDepotFile python OpenDepotFile(<f-args>)
+
 " }}}
+
+
+
