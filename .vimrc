@@ -37,11 +37,15 @@ nnoremap <leader>tt :TagbarToggle<CR>
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#show_close_button =1
 
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#whitespace#enabled = 0
-"let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#tmuxline#enabled = 1
 
+"let g:airline_powerline_fonts=1
+let g:airline_left_sep = '»'
+  let g:airline_left_sep = '▶'
 " #####NERDTree#####
 let g:NERDTreeDirArrows = 0
 let g:NERDTreeWinPos = "right"
@@ -106,6 +110,10 @@ set laststatus=2
 " set mouse always on.  I like the mouse sometimes
 set mouse=a
 " 256 stuff
+" disable BackgroundColorErase (BCE) inside of 256-color tmux sessions
+if &term =~ '256color'
+    set t_ut=
+endif
 
 " New Splits default to right, or below
 set splitbelow
@@ -166,17 +174,10 @@ noremap <leader>K :call OpenGrok()<CR>
 " treat wrapped lines as multiple lines when navigating
 map j gj
 map k gk
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
 
-" easy resize windows
-nnoremap <C-Up> <C-W>+
-nnoremap <C-Down> <C-W>-
-nnoremap <C-Left> 3<C-W><
-nnoremap <C-Right> 3<C-W>>
+" Open a new line and exit insert mode, staying on the same line
+nnoremap <leader>o o<ESC>k
+nnoremap <leader>O O<ESC>j
 
 " Open tag in new tab
 nnoremap <M-]> <C-W><C-]><C-W>T
@@ -184,6 +185,30 @@ nnoremap <M-]> <C-W><C-]><C-W>T
 " Toggle TODOs as done or not
 nnoremap <silent> <leader>x :s/\[ \]TODO/[X]TODO/<CR>:nohl<CR>
 nnoremap <silent> <leader><space> :s/\[X\]TODO/[ ]TODO/<CR>:nohl<CR>
+
+
+" WINDOW ORGANISATION
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+map <C-Up> <C-W>k
+map <C-Down> <C-W>j
+map <C-Left> <C-W>h
+map <C-Right> <C-W>l
+
+" easy resize windows
+nnoremap <S-Up> <C-W>+
+nnoremap <S-Down> <C-W>-
+nnoremap <S-Left> 3<C-W><
+nnoremap <S-Right> 3<C-W>>
+
+" easy move windows
+nnoremap <C-S-Up> <C-W><S-K>
+nnoremap <C-S-Down> <C-W><S-J>
+nnoremap <C-S-Left> <C-W><S-H>
+nnoremap <C-S-Right> <C-W><S-L>
 
 " }}}
 
@@ -224,9 +249,15 @@ command! -nargs=* Make execute '!clear' | make! <args> | cw
 command! -nargs=0 PerfEdit execute "!p4 edit %" 
 
 " Open Depot File
-command! -nargs=+ OpenDepotFile python OpenDepotFile(<f-args>)
+command! -nargs=+ -complete=custom,DepotComplete OpenQaFile python OpenDepotFile("qa", <f-args>)
+function! DepotComplete(ArgLead, CmdLine, CursorPos)
+    return system("ls /home/dev/fonix/online/qa/src/")
+endfunction
 
 " }}}
 
+
+"// [ ]TODO(wreed): shortcut to edit VMS files (with tab completion??)
+"// [ ]TODO(wreed): shortcut to look at directory
 
 
