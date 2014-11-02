@@ -7,6 +7,7 @@
 [submodule "bundle/taglist.vim"]
 	path = bundle/taglist.vim
 	url = https://github.com/vim-scripts/taglist.vim.git
+        ignore = untracked
 [submodule "bundle/vim-addon-mw-utils"]
 	path = bundle/vim-addon-mw-utils
 	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
@@ -46,6 +47,7 @@
 [submodule "bundle/vim-multiple-cursors"]
 	path = bundle/vim-multiple-cursors
 	url = https://github.com/wreed4/vim-multiple-cursors.git
+        ignore = untracked
 [submodule "bundle/ultisnips"]
 	path = bundle/ultisnips
 	url = https://github.com/wreed4/ultisnips.git
@@ -55,6 +57,7 @@
 [submodule "bundle/Conque-Shell"]
 	path = bundle/Conque-Shell
 	url = https://github.com/oplatek/Conque-Shell.git
+        ignore = untracked
 [submodule "bundle/vim-dispatch"]
 	path = bundle/vim-dispatch
 	url = https://github.com/tpope/vim-dispatch.git
