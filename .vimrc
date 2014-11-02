@@ -140,7 +140,6 @@ set smartindent
 set cindent
 filetype plugin indent on
 
-"set background=light
 "let g:solarized_termcolors=256
 "colorscheme solarized
 "colorscheme carvedwoodcool
@@ -151,6 +150,7 @@ colorscheme kolor
 "colorscheme hybrid
 "colorscheme bubblegum
 "colorscheme devbox-dark-256
+set background=light
 
 syntax on
 
