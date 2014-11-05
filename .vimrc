@@ -17,12 +17,15 @@ call pathogen#helptags()
 
 " Tlist
 " Toggle tag list
- nnoremap <C-T> :TlistToggle<CR>
+ "nnoremap <C-T> :TlistToggle<CR>
 
 " #####Tagbar##### 
 let g:tagbar_autofocus = 1
 let g:tagbar_left = 1
 let g:tagbar_zoomwidth = 0
+let g:tagbar_show_linenumbers = -1
+let g:tagbar_foldlevel = 0
+let g:tagbar_autoshowtag = 1
 
 " open Tagbar automatically when viewing a supported file/files
 "autocmd VimEnter * nested :call tagbar#autoopen(1)
@@ -41,32 +44,21 @@ let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#show_close_button =1
 
+let g:airline#extensions#tagbar#flags = 'f'
 let g:airline#extensions#tagbar#enabled = 1
+
 let g:airline#extensions#whitespace#enabled = 0
+
 let g:airline#extensions#tmuxline#enabled = 0
 
-"if !exists('g:airline_symbols')
-    "let g:airline_symbols = {}
-"endif
-
-"" unicode symbols
-"let g:airline_left_sep = '»'
-""let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '«'
-""let g:airline_right_sep = '◀'
-"let g:airline_symbols.linenr = '␊'
-"let g:airline_symbols.linenr = '␤'
-"let g:airline_symbols.linenr = '¶'
-"let g:airline_symbols.branch = '⎇'
-"let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.paste = 'Þ'
-"let g:airline_symbols.paste = '∥'
-"let g:airline_symbols.whitespace = 'Ξ'
 
 " #####NERDTree#####
-let g:NERDTreeDirArrows = 0
+let g:NERDTreeDirArrows = 1
 let g:NERDTreeWinPos = "right"
+let g:NERDTreeMouseMode = 2
+let g:NERDTreeShowLineNumbers = 1
 nnoremap <leader>nt :NERDTreeToggle<CR>
+
 
 " #####NerdCommenter#####
 imap <C-c> <plug>NERDCommenterInsert
@@ -101,7 +93,7 @@ endif
 " Open preview window when completing
 let g:ycm_add_preview_to_completeopt = 1
 " Auto Close preview window
-let g:ycm_autoclose_preview_window_after_insertion = 0
+let g:ycm_autoclose_preview_window_after_insertion = 1
 " Disable Tab for cycling through commands so that UtilSnips will still work
 let g:ycm_key_list_select_completion=['<Down>']
 let g:ycm_key_list_previous_completion=['<Up>']
@@ -132,6 +124,8 @@ set incsearch
 set laststatus=2
 " turn vim's mode printing off.  Airline takes care of this
 set noshowmode
+" shorten the pause after leaving insert mode
+set ttimeoutlen=50
 " set mouse always on.  I like the mouse sometimes
 set mouse=a
 " 256 stuff
