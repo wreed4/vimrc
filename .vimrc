@@ -17,7 +17,7 @@ call pathogen#helptags()
 
 " Tlist
 " Toggle tag list
-" nnoremap <C-T> :TlistToggle<CR>
+ nnoremap <C-T> :TlistToggle<CR>
 
 " #####Tagbar##### 
 let g:tagbar_autofocus = 1
@@ -34,6 +34,8 @@ nnoremap <leader>tt :TagbarToggle<CR>
 
 
 " #####Airline#####
+let g:airline_powerline_fonts=1
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
@@ -41,11 +43,26 @@ let g:airline#extensions#tabline#show_close_button =1
 
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#tmuxline#enabled = 0
 
-"let g:airline_powerline_fonts=1
-let g:airline_left_sep = '»'
-  let g:airline_left_sep = '▶'
+"if !exists('g:airline_symbols')
+    "let g:airline_symbols = {}
+"endif
+
+"" unicode symbols
+"let g:airline_left_sep = '»'
+""let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+""let g:airline_right_sep = '◀'
+"let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.linenr = '␤'
+"let g:airline_symbols.linenr = '¶'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.paste = 'Þ'
+"let g:airline_symbols.paste = '∥'
+"let g:airline_symbols.whitespace = 'Ξ'
+
 " #####NERDTree#####
 let g:NERDTreeDirArrows = 0
 let g:NERDTreeWinPos = "right"
@@ -89,7 +106,13 @@ let g:ycm_autoclose_preview_window_after_insertion = 0
 let g:ycm_key_list_select_completion=['<Down>']
 let g:ycm_key_list_previous_completion=['<Up>']
 let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_complete_in_comments = 1
 let g:ycm_key_invoke_completion = '<C-N>'
+"let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
+nnoremap <leader>] :YcmCompleter GoTo<CR>
+
 " }}}
 
 "{{{ ***** VIM FEATURES ***** "
@@ -107,6 +130,8 @@ set hlsearch
 set incsearch
 " set status line always on
 set laststatus=2
+" turn vim's mode printing off.  Airline takes care of this
+set noshowmode
 " set mouse always on.  I like the mouse sometimes
 set mouse=a
 " 256 stuff
@@ -114,6 +139,18 @@ set mouse=a
 if &term =~ '256color'
     set t_ut=
 endif
+" OR... do this shit instead
+if &term =~ '^screen'
+    " tmux will send xterm-style keys when xterm-keys is on
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+endif
+
+" set utf8
+set encoding=utf-8
+set fileencoding=utf-8
 
 " New Splits default to right, or below
 set splitbelow
@@ -140,17 +177,26 @@ set smartindent
 set cindent
 filetype plugin indent on
 
+" Solarized settings
 "let g:solarized_termcolors=256
 "colorscheme solarized
+"set background=light
+"set background=dark
+
+" seoul256 settings
+let g:seoul256_background = 236
+colorscheme seoul256
+let g:airline_theme="tomorrow"
+
 "colorscheme carvedwoodcool
 "colorscheme wombat256
 "colorscheme zenburn
-colorscheme kolor
+"colorscheme kolor
 "colorscheme jellybeans
 "colorscheme hybrid
 "colorscheme bubblegum
 "colorscheme devbox-dark-256
-set background=light
+"colorscheme Tomorrow-Night-Eighties
 
 syntax on
 
@@ -178,6 +224,9 @@ map k gk
 " Open a new line and exit insert mode, staying on the same line
 nnoremap <leader>o o<ESC>k
 nnoremap <leader>O O<ESC>j
+
+" Clean a line and exit insert mode
+nnoremap <leader>c<CR> cc<ESC>
 
 " Open tag in new tab
 nnoremap <M-]> <C-W><C-]><C-W>T
@@ -243,7 +292,8 @@ END
 command! -nargs=* -complete=file Todos vimgrep /TODO(wreed):/gj *|cw
 
 "Wrapper for make sequence
-command! -nargs=* Make execute '!clear' | make! <args> | cw
+"replaced by vim-dispatch plugin
+"command! -nargs=* Make execute '!clear' | make! <args> | cw
 
 " Perforce commands
 command! -nargs=0 PerfEdit execute "!p4 edit %" 
@@ -253,6 +303,9 @@ command! -nargs=+ -complete=custom,DepotComplete OpenQaFile python OpenDepotFile
 function! DepotComplete(ArgLead, CmdLine, CursorPos)
     return system("ls /home/dev/fonix/online/qa/src/")
 endfunction
+
+" Edit ~/.vimrc in a new tab
+command! -nargs=0 EditVimrc tabedit ~/.vimrc
 
 " }}}
 
