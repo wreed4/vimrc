@@ -1,8 +1,6 @@
 " wreed vimrc
 " vim: set foldmethod=marker:
 
-" allow python in vimrc
-python import vim
 
 "{{{ *****  PLUGINS  ***** "
 
@@ -18,6 +16,9 @@ call pathogen#helptags()
 " Tlist
 " Toggle tag list
  "nnoremap <C-T> :TlistToggle<CR>
+
+" #####EasyMotion#####
+nmap <Leader><Leader>s <Plug>(easymotion-sn)
 
 " #####Tagbar##### 
 let g:tagbar_autofocus = 1
@@ -53,6 +54,7 @@ let g:airline#extensions#tmuxline#enabled = 0
 
 
 " #####NERDTree#####
+let g:NERDTreeHijackNetrw = 0
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeMouseMode = 2
@@ -97,13 +99,17 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " Disable Tab for cycling through commands so that UtilSnips will still work
 let g:ycm_key_list_select_completion=['<Down>']
 let g:ycm_key_list_previous_completion=['<Up>']
-let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_collect_identifiers_from_tags_files=0
 let g:ycm_complete_in_comments = 1
 let g:ycm_key_invoke_completion = '<C-N>'
 "let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 nnoremap <leader>] :YcmCompleter GoTo<CR>
+
+
+" #####Multiple Cursors#####
+let g:multi_cursor_exit_from_insert_mode = 0
 
 " }}}
 
@@ -209,11 +215,13 @@ nnoremap <F3> :MakeRelease<CR><CR>
 nnoremap <F4> :MakeDebug<CR><CR>
 nnoremap <F5> :so ~/.vimrc<CR>
 
-" look up things in opengrok
-noremap <leader>K :call OpenGrok()<CR>
 " treat wrapped lines as multiple lines when navigating
 map j gj
 map k gk
+
+" Scroll the window up and down more intuitively
+nnoremap j <C-e>
+nnoremap k <C-y>
 
 " Open a new line and exit insert mode, staying on the same line
 nnoremap <leader>o o<ESC>k
@@ -266,17 +274,13 @@ command! -nargs=* MakeDebug Make build debug
 
 
 "{{{ ***** FUNCTIONS ***** "
-" open OpenGrok in midori
-function! OpenGrok()
-    :!midori http://opengrok.factset.com/source/search?defs=<cword>&project=%2Fonline%2Fmakefds<CR>
+function! OpenDepotFile(version, fname)
+    edit "/home/dev/fonix/online/" . a:version . "/src/" . a:fname)
 endfunction
 
-"function! OpenDepotFile(version, fname)
-python << END
-def OpenDepotFile(version, fname):
-    vim.command("edit /home/dev/fonix/online/" + version + "/src/" + fname)
-END
-"endfunction
+function! DepotComplete(ArgLead, CmdLine, CursorPos)
+    return system("ls /home/dev/fonix/online/qa/src/")
+endfunction
 
 " }}}
 
@@ -294,9 +298,6 @@ command! -nargs=0 PerfEdit execute "!p4 edit %"
 
 " Open Depot File
 command! -nargs=+ -complete=custom,DepotComplete OpenQaFile python OpenDepotFile("qa", <f-args>)
-function! DepotComplete(ArgLead, CmdLine, CursorPos)
-    return system("ls /home/dev/fonix/online/qa/src/")
-endfunction
 
 " Edit ~/.vimrc in a new tab
 command! -nargs=0 EditVimrc tabedit ~/.vimrc
