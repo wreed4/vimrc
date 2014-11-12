@@ -60,6 +60,7 @@ let g:NERDTreeWinPos = "right"
 let g:NERDTreeMouseMode = 2
 let g:NERDTreeShowLineNumbers = 1
 nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>nf :NERDTreeFind<CR>
 
 
 " #####NerdCommenter#####
@@ -93,7 +94,7 @@ endif
 
 " #####YouCompleteMe#####
 " Open preview window when completing
-let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_add_preview_to_completeopt = 0
 " Auto Close preview window
 let g:ycm_autoclose_preview_window_after_insertion = 1
 " Disable Tab for cycling through commands so that UtilSnips will still work
@@ -104,6 +105,7 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_key_invoke_completion = '<C-N>'
 "let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_use_ultisnips_completer = 0
 
 nnoremap <leader>] :YcmCompleter GoTo<CR>
 
@@ -275,7 +277,7 @@ command! -nargs=* MakeDebug Make build debug
 
 "{{{ ***** FUNCTIONS ***** "
 function! OpenDepotFile(version, fname)
-    edit "/home/dev/fonix/online/" . a:version . "/src/" . a:fname)
+    execute "edit /home/dev/fonix/online/" . a:version . "/src/" . a:fname
 endfunction
 
 function! DepotComplete(ArgLead, CmdLine, CursorPos)
@@ -297,7 +299,7 @@ command! -nargs=* -complete=file Todos vimgrep /TODO(wreed):/gj *|cw
 command! -nargs=0 PerfEdit execute "!p4 edit %" 
 
 " Open Depot File
-command! -nargs=+ -complete=custom,DepotComplete OpenQaFile python OpenDepotFile("qa", <f-args>)
+command! -nargs=+ -complete=custom,DepotComplete OpenQaFile call OpenDepotFile("qa", <f-args>)
 
 " Edit ~/.vimrc in a new tab
 command! -nargs=0 EditVimrc tabedit ~/.vimrc
