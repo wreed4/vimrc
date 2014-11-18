@@ -2,11 +2,46 @@
 " vim: set foldmethod=marker:
 
 
-"{{{ *****  PLUGINS  ***** "
+"{{{ ***** PLUGINS INSTALLATION ***** "
+
+" #####Vundle#####
+set nocompatible
+"required vundle setup
+filetype off
+set runtimepath+=~/.vim/bundle/Vundle
+call vundle#rc()
+
+" Let Vundle manage itself
+Bundle 'gmarik/vundle'
+
+" begin installed plugins
+Bundle 'oplatek/Conque-Shell'  " can launch an interactive program within an Vim buffer (like bash or other shells)
+Bundle 'Valloric/YouCompleteMe'  " As-you-type semantic completion
+Bundle 'jlanzarotta/bufexplorer'  " easy buffer management
+Bundle 'tmhedberg/matchit'  " supposedly make '%' more powerful
+Bundle 'scrooloose/nerdcommenter'  " Provides awesome commenting shortcuts
+Bundle 'scrooloose/nerdtree'  " Shows file browser. (replaces netrw and :Explore)
+Bundle 'altercation/vim-colors-solarized'  " the Solarized colorscheme
+Bundle 'mkitt/tabline.vim'  " show tabs up on top prettily 
+Bundle 'majutsushi/tagbar'  " shows an outline of all Tags in a file 
+Bundle 'SirVer/ultisnips'  " Snippet completion
+Bundle 'bling/vim-airline'  " Make vim priiiiity
+Bundle 'flazz/vim-colorschemes'  " about 3 billion colorschemes
+Bundle 'tpope/vim-dispatch'  " Asynchonous building and launching of programs
+Bundle 'Lokaltog/vim-easymotion'  " Makes motions way better.  lets you jump anywhere on the screen
+Bundle 'wreed4/vim-multiple-cursors'  " Allows multiple cursors at once.  very useful
+Bundle 'wreed4/vim-snippets'  " A library of snippets that work with Utilsnip
+Bundle 'tpope/vim-surround'  " ability to surround text objects with things like quotes or parens
+
 
 " #####Pathogen#####
-call pathogen#infect()
-call pathogen#helptags()
+" call pathogen#infect()
+" call pathogen#helptags()
+
+" }}}
+
+
+"{{{ ***** PLUGIN SETTINGS ***** "
 
 " #####PyMode##### 
 "let pymode_lint_ignore="E501,E401,E225,W191,W391,W404"
@@ -15,7 +50,7 @@ call pathogen#helptags()
 
 " Tlist
 " Toggle tag list
- "nnoremap <C-T> :TlistToggle<CR>
+"nnoremap <C-T> :TlistToggle<CR>
 
 " #####EasyMotion#####
 nmap <Leader><Leader>s <Plug>(easymotion-sn)
