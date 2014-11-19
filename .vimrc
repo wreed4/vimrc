@@ -21,8 +21,8 @@ Plugin 'Valloric/YouCompleteMe'
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
 Plugin 'oplatek/Conque-Shell'
-" easy buffer management
-Plugin 'jlanzarotta/bufexplorer'
+" easy buffer management. Replaced by Unite
+"Plugin 'jlanzarotta/bufexplorer'
 " supposedly make '%' more powerful
 Plugin 'tmhedberg/matchit'
 " Provides awesome commenting shortcuts
@@ -51,6 +51,7 @@ Plugin 'wreed4/vim-multiple-cursors'
 Plugin 'wreed4/vim-snippets'
 " ability to surround text objects with things like quotes or parens
 Plugin 'tpope/vim-surround'
+Plugin 'unite.vim'
 
 " end installed plugins
 
@@ -62,7 +63,6 @@ filetype plugin indent on
 " call pathogen#helptags()
 
 " }}}
-
 
 "{{{ ***** PLUGIN SETTINGS ***** "
 
@@ -170,6 +170,18 @@ nnoremap <leader>] :YcmCompleter GoTo<CR>
 
 " #####Multiple Cursors#####
 let g:multi_cursor_exit_from_insert_mode = 0
+
+
+" #####Unite#####
+let g:unite_source_history_yank_enable = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<CR>
+nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file file_mru<CR>
+"nnoremap <leader>ol :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<CR>
+nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
+nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer  buffer<CR>
+nnoremap <leader>/ :<C-u>Unite vimgrep:%<CR>
+
 
 " }}}
 
