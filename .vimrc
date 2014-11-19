@@ -16,7 +16,7 @@ Plugin 'gmarik/vundle'
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe', {'pinned': 1}
 
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
@@ -51,6 +51,7 @@ Plugin 'wreed4/vim-multiple-cursors'
 Plugin 'wreed4/vim-snippets'
 " ability to surround text objects with things like quotes or parens
 Plugin 'tpope/vim-surround'
+" Amazing plugin that makes a lot of things obsolete...
 Plugin 'unite.vim'
 
 " end installed plugins
@@ -176,11 +177,14 @@ let g:multi_cursor_exit_from_insert_mode = 0
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<CR>
-nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file file_mru<CR>
-"nnoremap <leader>ol :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<CR>
+nnoremap <leader>e :<C-u>Unite -buffer-name=files -toggle file<CR>
+nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru  -start-insert  file_mru<CR>
 nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
-nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer  buffer<CR>
+nnoremap <leader>be :<C-u>Unite -no-split -buffer-name=buffer  buffer<CR>
 nnoremap <leader>/ :<C-u>Unite vimgrep:%<CR>
+"
+"Doesn't work.  Can't get plugins to play nice
+"nnoremap <leader>t :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
 
 
 " }}}
@@ -237,8 +241,8 @@ set omnifunc=syntaxcomplete#Complete
 " set number
 set number
 set relativenumber
-set foldmethod=syntax
-set foldcolumn=3
+"set foldmethod=syntax
+"set foldcolumn=3
 
 set expandtab
 set shiftwidth=4
@@ -357,7 +361,7 @@ endfunction
 
 "{{{ ***** COMMANDS ***** " 
 " make todo list
-command! -nargs=* -complete=file Todos vimgrep /TODO(wreed):/gj *|cw
+command! -nargs=* -complete=file Todos Unite vimgrep:*:TODO(wreed)
 
 "Wrapper for make sequence
 "replaced by vim-dispatch plugin
