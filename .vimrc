@@ -9,30 +9,51 @@ set nocompatible
 "required vundle setup
 filetype off
 set runtimepath+=~/.vim/bundle/Vundle
-call vundle#rc()
+call vundle#begin()
 
 " Let Vundle manage itself
 Bundle 'gmarik/vundle'
 
 " begin installed plugins
-Bundle 'oplatek/Conque-Shell'  " can launch an interactive program within an Vim buffer (like bash or other shells)
-Bundle 'Valloric/YouCompleteMe'  " As-you-type semantic completion
-Bundle 'jlanzarotta/bufexplorer'  " easy buffer management
-Bundle 'tmhedberg/matchit'  " supposedly make '%' more powerful
-Bundle 'scrooloose/nerdcommenter'  " Provides awesome commenting shortcuts
-Bundle 'scrooloose/nerdtree'  " Shows file browser. (replaces netrw and :Explore)
-Bundle 'altercation/vim-colors-solarized'  " the Solarized colorscheme
-Bundle 'mkitt/tabline.vim'  " show tabs up on top prettily 
-Bundle 'majutsushi/tagbar'  " shows an outline of all Tags in a file 
-Bundle 'SirVer/ultisnips'  " Snippet completion
-Bundle 'bling/vim-airline'  " Make vim priiiiity
-Bundle 'flazz/vim-colorschemes'  " about 3 billion colorschemes
-Bundle 'tpope/vim-dispatch'  " Asynchonous building and launching of programs
-Bundle 'Lokaltog/vim-easymotion'  " Makes motions way better.  lets you jump anywhere on the screen
-Bundle 'wreed4/vim-multiple-cursors'  " Allows multiple cursors at once.  very useful
-Bundle 'wreed4/vim-snippets'  " A library of snippets that work with Utilsnip
-Bundle 'tpope/vim-surround'  " ability to surround text objects with things like quotes or parens
+" can launch an interactive program within an Vim buffer (like bash or other shells)
+Bundle 'oplatek/Conque-Shell'
+" As-you-type semantic completion
+Bundle 'Valloric/YouCompleteMe'
+" easy buffer management
+Bundle 'jlanzarotta/bufexplorer'
+" supposedly make '%' more powerful
+Bundle 'tmhedberg/matchit'
+" Provides awesome commenting shortcuts
+Bundle 'scrooloose/nerdcommenter'
+" Shows file browser. (replaces netrw and :Explore)
+Bundle 'scrooloose/nerdtree'
+" the Solarized colorscheme
+Bundle 'altercation/vim-colors-solarized'
+" show tabs up on top prettily 
+Bundle 'mkitt/tabline.vim'
+" shows an outline of all Tags in a file 
+Bundle 'majutsushi/tagbar'
+" Snippet completion
+Bundle 'SirVer/ultisnips'
+" Make vim priiiiity
+Bundle 'bling/vim-airline'
+" about 3 billion colorschemes
+Bundle 'flazz/vim-colorschemes'
+" Asynchonous building and launching of programs
+Bundle 'tpope/vim-dispatch'
+" Makes motions way better.  lets you jump anywhere on the screen
+Bundle 'Lokaltog/vim-easymotion'
+" Allows multiple cursors at once.  very useful
+Bundle 'wreed4/vim-multiple-cursors'
+" A library of snippets that work with Utilsnip
+Bundle 'wreed4/vim-snippets'
+" ability to surround text objects with things like quotes or parens
+Bundle 'tpope/vim-surround'
 
+" end installed plugins
+
+call vundle#end()
+filetype plugin indent on
 
 " #####Pathogen#####
 " call pathogen#infect()
@@ -194,7 +215,6 @@ set splitbelow
 set splitright
 
 "turn omnicomplete on
-filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
 " }}}
@@ -212,7 +232,6 @@ set softtabstop=4
 set autoindent
 set smartindent
 set cindent
-filetype plugin indent on
 
 " Solarized settings
 "let g:solarized_termcolors=256
