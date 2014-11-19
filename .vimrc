@@ -16,7 +16,7 @@ Plugin 'gmarik/vundle'
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
