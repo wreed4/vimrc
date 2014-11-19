@@ -8,47 +8,49 @@
 set nocompatible
 "required vundle setup
 filetype off
-set runtimepath+=~/.vim/bundle/Vundle
+set runtimepath+=~/.vim/bundle/vundle
 call vundle#begin()
 
 " Let Vundle manage itself
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-" begin installed plugins
+" ***** plugins that require more stuff (compilation)
+" As-you-type semantic completion. 
+"Plugin 'Valloric/YouCompleteMe'
+
+" ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
-Bundle 'oplatek/Conque-Shell'
-" As-you-type semantic completion
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'oplatek/Conque-Shell'
 " easy buffer management
-Bundle 'jlanzarotta/bufexplorer'
+Plugin 'jlanzarotta/bufexplorer'
 " supposedly make '%' more powerful
-Bundle 'tmhedberg/matchit'
+Plugin 'tmhedberg/matchit'
 " Provides awesome commenting shortcuts
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 " Shows file browser. (replaces netrw and :Explore)
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 " the Solarized colorscheme
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 " show tabs up on top prettily 
-Bundle 'mkitt/tabline.vim'
+Plugin 'mkitt/tabline.vim'
 " shows an outline of all Tags in a file 
-Bundle 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 " Snippet completion
-Bundle 'SirVer/ultisnips'
+Plugin 'SirVer/ultisnips'
 " Make vim priiiiity
-Bundle 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 " about 3 billion colorschemes
-Bundle 'flazz/vim-colorschemes'
+Plugin 'flazz/vim-colorschemes'
 " Asynchonous building and launching of programs
-Bundle 'tpope/vim-dispatch'
+Plugin 'tpope/vim-dispatch'
 " Makes motions way better.  lets you jump anywhere on the screen
-Bundle 'Lokaltog/vim-easymotion'
+Plugin 'Lokaltog/vim-easymotion'
 " Allows multiple cursors at once.  very useful
-Bundle 'wreed4/vim-multiple-cursors'
+Plugin 'wreed4/vim-multiple-cursors'
 " A library of snippets that work with Utilsnip
-Bundle 'wreed4/vim-snippets'
+Plugin 'wreed4/vim-snippets'
 " ability to surround text objects with things like quotes or parens
-Bundle 'tpope/vim-surround'
+Plugin 'tpope/vim-surround'
 
 " end installed plugins
 
