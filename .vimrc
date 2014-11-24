@@ -239,9 +239,8 @@ set omnifunc=syntaxcomplete#Complete
 " }}}
 
 "{{{ ***** VISUALS ***** "
-" set number
 set number
-set relativenumber
+set norelativenumber
 "set foldmethod=syntax
 "set foldcolumn=3
 
