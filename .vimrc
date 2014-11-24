@@ -160,6 +160,7 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_key_list_select_completion=['<Down>']
 let g:ycm_key_list_previous_completion=['<Up>']
 let g:ycm_collect_identifiers_from_tags_files=0
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_key_invoke_completion = '<C-N>'
 "let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
@@ -180,8 +181,8 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <leader>e :<C-u>Unite -buffer-name=files -toggle file<CR>
 nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru  -start-insert  file_mru<CR>
 nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
-nnoremap <leader>be :<C-u>Unite -no-split -buffer-name=buffer  buffer<CR>
-nnoremap <leader>/ :<C-u>Unite vimgrep:%<CR>
+nnoremap <leader>be :<C-u>Unite -no-split -buffer-name=buffer buffer<CR>
+nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search vimgrep:%<CR>
 "
 "Doesn't work.  Can't get plugins to play nice
 "nnoremap <leader>t :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
@@ -311,6 +312,10 @@ nnoremap <M-]> <C-W><C-]><C-W>T
 nnoremap <silent> <leader>x :s/\[ \]TODO/[X]TODO/<CR>:nohl<CR>
 nnoremap <silent> <leader><space> :s/\[X\]TODO/[ ]TODO/<CR>:nohl<CR>
 
+" copy 'filename:linenumber' to @f register.  useful for adding links to
+" places in files in comments
+nnoremap <silent> <leader>gf :let @f=@% . ':' . line('.')<CR>
+
 
 " WINDOW ORGANISATION
 " Smart way to move between windows
@@ -349,11 +354,13 @@ command! -nargs=* MakeDebug Make build debug
 
 "{{{ ***** FUNCTIONS ***** "
 function! OpenDepotFile(version, fname)
-    execute "edit /home/dev/fonix/online/" . a:version . "/src/" . a:fname
+    let f = "/home/dev/fonix/online/" . a:version . "/src/" . a:fname
+    execute "argadd " . f
+    execute "edit " . f
 endfunction
 
 function! DepotComplete(ArgLead, CmdLine, CursorPos)
-    return system("ls /home/dev/fonix/online/qa/src/")
+    return "build \ndevel \nqa \nreleased \n" . system("ls /home/dev/fonix/online/qa/src/")
 endfunction
 
 " }}}
@@ -361,7 +368,7 @@ endfunction
 
 "{{{ ***** COMMANDS ***** " 
 " make todo list
-command! -nargs=* -complete=file Todos Unite vimgrep:*:TODO(wreed)
+command! -nargs=* -complete=file Todos Unite -keep-focus -auto-resize -no-quit -buffer-name=Todos vimgrep:*:TODO(wreed)
 
 "Wrapper for make sequence
 "replaced by vim-dispatch plugin
@@ -371,7 +378,7 @@ command! -nargs=* -complete=file Todos Unite vimgrep:*:TODO(wreed)
 command! -nargs=0 PerfEdit execute "!p4 edit %" 
 
 " Open Depot File
-command! -nargs=+ -complete=custom,DepotComplete OpenQaFile call OpenDepotFile("qa", <f-args>)
+command! -nargs=+ -complete=custom,DepotComplete OpenDepotFile call OpenDepotFile(<f-args>)
 
 " Edit ~/.vimrc in a new tab
 command! -nargs=0 EditVimrc tabedit ~/.vimrc
