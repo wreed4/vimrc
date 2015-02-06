@@ -1,0 +1,20 @@
+# Switch statement
+
+snippet switch "switch statement" b
+switch(${1:var}){
+	case ${2:condition}:
+		${3}
+		${4:break;}
+	${5}
+	default:
+		${6}
+}$0
+endsnippet
+
+snippet case "add a case to a switch statment"
+case ${1:condition}:
+	${2}
+	${3:break;}
+${0}
+endsnippet
+

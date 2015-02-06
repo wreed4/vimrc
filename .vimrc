@@ -47,12 +47,18 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'Lokaltog/vim-easymotion'
 " Allows multiple cursors at once.  very useful
 Plugin 'wreed4/vim-multiple-cursors'
+" Dependency for vim-snippets
+Plugin 'tomtom/tlib_vim'
 " A library of snippets that work with Utilsnip
 Plugin 'wreed4/vim-snippets'
 " ability to surround text objects with things like quotes or parens
 Plugin 'tpope/vim-surround'
 " Amazing plugin that makes a lot of things obsolete...
 Plugin 'unite.vim'
+" Make Tmux pretty
+Plugin 'edkolev/tmuxline.vim'
+" switch between header files easily
+Plugin 'a.vim'
 
 " end installed plugins
 
@@ -109,7 +115,7 @@ let g:airline#extensions#tagbar#enabled = 1
 
 let g:airline#extensions#whitespace#enabled = 0
 
-let g:airline#extensions#tmuxline#enabled = 0
+let g:airline#extensions#tmuxline#enabled = 1
 
 
 " #####NERDTree#####
@@ -127,9 +133,9 @@ imap <C-c> <plug>NERDCommenterInsert
 
 " #####UltiSnips#####
 let g:UltiSnipsEditSplit = "vertical"
-let g:UltiSnipsJumpForwardTrigger="<TAB>"
-let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
-let g:UltiSnipsSnippetsDir="~/.vim/bundle/vim-snippets/UltiSnips"
+let g:UltiSnipsJumpForwardTrigger="<C-J>"
+let g:UltiSnipsJumpBackwardTrigger="<C-K>"
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
 
 " #####CCTree#####
@@ -140,6 +146,8 @@ let g:ConqueTerm_CloseOnEnd = 1
 "Conque spits out an error about CursorHoldI making it run slow.  repress
 "these warnings
 let g:ConqueTerm_StartMessages = 0
+let g:ConqueTerm_ReadUnfocused = 1
+let g:ConqueTerm_ToggleKey = '<F8>'
 
 
 " #####Pyclewn#####
@@ -152,7 +160,8 @@ if has("netbeans_enabled")
 endif
 
 " #####YouCompleteMe#####
-" Open preview window when completing
+" Do not open preview window when completing
+set completeopt=menuone
 let g:ycm_add_preview_to_completeopt = 0
 " Auto Close preview window
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -165,7 +174,7 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_key_invoke_completion = '<C-N>'
 "let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_use_ultisnips_completer = 0
+let g:ycm_use_ultisnips_completer = 1
 
 nnoremap <leader>] :YcmCompleter GoTo<CR>
 
@@ -198,6 +207,8 @@ set secure
 set modeline
 " automatically read a file if it changes outside of vim
 set autoread
+" hide buffers by default instead of unloading them
+set hidden
 " turn ruler on
 set ruler
 " set incremental search
@@ -248,29 +259,34 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 set autoindent
-set smartindent
+set nosmartindent
 set cindent
 
 " Solarized settings
 "let g:solarized_termcolors=256
-"colorscheme solarized
 "set background=light
 "set background=dark
+"colorscheme solarized
 
 " seoul256 settings
-let g:seoul256_background = 236
-colorscheme seoul256
-let g:airline_theme="tomorrow"
+"let g:seoul256_background = 236
+"colorscheme seoul256
+"let g:airline_theme="tomorrow"
 
-"colorscheme carvedwoodcool
-"colorscheme wombat256
-"colorscheme zenburn
-"colorscheme kolor
-"colorscheme jellybeans
-"colorscheme hybrid
+
 "colorscheme bubblegum
+"set background=dark
+
+"colorscheme wombat256 
+"colorscheme zenburn 
+"colorscheme kolor 
+"colorscheme jellybeans 
+colorscheme hybrid
 "colorscheme devbox-dark-256
 "colorscheme Tomorrow-Night-Eighties
+"colorscheme Tomorrow-Night
+
+"colorscheme carvedwoodcool
 
 syntax on
 
@@ -285,8 +301,8 @@ set whichwrap+=<,>,h,l
 
 set pastetoggle=<F2>
 nmap <F12> :mks!<CR>
-nnoremap <F3> :MakeRelease<CR><CR>
-nnoremap <F4> :MakeDebug<CR><CR>
+nnoremap <F3> :MakeRelease<CR>
+nnoremap <F4> :MakeDebug<CR>
 nnoremap <F5> :so ~/.vimrc<CR>
 
 " treat wrapped lines as multiple lines when navigating
