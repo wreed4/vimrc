@@ -190,6 +190,7 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <leader>e :<C-u>Unite -buffer-name=files -toggle file<CR>
 nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru  -start-insert  file_mru<CR>
 nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
+nnoremap <leader>j :<C-u>Unite -no-split -buffer-name=jump    jump<CR>
 nnoremap <leader>be :<C-u>Unite -no-split -buffer-name=buffer buffer<CR>
 nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search vimgrep:%<CR>
 "
@@ -387,7 +388,7 @@ command! -nargs=* -complete=file Todos Unite -keep-focus -auto-resize -no-quit -
 
 "Wrapper for make sequence
 "replaced by vim-dispatch plugin
-"command! -nargs=* Make execute '!clear' | make! <args> | cw
+command! -nargs=* MyMake execute '!clear' | make! <args> | cw
 
 " Perforce commands
 command! -nargs=0 PerfEdit execute "!p4 edit %" 
