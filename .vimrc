@@ -59,6 +59,8 @@ Plugin 'unite.vim'
 Plugin 'edkolev/tmuxline.vim'
 " switch between header files easily
 Plugin 'a.vim'
+" pretty JSON stuff
+Plugin 'elzr/vim-json'
 
 " end installed plugins
 
@@ -198,6 +200,17 @@ nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search vimgrep:
 "nnoremap <leader>t :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
 
 
+" #####JSON.vim#####
+augroup json_autocmd
+  autocmd!
+  autocmd FileType json set autoindent
+  autocmd FileType json set formatoptions=tcq2l
+  autocmd FileType json set textwidth=78 shiftwidth=2
+  autocmd FileType json set softtabstop=2 tabstop=8
+  autocmd FileType json set expandtab
+  autocmd FileType json set foldmethod=syntax
+augroup END
+
 " }}}
 
 "{{{ ***** VIM FEATURES ***** "
@@ -300,8 +313,9 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 set whichwrap+=<,>,h,l
 
-set pastetoggle=<F2>
+set pastetoggle=<F1>
 nmap <F12> :mks!<CR>
+nnoremap <F2> :Make clean<CR>
 nnoremap <F3> :MakeRelease<CR>
 nnoremap <F4> :MakeDebug<CR>
 nnoremap <F5> :so ~/.vimrc<CR>
