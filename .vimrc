@@ -61,6 +61,8 @@ Plugin 'edkolev/tmuxline.vim'
 Plugin 'a.vim'
 " pretty JSON stuff
 Plugin 'elzr/vim-json'
+" Diff directories quickly and powerfully
+Plugin 'DirDiff'
 
 " end installed plugins
 
@@ -210,6 +212,11 @@ augroup json_autocmd
   autocmd FileType json set expandtab
   autocmd FileType json set foldmethod=syntax
 augroup END
+
+
+" #####DirDiff#####
+let g:DirDiffExcludes = "X86*,*.d,.p4rc,.*.*.swp"
+
 
 " }}}
 
