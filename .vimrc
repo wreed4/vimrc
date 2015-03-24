@@ -62,7 +62,7 @@ Plugin 'a.vim'
 " pretty JSON stuff
 Plugin 'elzr/vim-json'
 " Diff directories quickly and powerfully
-Plugin 'DirDiff'
+Plugin 'DirDiff.vim'
 
 " end installed plugins
 
