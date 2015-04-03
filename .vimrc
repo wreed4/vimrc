@@ -1,6 +1,9 @@
 " wreed vimrc
 " vim: set foldmethod=marker:
 
+python << end
+import vim
+end
 
 "{{{ ***** PLUGINS INSTALLATION ***** "
 
@@ -391,13 +394,23 @@ command! -nargs=* MakeDebug Make build debug
 
 "{{{ ***** FUNCTIONS ***** "
 function! OpenDepotFile(version, fname)
-    let f = "/home/dev/fonix/online/" . a:version . "/src/" . a:fname
-    execute "argadd " . f
-    execute "edit " . f
+
+python << EOF
+parsed_fname = vim.eval("a:fname").split(':')
+if len(parsed_fname) == 2:
+    lineno = parsed_fname[1]
+filename = parsed_fname[0]
+fullpath = "/home/dev/fonix/online/" + vim.eval("a:version") + "/src/" + filename
+vim.command("argadd {}".format(fullpath))
+if 'lineno' in dir():
+    vim.command("edit +{} {}".format(lineno, fullpath))
+else:
+    vim.command("edit {}".format(fullpath))
+EOF
 endfunction
 
 function! DepotComplete(ArgLead, CmdLine, CursorPos)
-    return "build \ndevel \nqa \nreleased \n" . system("ls /home/dev/fonix/online/qa/src/")
+    return "build \ndevel \nqa \nreleased \n" . system("ls /home/dev/fonix/online/build/src/")
 endfunction
 
 " }}}
