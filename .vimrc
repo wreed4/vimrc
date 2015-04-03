@@ -1,6 +1,7 @@
 " wreed vimrc
 " vim: set foldmethod=marker:
 
+"enable python
 python << end
 import vim
 end
