@@ -220,7 +220,7 @@ augroup END
 
 
 " #####DirDiff#####
-let g:DirDiffExcludes = "*.d,.*.*.swp"
+let g:DirDiffExcludes = ".*.*.swp,*.d"
 
 
 " }}}
@@ -324,7 +324,7 @@ set whichwrap+=<,>,h,l
 
 set pastetoggle=<F1>
 nmap <F12> :mks!<CR>
-nnoremap <F5> :so ~/.vimrc<CR>
+nnoremap <silent> <F5> :so ~/.vimrc<CR>:LvimrcReload<CR>
 
 " treat wrapped lines as multiple lines when navigating
 map j gj
