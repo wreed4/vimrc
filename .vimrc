@@ -67,6 +67,8 @@ Plugin 'elzr/vim-json'
 " Diff directories quickly and powerfully
 Plugin 'DirDiff.vim'
 
+Plugin 'wreed4/vim-lvimrc'
+
 " end installed plugins
 
 call vundle#end()
@@ -218,14 +220,14 @@ augroup END
 
 
 " #####DirDiff#####
-let g:DirDiffExcludes = "X86*,*.d,.p4rc,.*.*.swp"
+let g:DirDiffExcludes = "*.d,.*.*.swp"
 
 
 " }}}
 
 "{{{ ***** VIM FEATURES ***** "
 " allow project-specific .vimrc files
-set exrc
+"set exrc
 set secure
 " allow the use of a modeline
 set modeline
@@ -276,15 +278,12 @@ set omnifunc=syntaxcomplete#Complete
 "{{{ ***** VISUALS ***** "
 set number
 set norelativenumber
-"set foldmethod=syntax
-"set foldcolumn=3
 
 set expandtab
 set shiftwidth=4
 set softtabstop=4
 set autoindent
 set nosmartindent
-set cindent
 
 " Solarized settings
 "let g:solarized_termcolors=256
@@ -325,9 +324,6 @@ set whichwrap+=<,>,h,l
 
 set pastetoggle=<F1>
 nmap <F12> :mks!<CR>
-nnoremap <F2> :Make clean<CR>
-nnoremap <F3> :MakeRelease<CR>
-nnoremap <F4> :MakeDebug<CR>
 nnoremap <F5> :so ~/.vimrc<CR>
 
 " treat wrapped lines as multiple lines when navigating
@@ -382,38 +378,8 @@ nnoremap <C-S-Right> <C-W><S-L>
 
 " }}}
 
-"{{{ ***** PROJECTS ***** "
-
-" set default project options
-set makeprg=rfds 
-
-command! -nargs=* MakeRelease Make build release
-command! -nargs=* MakeDebug Make build debug
-" }}}
 
 
-"{{{ ***** FUNCTIONS ***** "
-function! OpenDepotFile(version, fname)
-
-python << EOF
-parsed_fname = vim.eval("a:fname").split(':')
-if len(parsed_fname) == 2:
-    lineno = parsed_fname[1]
-filename = parsed_fname[0]
-fullpath = "/home/dev/fonix/online/" + vim.eval("a:version") + "/src/" + filename
-vim.command("argadd {}".format(fullpath))
-if 'lineno' in dir():
-    vim.command("edit +{} {}".format(lineno, fullpath))
-else:
-    vim.command("edit {}".format(fullpath))
-EOF
-endfunction
-
-function! DepotComplete(ArgLead, CmdLine, CursorPos)
-    return "build \ndevel \nqa \nreleased \n" . system("ls /home/dev/fonix/online/build/src/")
-endfunction
-
-" }}}
 
 
 "{{{ ***** COMMANDS ***** " 
@@ -424,19 +390,9 @@ command! -nargs=* -complete=file Todos Unite -keep-focus -auto-resize -no-quit -
 "replaced by vim-dispatch plugin
 command! -nargs=* MyMake execute '!clear' | make! <args> | cw
 
-" Perforce commands
-command! -nargs=0 PerfEdit execute "!p4 edit %" 
-
-" Open Depot File
-command! -nargs=+ -complete=custom,DepotComplete OpenDepotFile call OpenDepotFile(<f-args>)
-
 " Edit ~/.vimrc in a new tab
 command! -nargs=0 EditVimrc tabedit ~/.vimrc
 
 " }}}
-
-
-"// [ ]TODO(wreed): shortcut to edit VMS files (with tab completion??)
-"// [ ]TODO(wreed): shortcut to look at directory
 
 
