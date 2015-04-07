@@ -15,7 +15,7 @@ set runtimepath+=~/.vim/bundle/vundle
 call vundle#begin()
 
 " Let Vundle manage itself
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
