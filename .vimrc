@@ -69,6 +69,8 @@ Plugin 'elzr/vim-json'
 Plugin 'DirDiff.vim'
 " Enable nested vimrc files
 Plugin 'wreed4/vim-lvimrc'
+" Gives a graphical view of vim's undo tree
+Plugin 'sjl/gundo.vim'
 
 " end installed plugins
 
