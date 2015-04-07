@@ -274,6 +274,10 @@ set splitright
 "turn omnicomplete on
 set omnifunc=syntaxcomplete#Complete
 
+" enable persistant undo history
+set undofile
+set undodir=~/.vim/undodir
+
 " }}}
 
 "{{{ ***** VISUALS ***** "
