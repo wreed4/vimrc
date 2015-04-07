@@ -67,6 +67,8 @@ Plugin 'a.vim'
 Plugin 'elzr/vim-json'
 " Diff directories quickly and powerfully
 Plugin 'DirDiff.vim'
+" Enable nested vimrc files
+Plugin 'wreed4/vim-lvimrc'
 
 " end installed plugins
 
