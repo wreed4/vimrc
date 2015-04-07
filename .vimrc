@@ -11,7 +11,7 @@ end
 set nocompatible
 "required vundle setup
 filetype off
-set runtimepath+=~/.vim/bundle/vundle
+set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " Let Vundle manage itself
