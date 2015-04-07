@@ -70,8 +70,6 @@ Plugin 'DirDiff.vim'
 " Enable nested vimrc files
 Plugin 'wreed4/vim-lvimrc'
 
-Plugin 'wreed4/vim-lvimrc'
-
 " end installed plugins
 
 call vundle#end()
