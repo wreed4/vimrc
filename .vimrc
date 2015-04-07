@@ -226,6 +226,9 @@ augroup END
 let g:DirDiffExcludes = ".*.*.swp,*.d"
 
 
+" ##### Gundo #####
+nnoremap <leader>u :GundoToggle<CR>
+
 " }}}
 
 "{{{ ***** VIM FEATURES ***** "
