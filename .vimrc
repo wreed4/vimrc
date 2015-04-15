@@ -71,6 +71,8 @@ Plugin 'DirDiff.vim'
 Plugin 'wreed4/vim-lvimrc'
 " Gives a graphical view of vim's undo tree
 Plugin 'sjl/gundo.vim'
+" New colorscheme
+Plugin 'morhetz/gruvbox'
 
 " end installed plugins
 
@@ -228,6 +230,9 @@ let g:DirDiffExcludes = ".*.*.swp,*.d"
 
 " ##### Gundo #####
 nnoremap <leader>u :GundoToggle<CR>
+let g:gundo_playback_delay = 300
+let g:gundo_preview_bottom = 1
+
 
 " }}}
 
@@ -306,6 +311,10 @@ set nosmartindent
 "colorscheme seoul256
 "let g:airline_theme="tomorrow"
 
+" Gruvbox settings
+let g:gruvbox_italic=0
+set background=dark
+colorscheme gruvbox
 
 "colorscheme bubblegum
 "set background=dark
@@ -314,7 +323,7 @@ set nosmartindent
 "colorscheme zenburn 
 "colorscheme kolor 
 "colorscheme jellybeans 
-colorscheme hybrid
+"colorscheme hybrid
 "colorscheme devbox-dark-256
 "colorscheme Tomorrow-Night-Eighties
 "colorscheme Tomorrow-Night
@@ -387,8 +396,6 @@ nnoremap <C-S-Left> <C-W><S-H>
 nnoremap <C-S-Right> <C-W><S-L>
 
 " }}}
-
-
 
 
 
