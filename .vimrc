@@ -73,6 +73,9 @@ Plugin 'wreed4/vim-lvimrc'
 Plugin 'sjl/gundo.vim'
 " New colorscheme
 Plugin 'morhetz/gruvbox'
+" Git integration
+Plugin 'tpope/vim-fugitive'
+
 
 " end installed plugins
 
@@ -147,9 +150,11 @@ imap <C-c> <plug>NERDCommenterInsert
 
 " #####UltiSnips#####
 let g:UltiSnipsEditSplit = "vertical"
-let g:UltiSnipsJumpForwardTrigger="<C-J>"
-let g:UltiSnipsJumpBackwardTrigger="<C-K>"
+let g:UltiSnipsExpandTrigger = "<C-@>"
+let g:UltiSnipsJumpForwardTrigger="<TAB>"
+let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+
 
 
 " #####CCTree#####
@@ -342,8 +347,9 @@ set whichwrap+=<,>,h,l
 set whichwrap+=<,>,h,l
 
 set pastetoggle=<F1>
-nmap <F12> :mks!<CR>
 nnoremap <silent> <F5> :so ~/.vimrc<CR>:LvimrcReload<CR>
+nnoremap <silent> <F6> :redraw!<CR>
+nmap <F12> :mks!<CR>
 
 " treat wrapped lines as multiple lines when navigating
 map j gj
