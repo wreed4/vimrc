@@ -75,6 +75,8 @@ Plugin 'sjl/gundo.vim'
 Plugin 'morhetz/gruvbox'
 " Git integration
 Plugin 'tpope/vim-fugitive'
+" Matching things in insert mode
+Plugin 'Raimondi/delimitMate'
 
 
 " end installed plugins
