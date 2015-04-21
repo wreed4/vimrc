@@ -77,6 +77,8 @@ Plugin 'morhetz/gruvbox'
 Plugin 'tpope/vim-fugitive'
 " Matching things in insert mode
 Plugin 'Raimondi/delimitMate'
+" Easy alignment
+Plugin 'junegunn/vim-easy-align'
 
 
 " end installed plugins
@@ -240,6 +242,9 @@ nnoremap <leader>u :GundoToggle<CR>
 let g:gundo_playback_delay = 300
 let g:gundo_preview_bottom = 1
 
+
+" ##### EasyAlign #####
+vmap <Enter> <Plug>(EasyAlign)
 
 " }}}
 
