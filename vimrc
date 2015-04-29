@@ -348,6 +348,9 @@ set showcmd
 "}}}
 
 "{{{ ***** KEY MAPPINGS ***** "
+" make <C-A> work the same in tmux and not
+nnoremap <C-C> <C-A>
+
 " make backspace work
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
@@ -371,7 +374,7 @@ nnoremap <leader>o o<ESC>k
 nnoremap <leader>O O<ESC>j
 
 " Clean a line and exit insert mode
-nnoremap <leader>c<CR> cc<ESC>
+nnoremap <leader>c cc<ESC>
 
 " Open tag in new tab
 nnoremap <M-]> <C-W><C-]><C-W>T
