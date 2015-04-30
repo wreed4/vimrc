@@ -20,7 +20,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plugin 'Valloric/YouCompleteMe', {'pinned': 1}
+Plugin 'Valloric/YouCompleteMe' ", {'pinned': 1}
 
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
@@ -69,8 +69,10 @@ Plugin 'elzr/vim-json'
 Plugin 'DirDiff.vim'
 " Enable nested vimrc files
 Plugin 'wreed4/vim-lvimrc'
-" Gives a graphical view of vim's undo tree
-Plugin 'sjl/gundo.vim'
+" Gives a graphical view of vim's undo tree (replaced by neovim-compatible
+" fork)
+"Plugin 'sjl/gundo.vim'
+Plugin 'simnalamburt/vim-mundo'
 " New colorscheme
 Plugin 'morhetz/gruvbox'
 " Git integration
@@ -357,7 +359,7 @@ set whichwrap+=<,>,h,l
 set whichwrap+=<,>,h,l
 
 set pastetoggle=<F1>
-nnoremap <silent> <F5> :so ~/.vimrc<CR>:LvimrcReload<CR>
+nnoremap <silent> <F5> :so ~/.vim/vimrc<CR>:LvimrcReload<CR>
 nnoremap <silent> <F6> :redraw!<CR>
 nmap <F12> :mks!<CR>
 
@@ -366,6 +368,8 @@ map j gj
 map k gk
 
 " Scroll the window up and down more intuitively
+nnoremap <M-j> <C-e>
+nnoremap <M-k> <C-y>
 nnoremap j <C-e>
 nnoremap k <C-y>
 
@@ -423,8 +427,8 @@ command! -nargs=* -complete=file Todos Unite -keep-focus -auto-resize -no-quit -
 "replaced by vim-dispatch plugin
 command! -nargs=* MyMake execute '!clear' | make! <args> | cw
 
-" Edit ~/.vimrc in a new tab
-command! -nargs=0 EditVimrc tabedit ~/.vimrc
+" Edit ~/.vim/vimrc in a new tab
+command! -nargs=0 EditVimrc tabedit ~/.vim/vimrc
 
 " }}}
 
