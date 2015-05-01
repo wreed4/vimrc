@@ -417,8 +417,6 @@ nnoremap <C-S-Right> <C-W><S-L>
 
 " }}}
 
-
-
 "{{{ ***** COMMANDS ***** " 
 " make todo list
 command! -nargs=* -complete=file Todos Unite -keep-focus -auto-resize -no-quit -buffer-name=Todos vimgrep:*:TODO(wreed)
