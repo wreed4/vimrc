@@ -8,85 +8,78 @@ end
 
 "{{{ ***** PLUGINS INSTALLATION ***** "
 
-" #####Vundle#####
+" ##### vim-plug #####
 set nocompatible
-"required vundle setup
-filetype off
-set runtimepath+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" Let Vundle manage itself
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plugin 'Valloric/YouCompleteMe' ", {'pinned': 1}
+Plug 'Valloric/YouCompleteMe' ", {'pinned': 1}
 
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
-Plugin 'oplatek/Conque-Shell'
+Plug 'oplatek/Conque-Shell'
 " easy buffer management. Replaced by Unite
 "Plugin 'jlanzarotta/bufexplorer'
 " supposedly make '%' more powerful
-Plugin 'tmhedberg/matchit'
+Plug 'tmhedberg/matchit'
 " Provides awesome commenting shortcuts
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 " Shows file browser. (replaces netrw and :Explore)
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 " the Solarized colorscheme
-Plugin 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 " show tabs up on top prettily 
-Plugin 'mkitt/tabline.vim'
+Plug 'mkitt/tabline.vim'
 " shows an outline of all Tags in a file 
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 " Snippet completion
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 " Make vim priiiiity
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 " about 3 billion colorschemes
-Plugin 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 " Asynchonous building and launching of programs
-Plugin 'tpope/vim-dispatch'
+Plug 'tpope/vim-dispatch'
 " Makes motions way better.  lets you jump anywhere on the screen
-Plugin 'Lokaltog/vim-easymotion'
+Plug 'Lokaltog/vim-easymotion'
 " Allows multiple cursors at once.  very useful
-Plugin 'wreed4/vim-multiple-cursors'
+Plug 'wreed4/vim-multiple-cursors'
 " Dependency for vim-snippets
-Plugin 'tomtom/tlib_vim'
+Plug 'tomtom/tlib_vim'
 " A library of snippets that work with Utilsnip
-Plugin 'wreed4/vim-snippets'
+Plug 'wreed4/vim-snippets'
 " ability to surround text objects with things like quotes or parens
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 " Amazing plugin that makes a lot of things obsolete...
-Plugin 'unite.vim'
+Plug 'unite.vim'
 " Make Tmux pretty
-Plugin 'edkolev/tmuxline.vim'
+Plug 'edkolev/tmuxline.vim'
 " switch between header files easily
-Plugin 'a.vim'
+Plug 'a.vim'
 " pretty JSON stuff
-Plugin 'elzr/vim-json'
+Plug 'elzr/vim-json'
 " Diff directories quickly and powerfully
-Plugin 'DirDiff.vim'
+Plug 'DirDiff.vim'
 " Enable nested vimrc files
-Plugin 'wreed4/vim-lvimrc'
+Plug 'wreed4/vim-lvimrc'
 " Gives a graphical view of vim's undo tree (replaced by neovim-compatible
 " fork)
 "Plugin 'sjl/gundo.vim'
-Plugin 'simnalamburt/vim-mundo'
+Plug 'simnalamburt/vim-mundo'
 " New colorscheme
-Plugin 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 " Git integration
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " Matching things in insert mode
-Plugin 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 " Easy alignment
-Plugin 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align'
 
 
 " end installed plugins
+call plug#end()
 
-call vundle#end()
-filetype plugin indent on
 
 " #####Pathogen#####
 " call pathogen#infect()
