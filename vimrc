@@ -14,7 +14,7 @@ call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1 } 
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'on': [] } 
 
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
@@ -34,7 +34,7 @@ Plug 'mkitt/tabline.vim'
 " shows an outline of all Tags in a file 
 Plug 'majutsushi/tagbar'
 " Snippet completion
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips', { 'on': []}
 " Make vim priiiiity
 Plug 'bling/vim-airline'
 " about 3 billion colorschemes
@@ -79,6 +79,15 @@ Plug 'junegunn/vim-easy-align'
 
 " end installed plugins
 call plug#end()
+
+
+augroup load_us_ycm
+    autocmd! 
+    autocmd! InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+                        \| call youcompleteme#Enable() | autocmd! load_us_ycm
+augroup END
+
+
 
 
 " #####Pathogen#####
