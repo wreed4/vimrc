@@ -287,6 +287,7 @@ set fileencoding=utf-8
 " New Splits default to right, or below
 set splitbelow
 set splitright
+set diffopt+=vertical
 
 "turn omnicomplete on
 set omnifunc=syntaxcomplete#Complete
@@ -407,6 +408,11 @@ nnoremap <C-S-Up> <C-W><S-K>
 nnoremap <C-S-Down> <C-W><S-J>
 nnoremap <C-S-Left> <C-W><S-H>
 nnoremap <C-S-Right> <C-W><S-L>
+
+" close annoying windows easily
+nnoremap wq :cclose<CR>
+nnoremap wl :lclose<CR>
+nnoremap wp :pclose<CR>
 
 " }}}
 
