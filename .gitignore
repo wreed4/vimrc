@@ -3,3 +3,4 @@ spell/**
 .netrwhist
 *.d
 undodir/**
+.*.swp
