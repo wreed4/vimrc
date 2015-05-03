@@ -14,11 +14,11 @@ call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plug 'Valloric/YouCompleteMe' ", {'pinned': 1}
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1 } 
 
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
-Plug 'oplatek/Conque-Shell'
+Plug 'oplatek/Conque-Shell', { 'on': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermVSplit']}
 " easy buffer management. Replaced by Unite
 "Plugin 'jlanzarotta/bufexplorer'
 " supposedly make '%' more powerful
@@ -26,7 +26,7 @@ Plug 'tmhedberg/matchit'
 " Provides awesome commenting shortcuts
 Plug 'scrooloose/nerdcommenter'
 " Shows file browser. (replaces netrw and :Explore)
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']}
 " the Solarized colorscheme
 Plug 'altercation/vim-colors-solarized'
 " show tabs up on top prettily 
