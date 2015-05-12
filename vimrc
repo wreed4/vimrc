@@ -14,7 +14,7 @@ call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'on': [] } 
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'on': ['YcmCompleter'] } 
 
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
@@ -75,6 +75,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'Raimondi/delimitMate'
 " Easy alignment
 Plug 'junegunn/vim-easy-align'
+
 
 
 " end installed plugins
@@ -144,7 +145,7 @@ let g:airline#extensions#tmuxline#enabled = 1
 
 
 " #####NERDTree#####
-let g:NERDTreeHijackNetrw = 0
+let g:NERDTreeHijackNetrw = 1
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeMouseMode = 2
@@ -155,6 +156,9 @@ nnoremap <leader>nf :NERDTreeFind<CR>
 
 " #####NerdCommenter#####
 imap <C-c> <plug>NERDCommenterInsert
+
+let g:NERDSpaceDelims = 1
+
 
 " #####UltiSnips#####
 let g:UltiSnipsEditSplit = "vertical"
@@ -202,8 +206,22 @@ let g:ycm_key_invoke_completion = '<C-N>'
 "let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_use_ultisnips_completer = 1
+let g:ycm_filetype_blacklist = {
+            \ 'tagbar' : 1,
+            \ 'nerdtree': 1,
+            \ 'qf' : 1,
+            \ 'notes' : 1,
+            \ 'markdown' : 1,
+            \ 'unite' : 1,
+            \ 'vimwiki' : 1,
+            \ 'pandoc' : 1,
+            \ 'infolog' : 1,
+            \ 'mail' : 1
+            \}
 
 nnoremap <leader>] :YcmCompleter GoTo<CR>
+nnoremap <F1> :YcmDiags<CR>
+nnoremap <leader><F1> :YcmForceCompileAndDiagnostics<CR>
 
 
 " #####Multiple Cursors#####
@@ -213,12 +231,12 @@ let g:multi_cursor_exit_from_insert_mode = 0
 " #####Unite#####
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<CR>
+"nnoremap <leader>t :<C-u>Unite  -buffer-name=files   -start-insert file_rec/async:!<CR>
 nnoremap <leader>e :<C-u>Unite -buffer-name=files -toggle file<CR>
-nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru  -start-insert  file_mru<CR>
+nnoremap <leader>r :<C-u>Unite  -buffer-name=mru  -start-insert  file_mru<CR>
 nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
-nnoremap <leader>j :<C-u>Unite -no-split -buffer-name=jump    jump<CR>
-nnoremap <leader>be :<C-u>Unite -no-split -buffer-name=buffer buffer<CR>
+nnoremap <leader>j :<C-u>Unite  -buffer-name=jump    jump<CR>
+nnoremap <leader>be :<C-u>Unite -buffer-name=buffer buffer<CR>
 nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search vimgrep:%<CR>
 "
 "Doesn't work.  Can't get plugins to play nice
@@ -361,10 +379,10 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 set whichwrap+=<,>,h,l
 
-set pastetoggle=<F1>
 nnoremap <silent> <F5> :so ~/.vim/vimrc<CR>:LvimrcReload<CR>
 nnoremap <silent> <F6> :redraw!<CR>
-nmap <F12> :mks!<CR>
+set pastetoggle=<F7>
+nmap <F8> :mks!<CR>
 
 " treat wrapped lines as multiple lines when navigating
 map j gj
