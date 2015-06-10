@@ -14,7 +14,9 @@ call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'on': ['YcmCompleter'] } 
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'] } 
+autocmd! User YouCompleteMe call youcompleteme#Enable()
+
 
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
@@ -81,12 +83,12 @@ Plug 'junegunn/vim-easy-align'
 " end installed plugins
 call plug#end()
 
-
 augroup load_us_ycm
     autocmd! 
     autocmd! InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
                         \| call youcompleteme#Enable() | autocmd! load_us_ycm
 augroup END
+
 
 
 
@@ -150,6 +152,7 @@ let g:NERDTreeDirArrows = 1
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeMouseMode = 2
 let g:NERDTreeShowLineNumbers = 1
+let g:NERDTreeIgnore=['\~$', '\.vim$', '\.d$', '\.sw.$']
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
 
@@ -266,7 +269,7 @@ let g:gundo_preview_bottom = 1
 
 
 " ##### EasyAlign #####
-vmap <Enter> <Plug>(EasyAlign)
+vmap <Enter> <Plug>(LiveEasyAlign)
 
 " }}}
 
@@ -314,7 +317,7 @@ set fileencoding=utf-8
 " New Splits default to right, or below
 set splitbelow
 set splitright
-set diffopt+=vertical
+set diffopt+=vertical,iwhite
 
 "turn omnicomplete on
 set omnifunc=syntaxcomplete#Complete
@@ -349,6 +352,7 @@ set nosmartindent
 " Gruvbox settings
 let g:gruvbox_italic=0
 set background=dark
+" set background=light
 colorscheme gruvbox
 
 "colorscheme bubblegum
@@ -373,6 +377,10 @@ set showcmd
 "{{{ ***** KEY MAPPINGS ***** "
 " make <C-A> work the same in tmux and not
 nnoremap <C-C> <C-A>
+
+" easier buffer navigation
+" nnoremap bn :bn<CR>
+" nnoremap bp :bp<CR>
 
 " make backspace work
 set backspace=eol,start,indent
@@ -437,9 +445,9 @@ nnoremap <C-S-Left> <C-W><S-H>
 nnoremap <C-S-Right> <C-W><S-L>
 
 " close annoying windows easily
-nnoremap wq :cclose<CR>
-nnoremap wl :lclose<CR>
-nnoremap wp :pclose<CR>
+nnoremap cq :cclose<CR>
+nnoremap cl :lclose<CR>
+nnoremap cp :pclose<CR>
 
 " }}}
 
