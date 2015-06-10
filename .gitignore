@@ -4,3 +4,4 @@ spell/**
 *.d
 undodir/**
 .*.swp
+autoload/plug.vim.old
