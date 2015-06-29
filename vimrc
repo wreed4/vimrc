@@ -396,11 +396,13 @@ nmap <F8> :mks!<CR>
 map j gj
 map k gk
 
-" Scroll the window up and down more intuitively
+" Scroll the window more intuitively
 nnoremap <M-j> <C-e>
 nnoremap <M-k> <C-y>
 nnoremap j <C-e>
 nnoremap k <C-y>
+nnoremap <M-h> 10zh
+nnoremap <M-l> 10zl
 
 " Open a new line and exit insert mode, staying on the same line
 nnoremap <leader>o o<ESC>k
@@ -461,6 +463,30 @@ command! -nargs=* MyMake execute '!clear' | make! <args> | cw
 
 " Edit ~/.vim/vimrc in a new tab
 command! -nargs=0 EditVimrc tabedit ~/.vim/vimrc
+
+" Swap two lines
+command! -nargs=1 -range Swap call Swap(<line1>, <f-args>)
+
+function! Swap(l1, l2)
+    let cursor = line(".")
+
+    echo a:l1 . " " . a:l2
+    if a:l1 <= a:l2
+        let l:source = a:l1
+        let l:dest   = a:l2
+    else 
+        let l:dest   = a:l1
+        let l:source = a:l2
+    endif
+
+    execute l:source . "move " . l:dest
+    execute eval(l:dest - 1) . "move " . eval(l:source - 1)
+    
+    execute l:source . "normal =="
+    execute l:dest   . "normal =="
+    execute "normal " . cursor . "G"
+
+endfunction
 
 " }}}
 
