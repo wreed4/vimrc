@@ -68,15 +68,24 @@ Plug 'wreed4/vim-lvimrc'
 " Gives a graphical view of vim's undo tree (replaced by neovim-compatible
 " fork)
 "Plugin 'sjl/gundo.vim'
-Plug 'simnalamburt/vim-mundo'
+" Plug 'simnalamburt/vim-mundo'
+Plug 'mbbill/undotree'
 " New colorscheme
 Plug 'morhetz/gruvbox'
+" New colorscheme
+Plug 'NLKNguyen/papercolor-theme'
 " Git integration
 Plug 'tpope/vim-fugitive'
 " Matching things in insert mode
 Plug 'Raimondi/delimitMate'
 " Easy alignment
 Plug 'junegunn/vim-easy-align'
+" Semantic highlighting
+Plug 'jaxbot/semantic-highlight.vim'
+" Additional highlighting for cpp
+Plug 'octol/vim-cpp-enhanced-highlight'
+" Fancy start screen
+Plug 'mhinz/vim-startify'
 
 
 
@@ -263,13 +272,54 @@ let g:DirDiffExcludes = ".*.*.swp,*.d"
 
 
 " ##### Gundo #####
-nnoremap <leader>u :GundoToggle<CR>
-let g:gundo_playback_delay = 300
-let g:gundo_preview_bottom = 1
+" nnoremap <leader>u :GundoToggle<CR>
+" let g:gundo_playback_delay = 300
+" let g:gundo_preview_bottom = 1
+
+" ##### UndoTree #####
+nnoremap <leader>u :UndotreeToggle<CR>
+let g:undotree_WindowLayout = 2
+let g:undotree_SetFocusWhenToggle = 1
 
 
 " ##### EasyAlign #####
 vmap <Enter> <Plug>(LiveEasyAlign)
+
+
+" ##### Semantic-Highlight.vim #####
+let g:semanticBlacklistOverride = {
+    \'cpp': [
+    \   'auto', 'const', 'double', 'float', 'int', 'short',
+    \   'struct', 'unsigned', 'break', 'continue', 'else', 'for',
+    \   'long', 'signed', 'switch', 'void', 'case', 'default',
+    \    'enum', 'goto', 'register', 'sizeof', 'typedef', 'volatile',
+    \   'char', 'do', 'extern', 'if', 'return', 'static',
+    \   'union', 'while', 'asm', 'dynamic_cast', 'namespace', 'reinterpret_cast',
+    \   'try', 'bool', 'explicit', 'new', 'static_cast', 'typeid',
+    \    'catch', 'false', 'operator', 'template', 'typename', 'class',
+    \   'friend', 'private', 'this', 'using', 'const_cast', 'inline',
+    \   'public', 'throw', 'virtual', 'delete', 'mutable', 'protected',
+    \   'true', 'wchar_t', 'assert'
+    \ ]
+\ }
+
+" ##### vim-cpp-enhanced-highlight #####
+let g:cpp_class_scope_highlight=1
+let g:cpp_experimental_template_highlight = 1
+
+" ##### Startify #####
+let g:startify_list_order = [
+        \ ['    MRU files in current directory'], 'dir',
+        \ ['    MRU files'], 'files', 
+        \ ['    Sessions'], 'sessions', 
+        \ ['    Bookmarks'], 'bookmarks']
+
+let g:starify_bookmarks = [ '~/.vim/vimrc' ]
+let g:startify_session_delete_buffers = 1
+let g:startify_custom_header =
+        \ map(split(system('cowsay -f dragon Welcome to VIM'), '\n'), '"   ". v:val') + ['','']
+        " \ map(split(system('toilet Welcome to VIM -t -W -F border'), '\n'), '"   ". v:val') + ['','']
+        " \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val') + ['','']
 
 " }}}
 
@@ -345,9 +395,9 @@ set nosmartindent
 "colorscheme solarized
 
 " seoul256 settings
-"let g:seoul256_background = 236
-"colorscheme seoul256
-"let g:airline_theme="tomorrow"
+" let g:seoul256_background = 236
+" colorscheme seoul256
+" let g:airline_theme="tomorrow"
 
 " Gruvbox settings
 let g:gruvbox_italic=0
@@ -355,17 +405,21 @@ set background=dark
 " set background=light
 colorscheme gruvbox
 
-"colorscheme bubblegum
-"set background=dark
+" Paper-color settings
+" colorscheme PaperColor-Dark
+" let g:airline_theme="hybrid"
 
-"colorscheme wombat256 
-"colorscheme zenburn 
-"colorscheme kolor 
-"colorscheme jellybeans 
-"colorscheme hybrid
-"colorscheme devbox-dark-256
-"colorscheme Tomorrow-Night-Eighties
-"colorscheme Tomorrow-Night
+" colorscheme bubblegum
+" set background=dark
+
+" colorscheme wombat256 
+" colorscheme zenburn 
+" colorscheme kolor 
+" colorscheme jellybeans 
+" colorscheme hybrid
+" colorscheme devbox-dark-256
+" colorscheme Tomorrow-Night-Eighties
+" colorscheme Tomorrow-Night
 
 "colorscheme carvedwoodcool
 
