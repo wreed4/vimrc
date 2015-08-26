@@ -21,7 +21,21 @@ endsnippet
 snippet if "if (cond){ ... }"
 if (${1:cond}){
 	${2}
-}${0}
+} ${0}
+endsnippet
+
+snippet ife "if (cond){ ... } else { ... }"
+if (${1:cond}){
+	${2}
+} else {
+	${3}
+} ${0}
+endsnippet
+
+snippet el "else { ... }"
+else {
+	${3}
+} ${0}
 endsnippet
 
 
