@@ -14,7 +14,9 @@ call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'] } 
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1,
+                                 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'],
+                                 'for': ['cxx', 'c', 'java', 'python']} 
 autocmd! User YouCompleteMe call youcompleteme#Enable()
 
 
@@ -50,7 +52,7 @@ Plug 'wreed4/vim-multiple-cursors'
 " Dependency for vim-snippets
 Plug 'tomtom/tlib_vim'
 " A library of snippets that work with Utilsnip
-Plug 'wreed4/vim-snippets'
+Plug 'honza/vim-snippets'
 " ability to surround text objects with things like quotes or parens
 Plug 'tpope/vim-surround'
 " Amazing plugin that makes a lot of things obsolete...
@@ -305,11 +307,11 @@ let g:semanticBlacklistOverride = {
 
 " ##### vim-cpp-enhanced-highlight #####
 let g:cpp_class_scope_highlight=1
-let g:cpp_experimental_template_highlight = 1
+let g:cpp_experimental_template_highlight = 0
 
 " ##### Startify #####
 let g:startify_list_order = [
-        \ ['    MRU files in current directory'], 'dir',
+        \ ['    MRU files in current directory  [ ' . tlib#string#Strip(system('pwd')) . ' ]'], 'dir',
         \ ['    MRU files'], 'files', 
         \ ['    Sessions'], 'sessions', 
         \ ['    Bookmarks'], 'bookmarks']
@@ -474,7 +476,7 @@ nnoremap <silent> <leader><space> :s/\[X\]TODO/[ ]TODO/<CR>:nohl<CR>
 
 " copy 'filename:linenumber' to @f register.  useful for adding links to
 " places in files in comments
-nnoremap <silent> <leader>gf :let @f=@% . ':' . line('.')<CR>
+nnoremap <silent> <leader>gf :let @f=@% . ':' . line('.')<CR>:echo @f<CR>
 
 
 " WINDOW ORGANISATION
@@ -541,6 +543,10 @@ function! Swap(l1, l2)
     execute "normal " . cursor . "G"
 
 endfunction
+
+" Diff original file (from help)
+command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_
+            \ | diffthis | wincmd p | diffthis
 
 " }}}
 
