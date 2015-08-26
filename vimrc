@@ -14,9 +14,7 @@ call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1,
-                                 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'],
-                                 'for': ['cxx', 'c', 'java', 'python']} 
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'for': ['cpp', 'c', 'java', 'python'], 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics']}
 autocmd! User YouCompleteMe call youcompleteme#Enable()
 
 
@@ -38,7 +36,7 @@ Plug 'mkitt/tabline.vim'
 " shows an outline of all Tags in a file 
 Plug 'majutsushi/tagbar'
 " Snippet completion
-Plug 'SirVer/ultisnips', { 'on': []}
+Plug 'SirVer/ultisnips' ", { 'on': []}
 " Make vim priiiiity
 Plug 'bling/vim-airline'
 " about 3 billion colorschemes
@@ -88,17 +86,19 @@ Plug 'jaxbot/semantic-highlight.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 " Fancy start screen
 Plug 'mhinz/vim-startify'
+" Better text objects
+Plug 'wellle/targets.vim'
 
 
 
 " end installed plugins
 call plug#end()
 
-augroup load_us_ycm
-    autocmd! 
-    autocmd! InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
-                        \| call youcompleteme#Enable() | autocmd! load_us_ycm
-augroup END
+" augroup load_us_ycm
+    " autocmd! 
+    " autocmd! InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+                        " \| call youcompleteme#Enable() | autocmd! load_us_ycm
+" augroup END
 
 
 
