@@ -68,8 +68,8 @@ Plug 'wreed4/vim-lvimrc'
 " Gives a graphical view of vim's undo tree (replaced by neovim-compatible
 " fork)
 "Plugin 'sjl/gundo.vim'
-" Plug 'simnalamburt/vim-mundo'
-Plug 'mbbill/undotree'
+Plug 'simnalamburt/vim-mundo'
+" Plug 'mbbill/undotree'
 " New colorscheme
 Plug 'morhetz/gruvbox'
 " New colorscheme
@@ -274,14 +274,14 @@ let g:DirDiffExcludes = ".*.*.swp,*.d"
 
 
 " ##### Gundo #####
-" nnoremap <leader>u :GundoToggle<CR>
-" let g:gundo_playback_delay = 300
-" let g:gundo_preview_bottom = 1
+nnoremap <leader>u :GundoToggle<CR>
+let g:gundo_playback_delay = 300
+let g:gundo_preview_bottom = 1
 
 " ##### UndoTree #####
-nnoremap <leader>u :UndotreeToggle<CR>
-let g:undotree_WindowLayout = 2
-let g:undotree_SetFocusWhenToggle = 1
+" nnoremap <leader>u :UndotreeToggle<CR>
+" let g:undotree_WindowLayout = 2
+" let g:undotree_SetFocusWhenToggle = 1
 
 
 " ##### EasyAlign #####
