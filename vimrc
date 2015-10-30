@@ -378,17 +378,22 @@ set omnifunc=syntaxcomplete#Complete
 set undofile
 set undodir=~/.vim/undodir
 
-" }}}
-
-"{{{ ***** VISUALS ***** "
-set number
-set norelativenumber
-
+" format options
 set expandtab
 set shiftwidth=4
 set softtabstop=4
 set autoindent
 set nosmartindent
+set cindent
+
+set cino=t0,(0,
+
+
+" }}}
+
+"{{{ ***** VISUALS ***** "
+set number
+set norelativenumber
 
 " Solarized settings
 "let g:solarized_termcolors=256
