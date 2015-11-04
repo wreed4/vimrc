@@ -363,7 +363,9 @@ if &term =~ '^screen'
 endif
 
 " set utf8
-set encoding=utf-8
+if !has('nvim')
+    set encoding=utf-8
+endif
 set fileencoding=utf-8
 
 " New Splits default to right, or below
