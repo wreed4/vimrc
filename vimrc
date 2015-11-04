@@ -514,6 +514,10 @@ nnoremap cq :cclose<CR>
 nnoremap cl :lclose<CR>
 nnoremap cp :pclose<CR>
 
+
+" Call CopyMode
+vnoremap <C-c> :call CopyMode()<CR><CR>
+
 " }}}
 
 "{{{ ***** COMMANDS ***** " 
@@ -549,6 +553,14 @@ function! Swap(l1, l2)
     execute l:dest   . "normal =="
     execute "normal " . cursor . "G"
 
+endfunction
+
+function! CopyMode() range
+    execute a:firstline . "," . a:lastline . "yank c"
+    tabnew
+    setlocal nonumber
+    setlocal norelativenumber
+    put c
 endfunction
 
 " Diff original file (from help)
