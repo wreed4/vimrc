@@ -387,9 +387,11 @@ set softtabstop=4
 set autoindent
 set nosmartindent
 set cindent
-
 set cino=t0,(0,
 
+set breakindent
+" set showbreak=↳
+set breakindentopt="min,sbr"
 
 " }}}
 
@@ -560,7 +562,8 @@ function! CopyMode() range
     tabnew
     setlocal nonumber
     setlocal norelativenumber
-    put c
+    setlocal showbreak=
+    normal [p
 endfunction
 
 " Diff original file (from help)
