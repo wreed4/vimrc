@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ln -s ~/.config/nvim ~/.vim
+ln -s ~/.vim ~/.config/nvim 
