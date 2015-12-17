@@ -29,8 +29,6 @@ Plug 'tmhedberg/matchit'
 Plug 'scrooloose/nerdcommenter'
 " Shows file browser. (replaces netrw and :Explore)
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']}
-" the Solarized colorscheme
-Plug 'altercation/vim-colors-solarized'
 " show tabs up on top prettily 
 Plug 'mkitt/tabline.vim'
 " shows an outline of all Tags in a file 
@@ -39,12 +37,11 @@ Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips' ", { 'on': []}
 " Make vim priiiiity
 Plug 'bling/vim-airline'
-" about 3 billion colorschemes
-Plug 'flazz/vim-colorschemes'
 " Asynchonous building and launching of programs
 Plug 'tpope/vim-dispatch'
 " Makes motions way better.  lets you jump anywhere on the screen
-Plug 'Lokaltog/vim-easymotion'
+" Plug 'Lokaltog/vim-easymotion'
+Plug 'justinmk/vim-sneak'
 " Allows multiple cursors at once.  very useful
 Plug 'wreed4/vim-multiple-cursors'
 " Dependency for vim-snippets
@@ -70,10 +67,6 @@ Plug 'wreed4/vim-lvimrc'
 "Plugin 'sjl/gundo.vim'
 Plug 'simnalamburt/vim-mundo'
 " Plug 'mbbill/undotree'
-" New colorscheme
-Plug 'morhetz/gruvbox'
-" New colorscheme
-Plug 'NLKNguyen/papercolor-theme'
 " Git integration
 Plug 'tpope/vim-fugitive'
 " Matching things in insert mode
@@ -88,6 +81,14 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'mhinz/vim-startify'
 " Better text objects
 Plug 'wellle/targets.vim'
+
+"COLORSCHEMES
+" about 3 billion colorschemes
+" Plug 'flazz/vim-colorschemes'
+Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'freeo/vim-kalisi'
 
 
 
@@ -112,19 +113,31 @@ call plug#end()
 
 "{{{ ***** PLUGIN SETTINGS ***** "
 
-" #####PyMode##### 
+" {{{##### PyMode ##### 
 "let pymode_lint_ignore="E501,E401,E225,W191,W391,W404"
 " use rope code assist instead of a complete function
 " au FileType python inoremap <expr> <S-Space> '<C-r>=RopeCodeAssistInsertMode()<CR><C-r>=pumvisible() ? "\<lt>C-p>\<lt>Down>" : ""<CR>'
-
-" Tlist
+" }}}
+" {{{##### Tlist #####
 " Toggle tag list
 "nnoremap <C-T> :TlistToggle<CR>
+"}}}
+" {{{##### EasyMotion #####
+" nmap <Leader><Leader>s <Plug>(easymotion-sn)
+" }}}
+" {{{##### Vim-Sneak #####
+nmap <Leader>s <Plug>Sneak_s
+xmap <Leader>s <Plug>Sneak_s
+omap <Leader>s <Plug>Sneak_s
 
-" #####EasyMotion#####
-nmap <Leader><Leader>s <Plug>(easymotion-sn)
+nmap <Leader>S <Plug>Sneak_S
+xmap <Leader>S <Plug>Sneak_S
+omap <Leader>S <Plug>Sneak_S
 
-" #####Tagbar##### 
+nmap <Leader><Leader> <Plug>(SneakStreak)
+nmap <Leader><Bar> <Plug>(SneakStreakBackward)
+"}}}
+" {{{##### Tagbar ##### 
 let g:tagbar_autofocus = 1
 let g:tagbar_left = 1
 let g:tagbar_zoomwidth = 0
@@ -139,9 +152,8 @@ let g:tagbar_autoshowtag = 1
 
 " Toggle Tagbar
 nnoremap <leader>tt :TagbarToggle<CR>
-
-
-" #####Airline#####
+"}}}
+" {{{##### Airline #####
 let g:airline_powerline_fonts=1
 
 let g:airline#extensions#tabline#enabled = 1
@@ -156,8 +168,20 @@ let g:airline#extensions#whitespace#enabled = 0
 
 let g:airline#extensions#tmuxline#enabled = 1
 
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
 
-" #####NERDTree#####
+
+" }}}
+" {{{##### NERDTree #####
 let g:NERDTreeHijackNetrw = 1
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeWinPos = "right"
@@ -168,25 +192,27 @@ nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
 
 
-" #####NerdCommenter#####
+" }}}
+" {{{##### NerdCommenter #####
 imap <C-c> <plug>NERDCommenterInsert
 
 let g:NERDSpaceDelims = 1
 
 
-" #####UltiSnips#####
+" }}}
+" {{{##### UltiSnips #####
 let g:UltiSnipsEditSplit = "vertical"
 let g:UltiSnipsExpandTrigger = "<C-@>"
 let g:UltiSnipsJumpForwardTrigger="<TAB>"
 let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
-
-
-" #####CCTree#####
+" }}}
+" {{{##### CCTree #####
 nnoremap <leader>ct :CCTreeWindowToggle<CR>
 
-" #####ConqueTerm#####
+" }}}
+" {{{##### ConqueTerm #####
 let g:ConqueTerm_CloseOnEnd = 1
 "Conque spits out an error about CursorHoldI making it run slow.  repress
 "these warnings
@@ -195,7 +221,8 @@ let g:ConqueTerm_ReadUnfocused = 1
 let g:ConqueTerm_ToggleKey = '<F8>'
 
 
-" #####Pyclewn#####
+" }}}
+" {{{##### Pyclewn #####
 " Only map keys if we're in Pyclewn
 if has("netbeans_enabled")
     "nmap <silent> <C-p> :exe ":Cprint " .  expand("<cword>")<CR>
@@ -204,7 +231,8 @@ if has("netbeans_enabled")
     vmap <silent> <C-p> "py :Cprint <C-R>p<CR>
 endif
 
-" #####YouCompleteMe#####
+" }}}
+" {{{##### YouCompleteMe #####
 " Do not open preview window when completing
 set completeopt=menuone
 let g:ycm_add_preview_to_completeopt = 0
@@ -238,11 +266,12 @@ nnoremap <F1> :YcmDiags<CR>
 nnoremap <leader><F1> :YcmForceCompileAndDiagnostics<CR>
 
 
-" #####Multiple Cursors#####
+" }}}
+" {{{##### Multiple Cursors #####
 let g:multi_cursor_exit_from_insert_mode = 0
 
-
-" #####Unite#####
+" }}}
+" {{{##### Unite #####
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "nnoremap <leader>t :<C-u>Unite  -buffer-name=files   -start-insert file_rec/async:!<CR>
@@ -256,8 +285,8 @@ nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search vimgrep:
 "Doesn't work.  Can't get plugins to play nice
 "nnoremap <leader>t :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
 
-
-" #####JSON.vim#####
+" }}}
+" {{{##### JSON.vim #####
 augroup json_autocmd
   autocmd!
   autocmd FileType json set autoindent
@@ -269,26 +298,29 @@ augroup json_autocmd
 augroup END
 
 
-" #####DirDiff#####
+" }}}
+" {{{##### DirDiff #####
 let g:DirDiffExcludes = ".*.*.swp,*.d"
 
-
-" ##### Gundo #####
+" }}}
+" {{{##### Gundo #####
 nnoremap <leader>u :GundoToggle<CR>
 let g:gundo_playback_delay = 300
 let g:gundo_preview_bottom = 1
 
-" ##### UndoTree #####
+" }}}
+" {{{##### UndoTree #####
 " nnoremap <leader>u :UndotreeToggle<CR>
 " let g:undotree_WindowLayout = 2
 " let g:undotree_SetFocusWhenToggle = 1
 
 
-" ##### EasyAlign #####
+" }}}
+" {{{##### EasyAlign #####
 vmap <Enter> <Plug>(LiveEasyAlign)
 
-
-" ##### Semantic-Highlight.vim #####
+" }}}
+" {{{##### Semantic-Highlight.vim #####
 let g:semanticBlacklistOverride = {
     \'cpp': [
     \   'auto', 'const', 'double', 'float', 'int', 'short',
@@ -305,11 +337,13 @@ let g:semanticBlacklistOverride = {
     \ ]
 \ }
 
-" ##### vim-cpp-enhanced-highlight #####
+" }}}
+" {{{##### vim-cpp-enhanced-highlight #####
 let g:cpp_class_scope_highlight=1
 let g:cpp_experimental_template_highlight = 0
 
-" ##### Startify #####
+" }}}
+" {{{##### Startify #####
 let g:startify_list_order = [
         \ ['    MRU files in current directory  [ ' . tlib#string#Strip(system('pwd')) . ' ]'], 'dir',
         \ ['    MRU files'], 'files', 
@@ -322,6 +356,8 @@ let g:startify_custom_header =
         \ map(split(system('cowsay -f dragon Welcome to VIM'), '\n'), '"   ". v:val') + ['','']
         " \ map(split(system('toilet Welcome to VIM -t -W -F border'), '\n'), '"   ". v:val') + ['','']
         " \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val') + ['','']
+
+" }}}
 
 " }}}
 
@@ -398,6 +434,7 @@ set breakindentopt=min:20,shift:-1
 "{{{ ***** VISUALS ***** "
 set number
 set norelativenumber
+syntax on
 
 " Solarized settings
 "let g:solarized_termcolors=256
@@ -406,15 +443,15 @@ set norelativenumber
 "colorscheme solarized
 
 " seoul256 settings
-" let g:seoul256_background = 236
+" let g:seoul256_background = 235
 " colorscheme seoul256
 " let g:airline_theme="tomorrow"
 
 " Gruvbox settings
-let g:gruvbox_italic=0
-set background=dark
+" let g:gruvbox_italic=0
+" set background=dark
 " set background=light
-colorscheme gruvbox
+" colorscheme gruvbox
 
 " Paper-color settings
 " colorscheme PaperColor-Dark
@@ -422,6 +459,9 @@ colorscheme gruvbox
 
 " colorscheme bubblegum
 " set background=dark
+
+colorscheme kalisi
+set background=dark
 
 " colorscheme wombat256 
 " colorscheme zenburn 
@@ -434,7 +474,6 @@ colorscheme gruvbox
 
 "colorscheme carvedwoodcool
 
-syntax on
 
 set showcmd
 "}}}
@@ -476,6 +515,9 @@ nnoremap <leader>O O<ESC>j
 " Clean a line and exit insert mode
 nnoremap <leader>c cc<ESC>
 
+" Exit insert mode and put ';' at the end of the line
+inoremap ;<Esc> <Esc>A;<Esc>
+
 " Open tag in new tab
 nnoremap <M-]> <C-W><C-]><C-W>T
 
@@ -516,9 +558,13 @@ nnoremap cq :cclose<CR>
 nnoremap cl :lclose<CR>
 nnoremap cp :pclose<CR>
 
-
 " Call CopyMode
 vnoremap <C-c> :call CopyMode()<CR><CR>
+
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f')<CR>
+vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " }}}
 
@@ -570,6 +616,29 @@ endfunction
 " Diff original file (from help)
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_
             \ | diffthis | wincmd p | diffthis
+
+" from https://amix.dk/vim/vimrc.html
+function! VisualSelection(direction) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    " elseif a:direction == 'gv'
+        " call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    " elseif a:direction == 'replace'
+        " call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
 
 " }}}
 
