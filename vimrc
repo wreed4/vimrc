@@ -138,8 +138,9 @@ nmap <Leader>S <Plug>Sneak_S
 xmap <Leader>S <Plug>Sneak_S
 omap <Leader>S <Plug>Sneak_S
 
-nmap <Leader><Leader> <Plug>(SneakStreak)
-nmap <Leader><Bar> <Plug>(SneakStreakBackward)
+" this seems weird, but it's to maintain motor memory with EasyMotion
+nmap <Leader>w <Plug>(SneakStreak)
+nmap <Leader>W <Plug>(SneakStreakBackward)
 "}}}
 " {{{##### Tagbar ##### 
 let g:tagbar_autofocus = 1
