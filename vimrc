@@ -585,7 +585,7 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 
 "{{{ ***** COMMANDS ***** " 
 " make todo list
-command! -nargs=* -complete=file Todos Unite -keep-focus -auto-resize -no-quit -buffer-name=Todos vimgrep:*:TODO(wreed)
+command! -nargs=* -complete=file Todos execute "Unite -keep-focus -auto-resize -no-quit -buffer-name=Todos vimgrep:*:TODO(" . expand("$USER") . ")"
 
 "Wrapper for make sequence
 "replaced by vim-dispatch plugin
