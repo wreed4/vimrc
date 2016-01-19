@@ -14,7 +14,7 @@ call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'for': ['cpp', 'c', 'java', 'python'], 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics']}
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'for': ['cpp', 'c', 'java', 'python', 'sh'], 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics']}
 autocmd! User YouCompleteMe call youcompleteme#Enable()
 
 
@@ -81,6 +81,10 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'mhinz/vim-startify'
 " Better text objects
 Plug 'wellle/targets.vim'
+" Diff individual sections of code
+Plug 'AndrewRadev/linediff.vim'
+" Pull in code from the internet
+Plug 'kasandell/Code-Pull'
 
 "COLORSCHEMES
 " about 3 billion colorschemes
@@ -169,15 +173,15 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tmuxline#enabled = 1
 
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <silent> <leader>1 <Plug>AirlineSelectTab1
+nmap <silent> <leader>2 <Plug>AirlineSelectTab2
+nmap <silent> <leader>3 <Plug>AirlineSelectTab3
+nmap <silent> <leader>4 <Plug>AirlineSelectTab4
+nmap <silent> <leader>5 <Plug>AirlineSelectTab5
+nmap <silent> <leader>6 <Plug>AirlineSelectTab6
+nmap <silent> <leader>7 <Plug>AirlineSelectTab7
+nmap <silent> <leader>8 <Plug>AirlineSelectTab8
+nmap <silent> <leader>9 <Plug>AirlineSelectTab9
 
 
 " }}}
@@ -320,6 +324,11 @@ let g:gundo_preview_bottom = 1
 vmap <Enter> <Plug>(LiveEasyAlign)
 
 " }}}
+" {{{##### DelimitMate #####
+let delimitMate_expand_space = 1
+let delimitMate_expand_cr = 1
+
+" }}}
 " {{{##### Semantic-Highlight.vim #####
 let g:semanticBlacklistOverride = {
     \'cpp': [
@@ -429,6 +438,10 @@ set breakindent
 set showbreak=↳     
 set breakindentopt=min:20,shift:-1
 
+" TOhtml settings
+let g:html_ignore_conceal=1
+let g:html_dynamic_folds=1
+
 " }}}
 
 "{{{ ***** VISUALS ***** "
@@ -503,10 +516,12 @@ map k gk
 " Scroll the window more intuitively
 nnoremap <M-j> <C-e>
 nnoremap <M-k> <C-y>
-nnoremap j <C-e>
-nnoremap k <C-y>
 nnoremap <M-h> 10zh
 nnoremap <M-l> 10zl
+nnoremap j <C-e>
+nnoremap k <C-y>
+nnoremap h 10zh
+nnoremap l 10zl
 
 " Open a new line and exit insert mode, staying on the same line
 nnoremap <leader>o o<ESC>k
