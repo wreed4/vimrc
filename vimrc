@@ -524,6 +524,15 @@ nnoremap k <C-y>
 nnoremap h 10zh
 nnoremap l 10zl
 
+vnoremap <M-j> <C-e>
+vnoremap <M-k> <C-y>
+vnoremap <M-h> 10zh
+vnoremap <M-l> 10zl
+vnoremap j <C-e>
+vnoremap k <C-y>
+vnoremap h 10zh
+vnoremap l 10zl
+
 " Open a new line and exit insert mode, staying on the same line
 nnoremap <leader>o o<ESC>k
 nnoremap <leader>O O<ESC>j
