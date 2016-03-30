@@ -534,8 +534,8 @@ vnoremap h 10zh
 vnoremap l 10zl
 
 " Open a new line and exit insert mode, staying on the same line
-nnoremap <leader>o o<ESC>k
-nnoremap <leader>O O<ESC>j
+nnoremap <leader>o o<ESC>
+nnoremap <leader>O O<ESC>
 
 " Clean a line and exit insert mode
 nnoremap <leader>c cc<ESC>
