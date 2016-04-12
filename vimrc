@@ -438,7 +438,7 @@ set cino=t0,(0,
 
 set breakindent
 set showbreak=↳     
-set breakindentopt=min:20,shift:-1
+set breakindentopt=min:20
 
 " TOhtml settings
 let g:html_ignore_conceal=1
