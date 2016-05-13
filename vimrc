@@ -444,7 +444,15 @@ set breakindentopt=min:20
 let g:html_ignore_conceal=1
 let g:html_dynamic_folds=1
 
+" folding options
+set foldlevelstart=99
+set foldmethod=syntax
+augroup folding_settings
+  autocmd FileType python set foldmethod=indent
+augroup END
+
 " }}}
+
 
 "{{{ ***** VISUALS ***** "
 set number
