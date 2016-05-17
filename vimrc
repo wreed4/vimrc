@@ -1,5 +1,5 @@
 " wreed vimrc
-" vim: set foldmethod=marker:
+" vim:foldmethod=marker:foldlevel=0:
 
 "enable python
 python << end
@@ -149,6 +149,7 @@ let g:tagbar_zoomwidth = 0
 let g:tagbar_show_linenumbers = -1
 let g:tagbar_foldlevel = 0
 let g:tagbar_autoshowtag = 1
+let g:tagbar_sort = 0
 
 " open Tagbar automatically when viewing a supported file/files
 "autocmd VimEnter * nested :call tagbar#autoopen(1)
