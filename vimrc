@@ -95,6 +95,9 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'freeo/vim-kalisi'
 
 
+"Machine-specific plugins
+Plug 'gisraptor/vim-lilypond-integrator', {'frozen': 1, 'for': ['lilypond']}
+
 
 " end installed plugins
 call plug#end()
