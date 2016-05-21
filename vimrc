@@ -604,6 +604,11 @@ vnoremap <C-c> :call CopyMode()<CR><CR>
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
+" Default building options
+autocmd FileType lilypond setlocal makeprg=lilypond
+autocmd FileType python setlocal makeprg=mypy
+nnoremap <F3> :Make %<CR>
+
 " }}}
 
 "{{{ ***** COMMANDS ***** " 
