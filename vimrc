@@ -25,8 +25,17 @@ Plug 'oplatek/Conque-Shell', { 'on': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTe
 "Plugin 'jlanzarotta/bufexplorer'
 " supposedly make '%' more powerful
 Plug 'tmhedberg/matchit'
+
+" Comments
 " Provides awesome commenting shortcuts
-Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/nerdcommenter'
+" Way more lightweight comment plugin
+Plug 'tpope/vim-commentary'
+" Comment text objects (depends on the following
+Plug 'glts/vim-textobj-comment'
+" define you're own text objects!!
+Plug 'kana/vim-textobj-user'
+
 " Shows file browser. (replaces netrw and :Explore)
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']}
 " show tabs up on top prettily 
@@ -165,6 +174,9 @@ nnoremap <leader>tt :TagbarToggle<CR>
 " {{{##### Airline #####
 let g:airline_powerline_fonts=1
 
+" only if YCM is enabled
+" autocmd User YouCompleteMe let g:airline#extensions#ycm#enabled = 1 | AirlineRefresh
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
@@ -270,7 +282,14 @@ let g:ycm_filetype_blacklist = {
             \ 'mail' : 1
             \}
 
+" Mappings
 nnoremap <leader>] :YcmCompleter GoTo<CR>
+nnoremap <leader>[ :YcmCompleter GoToReferences<CR>
+nnoremap <leader>gt :YcmCompleter GetType<CR>
+nnoremap <leader>gp :YcmCompleter GetParent<CR>
+nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+nnoremap <leader>= :YcmCompleter FixIt<CR>
+
 nnoremap <F1> :YcmDiags<CR>
 nnoremap <leader><F1> :YcmForceCompileAndDiagnostics<CR>
 
@@ -303,7 +322,7 @@ augroup json_autocmd
   autocmd FileType json set textwidth=78 shiftwidth=2
   autocmd FileType json set softtabstop=2 tabstop=8
   autocmd FileType json set expandtab
-  autocmd FileType json set foldmethod=syntax
+  autocmd FileType json set foldmethod=indent
 augroup END
 
 
@@ -312,10 +331,10 @@ augroup END
 let g:DirDiffExcludes = ".*.*.swp,*.d"
 
 " }}}
-" {{{##### Gundo #####
-nnoremap <leader>u :GundoToggle<CR>
-let g:gundo_playback_delay = 300
-let g:gundo_preview_bottom = 1
+" {{{##### Mundo #####
+nnoremap <leader>u :MundoToggle<CR>
+let g:mundo_playback_delay = 300
+let g:mundo_preview_bottom = 1
 
 " }}}
 " {{{##### UndoTree #####
@@ -454,6 +473,9 @@ set foldmethod=syntax
 augroup folding_settings
   autocmd FileType python set foldmethod=indent
 augroup END
+
+
+set wildmode=longest:full
 
 " }}}
 
