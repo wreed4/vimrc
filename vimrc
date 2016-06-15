@@ -20,7 +20,7 @@ autocmd! User YouCompleteMe call youcompleteme#Enable()
 
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
-Plug 'oplatek/Conque-Shell', { 'on': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermVSplit']}
+" Plug 'oplatek/Conque-Shell', { 'on': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermVSplit']}
 " easy buffer management. Replaced by Unite
 "Plugin 'jlanzarotta/bufexplorer'
 " supposedly make '%' more powerful
@@ -93,7 +93,7 @@ Plug 'wellle/targets.vim'
 " Diff individual sections of code
 Plug 'AndrewRadev/linediff.vim'
 " Pull in code from the internet
-Plug 'kasandell/Code-Pull'
+" Plug 'kasandell/Code-Pull'
 
 "COLORSCHEMES
 " about 3 billion colorschemes
