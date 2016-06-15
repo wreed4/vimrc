@@ -282,6 +282,9 @@ let g:ycm_filetype_blacklist = {
             \ 'mail' : 1
             \}
 
+" Python3 completion by default
+let g:ycm_python_binary_path = system('which python3')
+
 " Mappings
 nnoremap <leader>] :YcmCompleter GoTo<CR>
 nnoremap <leader>[ :YcmCompleter GoToReferences<CR>
