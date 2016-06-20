@@ -60,7 +60,8 @@ Plug 'honza/vim-snippets'
 " ability to surround text objects with things like quotes or parens
 Plug 'tpope/vim-surround'
 " Amazing plugin that makes a lot of things obsolete...
-Plug 'unite.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
 " Make Tmux pretty
 Plug 'edkolev/tmuxline.vim'
 " switch between header files easily
