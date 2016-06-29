@@ -15,7 +15,7 @@ call plug#begin('~/.vim/bundle')
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
 Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'for': ['cpp', 'c', 'java', 'python', 'sh'], 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics']}
-autocmd! User YouCompleteMe call youcompleteme#Enable()
+autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
 
 
 " ***** simple plugins
@@ -95,6 +95,11 @@ Plug 'wellle/targets.vim'
 Plug 'AndrewRadev/linediff.vim'
 " Pull in code from the internet
 " Plug 'kasandell/Code-Pull'
+" Heuristically set indent settings
+Plug 'tpope/vim-sleuth'
+
+"SYNTAX Files
+Plug 'linkinpark342/xonsh-vim'
 
 "COLORSCHEMES
 " about 3 billion colorschemes
@@ -312,7 +317,7 @@ nnoremap <leader>r :<C-u>Unite  -buffer-name=mru  -start-insert  file_mru<CR>
 nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
 nnoremap <leader>j :<C-u>Unite  -buffer-name=jump    jump<CR>
 nnoremap <leader>be :<C-u>Unite -buffer-name=buffer buffer<CR>
-nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search vimgrep:%<CR>
+nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search -start-insert line:all<CR>
 "
 "Doesn't work.  Can't get plugins to play nice
 "nnoremap <leader>t :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
@@ -323,9 +328,9 @@ augroup json_autocmd
   autocmd!
   autocmd FileType json set autoindent
   autocmd FileType json set formatoptions=tcq2l
-  autocmd FileType json set textwidth=78 shiftwidth=2
-  autocmd FileType json set softtabstop=2 tabstop=8
-  autocmd FileType json set expandtab
+  " autocmd FileType json set textwidth=78 shiftwidth=2
+  " autocmd FileType json set softtabstop=2 tabstop=8
+  " autocmd FileType json set expandtab
   autocmd FileType json set foldmethod=indent
 augroup END
 
@@ -455,9 +460,9 @@ set undofile
 set undodir=~/.vim/undodir
 
 " format options
-set expandtab
-set shiftwidth=4
-set softtabstop=4
+" set expandtab
+" set shiftwidth=4
+" set softtabstop=4
 set autoindent
 set nosmartindent
 set cindent
@@ -488,6 +493,7 @@ set wildmode=longest:full
 set number
 set norelativenumber
 syntax on
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
 
 " Solarized settings
 "let g:solarized_termcolors=256
