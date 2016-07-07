@@ -97,6 +97,8 @@ Plug 'AndrewRadev/linediff.vim'
 " Plug 'kasandell/Code-Pull'
 " Heuristically set indent settings
 Plug 'tpope/vim-sleuth'
+" Show differences with style
+Plug 'mhinz/vim-signify'
 
 "SYNTAX Files
 Plug 'linkinpark342/xonsh-vim'
@@ -400,6 +402,14 @@ let g:startify_custom_header =
         " \ map(split(system('toilet Welcome to VIM -t -W -F border'), '\n'), '"   ". v:val') + ['','']
         " \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val') + ['','']
 
+" }}}
+" {{{##### Signify #####
+let g:signify_vcs_list = ['git', 'hg', 'perforce', 'svn']
+
+omap ih <plug>(signify-motion-inner-pending)
+xmap ih <plug>(signify-motion-inner-visual)
+omap ah <plug>(signify-motion-outer-pending)
+xmap ah <plug>(signify-motion-outer-visual)
 " }}}
 
 " }}}
