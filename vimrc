@@ -110,6 +110,8 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'freeo/vim-kalisi'
+Plug 'sickill/vim-monokai'
+Plug 'chriskempson/base16-vim'
 
 
 "Machine-specific plugins
@@ -508,8 +510,8 @@ autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | en
 " Solarized settings
 "let g:solarized_termcolors=256
 "set background=light
-"set background=dark
-"colorscheme solarized
+" set background=dark
+" colorscheme solarized
 
 " seoul256 settings
 " let g:seoul256_background = 235
@@ -523,14 +525,17 @@ autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | en
 " colorscheme gruvbox
 
 " Paper-color settings
-" colorscheme PaperColor-Dark
-" let g:airline_theme="hybrid"
+" colorscheme PaperColor
+" set background=dark
+
+" Monokai settings
+colorscheme monokai
 
 " colorscheme bubblegum
 " set background=dark
 
-colorscheme kalisi
-set background=dark
+" colorscheme kalisi
+" set background=dark
 
 " colorscheme wombat256 
 " colorscheme zenburn 
