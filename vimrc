@@ -14,7 +14,7 @@ call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'for': ['cpp', 'c', 'java', 'python', 'sh'], 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics']}
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'for': ['cpp', 'c', 'java', 'python', 'xonsh', 'sh'], 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics']}
 autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
 
 
@@ -99,6 +99,9 @@ Plug 'AndrewRadev/linediff.vim'
 Plug 'tpope/vim-sleuth'
 " Show differences with style
 Plug 'mhinz/vim-signify'
+" Write outlines in vim
+Plug 'vimoutliner/vimoutliner'
+
 
 "SYNTAX Files
 Plug 'linkinpark342/xonsh-vim'
@@ -112,6 +115,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'freeo/vim-kalisi'
 Plug 'sickill/vim-monokai'
 Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/vim-tomorrow-theme'
 
 
 "Machine-specific plugins
@@ -191,6 +195,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#show_close_button =1
+let g:airline#extensions#ycm#enabled = 1
 
 let g:airline#extensions#tagbar#flags = 'f'
 let g:airline#extensions#tagbar#enabled = 1
@@ -293,7 +298,8 @@ let g:ycm_filetype_blacklist = {
             \}
 
 " Python3 completion by default
-let g:ycm_python_binary_path = system('which python3')
+" let g:ycm_python_binary_path = system('readlink -f ' . system('which python3'))
+let g:ycm_python_binary_path = 'python3'
 
 " Mappings
 nnoremap <leader>] :YcmCompleter GoTo<CR>
@@ -492,7 +498,7 @@ let g:html_dynamic_folds=1
 set foldlevelstart=99
 set foldmethod=syntax
 augroup folding_settings
-  autocmd FileType python set foldmethod=indent
+  autocmd FileType python,xonsh set foldmethod=indent
 augroup END
 
 
@@ -525,11 +531,10 @@ autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | en
 " colorscheme gruvbox
 
 " Paper-color settings
-" colorscheme PaperColor
-" set background=dark
+colorscheme PaperColor
+set background=dark
 
-" Monokai settings
-colorscheme monokai
+" colorscheme monokai
 
 " colorscheme bubblegum
 " set background=dark
@@ -722,7 +727,8 @@ function! VisualSelection(direction) range
     " elseif a:direction == 'replace'
         " call CmdLine("%s" . '/'. l:pattern . '/')
     elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
+        " execute "normal /" . l:pattern . "^M"
+        execute "normal /" . l:pattern 
     endif
 
     let @/ = l:pattern
