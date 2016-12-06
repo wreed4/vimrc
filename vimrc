@@ -14,7 +14,7 @@ call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'for': ['cpp', 'c', 'java', 'python', 'xonsh', 'sh'], 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics']}
+Plug 'Valloric/YouCompleteMe', { 'frozen': 0, 'for': ['cpp', 'c', 'java', 'python', 'xonsh', 'sh'], 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics']}
 autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
 
 
@@ -104,7 +104,7 @@ Plug 'vimoutliner/vimoutliner'
 
 
 "SYNTAX Files
-Plug 'linkinpark342/xonsh-vim'
+" Plug 'linkinpark342/xonsh-vim'
 
 "COLORSCHEMES
 " about 3 billion colorschemes
@@ -501,6 +501,8 @@ augroup folding_settings
   autocmd FileType python,xonsh set foldmethod=indent
 augroup END
 
+" see xonsh files as python files
+au BufNewFile,BufRead *.xsh set filetype=python
 
 set wildmode=longest:full
 
