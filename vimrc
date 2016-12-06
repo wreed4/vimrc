@@ -663,6 +663,15 @@ autocmd FileType lilypond setlocal makeprg=lilypond
 autocmd FileType python setlocal makeprg=mypy
 nnoremap <F3> :Make %<CR>
 
+" Quickly edit a macro
+nnoremap <leader>@  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
+" Quickly edit the Q macro
+nnoremap <leader>q :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
+
+" go back and delete last buffer (dangerous if the going back doesn't bring
+" you to another buffer
+nnoremap <M-C-O> <C-o>:bd! #<CR>
+
 " }}}
 
 "{{{ ***** COMMANDS ***** " 
