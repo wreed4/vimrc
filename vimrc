@@ -437,6 +437,9 @@ set ruler
 " set incremental search
 set hlsearch
 set incsearch
+if !has('nvim')
+  set inccommand=split
+endif
 " set status line always on
 set laststatus=2
 " turn vim's mode printing off.  Airline takes care of this
