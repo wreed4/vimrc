@@ -62,6 +62,8 @@ Plug 'tpope/vim-surround'
 " Amazing plugin that makes a lot of things obsolete...
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neoyank.vim'
+Plug 'Shougo/unite-outline'
 " Make Tmux pretty
 Plug 'edkolev/tmuxline.vim'
 " switch between header files easily
@@ -328,9 +330,9 @@ nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
 nnoremap <leader>j :<C-u>Unite  -buffer-name=jump    jump<CR>
 nnoremap <leader>be :<C-u>Unite -buffer-name=buffer buffer<CR>
 nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search -start-insert line:all<CR>
+nnoremap <leader>vg :<C-u>Unite -buffer-name=vimgrep vimgrep<CR>
 "
-"Doesn't work.  Can't get plugins to play nice
-"nnoremap <leader>t :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
+nnoremap <leader>t :<C-u>Unite -buffer-name=outline -no-split -start-insert outline<CR>
 
 " }}}
 " {{{##### JSON.vim #####
@@ -437,7 +439,7 @@ set ruler
 " set incremental search
 set hlsearch
 set incsearch
-if !has('nvim')
+if has('nvim')
   set inccommand=split
 endif
 " set status line always on
