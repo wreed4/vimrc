@@ -238,7 +238,7 @@ let g:NERDSpaceDelims = 1
 " }}}
 " {{{##### UltiSnips #####
 let g:UltiSnipsEditSplit = "vertical"
-let g:UltiSnipsExpandTrigger = "<C-@>"
+let g:UltiSnipsExpandTrigger = "<C-Space>"
 let g:UltiSnipsJumpForwardTrigger="<TAB>"
 let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
