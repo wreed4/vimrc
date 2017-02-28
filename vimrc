@@ -735,6 +735,7 @@ function! VisualSelection(direction) range
 
     let l:pattern = escape(@", '\\/.*$^~[]')
     let l:pattern = substitute(l:pattern, "\n$", "", "")
+    let l:pattern = '\<'.l:pattern.'\>'
 
     if a:direction == 'b'
         execute "normal ?" . l:pattern . "^M"
