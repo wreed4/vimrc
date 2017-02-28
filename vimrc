@@ -103,6 +103,8 @@ Plug 'tpope/vim-sleuth'
 Plug 'mhinz/vim-signify'
 " Write outlines in vim
 Plug 'vimoutliner/vimoutliner'
+" Better diffs (optionaly)
+Plug 'chrisbra/vim-diff-enhanced'
 
 
 "SYNTAX Files
