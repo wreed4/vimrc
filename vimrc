@@ -665,10 +665,12 @@ vnoremap <C-c> :call CopyMode()<CR><CR>
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
-" Default building options
+" Default building/running options
+let g:run_command = 'echo No run command defined'
 autocmd FileType lilypond setlocal makeprg=lilypond
 autocmd FileType python setlocal makeprg=mypy
 nnoremap <F3> :Make %<CR>
+nnoremap <leader>` :execute "Start " . g:run_command<CR>
 
 " Quickly edit a macro
 nnoremap <leader>@  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
