@@ -249,7 +249,7 @@ let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
 " }}}
 " {{{##### CCTree #####
-nnoremap <leader>ct :CCTreeWindowToggle<CR>
+" nnoremap <leader>ct :CCTreeWindowToggle<CR>
 
 " }}}
 " {{{##### ConqueTerm #####
