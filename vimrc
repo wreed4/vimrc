@@ -1,10 +1,7 @@
 " wreed vimrc
 " vim:foldmethod=marker:foldlevel=0:
 
-"enable python
-python << end
-import vim
-end
+let g:python3_host_skip_check = 1
 
 "{{{ ***** PLUGINS INSTALLATION ***** "
 
@@ -46,6 +43,7 @@ Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips' ", { 'on': []}
 " Make vim priiiiity
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " Asynchonous building and launching of programs
 Plug 'tpope/vim-dispatch'
 " Makes motions way better.  lets you jump anywhere on the screen
@@ -67,11 +65,11 @@ Plug 'Shougo/unite-outline'
 " Make Tmux pretty
 Plug 'edkolev/tmuxline.vim'
 " switch between header files easily
-Plug 'a.vim'
+Plug 'vim-scripts/a.vim'
 " pretty JSON stuff
 Plug 'elzr/vim-json'
 " Diff directories quickly and powerfully
-Plug 'DirDiff.vim'
+Plug 'will133/vim-dirdiff'
 " Enable nested vimrc files
 Plug 'wreed4/vim-lvimrc'
 " Gives a graphical view of vim's undo tree (replaced by neovim-compatible
@@ -86,7 +84,7 @@ Plug 'Raimondi/delimitMate'
 " Easy alignment
 Plug 'junegunn/vim-easy-align'
 " Semantic highlighting
-Plug 'jaxbot/semantic-highlight.vim'
+" Plug 'jaxbot/semantic-highlight.vim'
 " Additional highlighting for cpp
 Plug 'octol/vim-cpp-enhanced-highlight'
 " Fancy start screen
@@ -113,13 +111,17 @@ Plug 'chrisbra/vim-diff-enhanced'
 "COLORSCHEMES
 " about 3 billion colorschemes
 " Plug 'flazz/vim-colorschemes'
-Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'freeo/vim-kalisi'
-Plug 'sickill/vim-monokai'
-Plug 'chriskempson/base16-vim'
-Plug 'chriskempson/vim-tomorrow-theme'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'morhetz/gruvbox'
+" Plug 'NLKNguyen/papercolor-theme'
+" Plug 'freeo/vim-kalisi'
+" Plug 'sickill/vim-monokai'
+" Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'nightsense/vim-crunchbang'
+" Plug 'gkjgh/cobalt'
+Plug 'exitface/synthwave.vim'
+" Plug 'jnurmine/Zenburn'
 
 
 "Machine-specific plugins
@@ -470,7 +472,7 @@ endif
 if !has('nvim')
     set encoding=utf-8
 endif
-set fileencoding=utf-8
+" set fileencoding=utf-8
 
 " New Splits default to right, or below
 set splitbelow
@@ -523,7 +525,7 @@ syntax on
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
 
 " Solarized settings
-"let g:solarized_termcolors=256
+" let g:solarized_termcolors=256
 "set background=light
 " set background=dark
 " colorscheme solarized
@@ -540,8 +542,8 @@ autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | en
 " colorscheme gruvbox
 
 " Paper-color settings
-colorscheme PaperColor
-set background=dark
+" colorscheme PaperColor
+" set background=dark
 
 " colorscheme monokai
 
@@ -561,6 +563,23 @@ set background=dark
 " colorscheme Tomorrow-Night
 
 "colorscheme carvedwoodcool
+
+colorscheme crunchbang
+if has('nvim')
+  set termguicolors
+endif
+let g:airline_theme="synthwave"
+
+" colorscheme cobalt
+
+" Synthwave
+" set background=dark
+" colorscheme synthwave
+" if has('termguicolors')
+"   set termguicolors " 24-bit terminal
+" else
+"   let g:synthwave_termcolors=256 " 256 color mode
+" endif
 
 
 set showcmd
