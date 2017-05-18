@@ -103,6 +103,10 @@ Plug 'mhinz/vim-signify'
 Plug 'vimoutliner/vimoutliner'
 " Better diffs (optionaly)
 Plug 'chrisbra/vim-diff-enhanced'
+" command line fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Startup time analyzer
+Plug 'tweekmonster/startuptime.vim'
 
 
 "SYNTAX Files
@@ -315,7 +319,7 @@ nnoremap <leader>gp :YcmCompleter GetParent<CR>
 nnoremap <leader>gd :YcmCompleter GetDoc<CR>
 nnoremap <leader>= :YcmCompleter FixIt<CR>
 
-nnoremap <F1> :YcmDiags<CR>
+nnoremap <F1> :YcmDiags<CR>:map <buffer> q cl<CR>
 nnoremap <leader><F1> :YcmForceCompileAndDiagnostics<CR>
 
 
