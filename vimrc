@@ -120,10 +120,10 @@ Plug 'tweekmonster/startuptime.vim'
 " Plug 'NLKNguyen/papercolor-theme'
 " Plug 'freeo/vim-kalisi'
 " Plug 'sickill/vim-monokai'
-" Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim'
 " Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'nightsense/vim-crunchbang'
-" Plug 'gkjgh/cobalt'
+Plug 'gkjgh/cobalt'
 Plug 'exitface/synthwave.vim'
 " Plug 'jnurmine/Zenburn'
 
@@ -527,6 +527,12 @@ set number
 set norelativenumber
 syntax on
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
+if has('termguicolors')
+  colorscheme base16-ashes
+  set termguicolors
+else
+  colorscheme cobalt
+endif
 
 " Solarized settings
 " let g:solarized_termcolors=256
@@ -568,11 +574,13 @@ autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | en
 
 "colorscheme carvedwoodcool
 
-colorscheme crunchbang
-if has('nvim')
-  set termguicolors
-endif
-let g:airline_theme="synthwave"
+" if has('nvim')
+"   colorscheme crunchbang
+"   set termguicolors
+" else
+"   colorscheme cobalt
+" endif
+" let g:airline_theme="synthwave"
 
 " colorscheme cobalt
 
