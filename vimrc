@@ -71,7 +71,7 @@ Plug 'elzr/vim-json'
 " Diff directories quickly and powerfully
 Plug 'will133/vim-dirdiff'
 " Enable nested vimrc files
-Plug 'wreed4/vim-lvimrc'
+" Plug 'wreed4/vim-lvimrc'
 " Gives a graphical view of vim's undo tree (replaced by neovim-compatible
 " fork)
 "Plugin 'sjl/gundo.vim'
@@ -434,7 +434,7 @@ xmap ah <plug>(signify-motion-outer-visual)
 
 "{{{ ***** VIM FEATURES ***** "
 " allow project-specific .vimrc files
-"set exrc
+set exrc
 set secure
 " allow the use of a modeline
 set modeline
@@ -602,7 +602,8 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 set whichwrap+=<,>,h,l
 
-nnoremap <silent> <F5> :so ~/.vim/vimrc<CR>:LvimrcReload<CR>
+" nnoremap <silent> <F5> :so ~/.vim/vimrc<CR>:LvimrcReload<CR>
+nnoremap <silent> <F5> :so ~/.vim/vimrc<CR>
 nnoremap <silent> <F6> :redraw!<CR>
 set pastetoggle=<F7>
 nmap <F8> :mks!<CR>
@@ -783,3 +784,9 @@ endfunction
 " }}}
 
 
+"{{{ ***** MACHINE SPECIFIC CONFIG ***** " 
+if filereadable($HOME . "/.vimrc_custom")
+  source ~/.vimrc_custom
+  command! -nargs=0 EditCustomVimrc tabedit ~/.vimrc_custom
+endif
+"}}}
