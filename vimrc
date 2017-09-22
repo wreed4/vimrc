@@ -310,6 +310,7 @@ let g:ycm_filetype_blacklist = {
 " Python3 completion by default
 " let g:ycm_python_binary_path = system('readlink -f ' . system('which python3'))
 let g:ycm_python_binary_path = 'python3'
+let g:ycm_server_keep_logfile=1
 
 " Mappings
 nnoremap <leader>] :YcmCompleter GoTo<CR>
@@ -319,8 +320,8 @@ nnoremap <leader>gp :YcmCompleter GetParent<CR>
 nnoremap <leader>gd :YcmCompleter GetDoc<CR>
 nnoremap <leader>= :YcmCompleter FixIt<CR>
 
-nnoremap <F1> :YcmDiags<CR>:map <buffer> q cl<CR>
-nnoremap <leader><F1> :YcmForceCompileAndDiagnostics<CR>
+nnoremap <silent> <F1> :YcmDiags<CR>
+nnoremap <silent> <leader><F1> :YcmForceCompileAndDiagnostics<CR>
 
 
 " }}}
@@ -474,7 +475,7 @@ endif
 
 " set utf8
 if !has('nvim')
-    set encoding=utf-8
+    " set encoding=utf-8
 endif
 " set fileencoding=utf-8
 
@@ -527,7 +528,7 @@ set number
 set norelativenumber
 syntax on
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
-if has('termguicolors')
+if has('nvim')
   colorscheme base16-ashes
   set termguicolors
 else
@@ -727,25 +728,31 @@ command! -nargs=* MyMake execute '!clear' | make! <args> | cw
 command! -nargs=0 EditVimrc tabedit ~/.vim/vimrc
 
 " Swap two lines
-command! -nargs=1 -range Swap call Swap(<line1>, <f-args>)
+command! -nargs=1 -range Swap call Swap(<f-args>)
 
-function! Swap(l1, l2)
+function! Swap(s1, s2, d1, d2)
     let cursor = line(".")
 
-    echo a:l1 . " " . a:l2
-    if a:l1 <= a:l2
-        let l:source = a:l1
-        let l:dest   = a:l2
+    echo "swap <" . a:s1 . "," . a:s2 . "> and <" . a:d1 . "," . a:d2 . ">"
+    if a:s1 <= a:d1
+        let l:source1 = a:s1
+        let l:source2 = a:s2
+        let l:dest1   = a:d1
+        let l:dest2   = a:d2
     else 
-        let l:dest   = a:l1
-        let l:source = a:l2
+        let l:dest1   = a:s1
+        let l:dest2   = a:s2
+        let l:source1 = a:d1
+        let l:source2 = a:d2
     endif
 
-    execute l:source . "move " . l:dest
-    execute eval(l:dest - 1) . "move " . eval(l:source - 1)
+    let l:offset = l:source2 - l:source1
+
+    execute l:source1 .",". lsource2 . "move " . l:dest2
+    execute l:dest1 . "," . l:dest2 . "move " . l:source2
     
-    execute l:source . "normal =="
-    execute l:dest   . "normal =="
+    execute l:source1 . ",". l:source2 . "normal =="
+    execute l:dest1 . ",". l:dest2 . "normal =="
     execute "normal " . cursor . "G"
 
 endfunction
