@@ -11,9 +11,11 @@ call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion. 
-Plug 'Valloric/YouCompleteMe', { 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'], 'do': './install.py'}
+" Plug 'Valloric/YouCompleteMe', { 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'], 'do': './install.py'}
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
 autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
-
+" Linting.. may conflict with YCM
+" Plug 'w0rp/ale'
 
 " ***** simple plugins
 " can launch an interactive program within an Vim buffer (like bash or other shells)
@@ -79,6 +81,7 @@ Plug 'simnalamburt/vim-mundo'
 " Plug 'mbbill/undotree'
 " Git integration
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 " Matching things in insert mode
 Plug 'Raimondi/delimitMate'
 " Easy alignment
@@ -107,6 +110,8 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Startup time analyzer
 Plug 'tweekmonster/startuptime.vim'
+" Automatically change numbering modes (very small, could be a code snippet in vimrc
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 
 "SYNTAX Files
@@ -525,7 +530,7 @@ set wildmode=longest:full
 
 "{{{ ***** VISUALS ***** "
 set number
-set norelativenumber
+set relativenumber
 syntax on
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
 if has('nvim')
@@ -713,6 +718,11 @@ nnoremap <leader>q :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><le
 " go back and delete last buffer (dangerous if the going back doesn't bring
 " you to another buffer
 nnoremap <M-C-O> <C-o>:bd! #<CR>
+
+" toggle relnumber
+nnoremap <silent> <leader>rn :set relativenumber!<CR>
+
+nnoremap <silent> scc :set cursorcolumn!<CR>
 
 " }}}
 
