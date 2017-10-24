@@ -116,6 +116,7 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 "SYNTAX Files
 " Plug 'linkinpark342/xonsh-vim'
+Plug 'stephpy/vim-yaml'
 
 "COLORSCHEMES
 " about 3 billion colorschemes
@@ -517,7 +518,7 @@ let g:html_dynamic_folds=1
 set foldlevelstart=99
 set foldmethod=syntax
 augroup folding_settings
-  autocmd FileType python,xonsh set foldmethod=indent
+  autocmd FileType python,xonsh,yaml set foldmethod=indent
 augroup END
 
 " see xonsh files as python files
