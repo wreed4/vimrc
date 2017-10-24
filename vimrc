@@ -61,9 +61,10 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 " Amazing plugin that makes a lot of things obsolete...
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neoyank.vim'
-Plug 'Shougo/unite-outline'
+" Plug 'Shougo/unite-outline'
 " Make Tmux pretty
 Plug 'edkolev/tmuxline.vim'
 " switch between header files easily
@@ -336,19 +337,25 @@ let g:multi_cursor_exit_from_insert_mode = 0
 
 " }}}
 " {{{##### Unite #####
-let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"nnoremap <leader>t :<C-u>Unite  -buffer-name=files   -start-insert file_rec/async:!<CR>
-nnoremap <leader>e :<C-u>Unite -buffer-name=files -toggle file<CR>
-nnoremap <leader>r :<C-u>Unite  -buffer-name=mru  -start-insert  file_mru<CR>
-nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
-nnoremap <leader>j :<C-u>Unite  -buffer-name=jump    jump<CR>
-nnoremap <leader>be :<C-u>Unite -buffer-name=buffer buffer<CR>
-nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search -start-insert line:all<CR>
-nnoremap <leader>vg :<C-u>Unite -buffer-name=vimgrep vimgrep<CR>
-"
-nnoremap <leader>t :<C-u>Unite -buffer-name=outline -no-split -start-insert outline<CR>
+"let g:unite_source_history_yank_enable = 1
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
+""nnoremap <leader>t :<C-u>Unite  -buffer-name=files   -start-insert file_rec/async:!<CR>
+"nnoremap <leader>e :<C-u>Unite -buffer-name=files -toggle file<CR>
+"nnoremap <leader>r :<C-u>Unite  -buffer-name=mru  -start-insert  file_mru<CR>
+"nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
+"nnoremap <leader>j :<C-u>Unite  -buffer-name=jump    jump<CR>
+"nnoremap <leader>be :<C-u>Unite -buffer-name=buffer buffer<CR>
+"nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search -start-insert line:all<CR>
+"nnoremap <leader>vg :<C-u>Unite -buffer-name=vimgrep vimgrep<CR>
+""
+"nnoremap <leader>t :<C-u>Unite -buffer-name=outline -no-split -start-insert outline<CR>
 
+" }}}
+" {{{##### Denite #####
+nnoremap <leader>e :Denite file<CR>
+nnoremap <leader>r :Denite file_rec<CR>
+nnoremap <leader>be :Denite -buffer-name=buffer buffer<CR>
+nnoremap <leader>/ :Denite -no-quit -buffer-name=search line:all<CR>
 " }}}
 " {{{##### JSON.vim #####
 augroup json_autocmd
