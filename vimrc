@@ -10,9 +10,9 @@ set nocompatible
 call plug#begin('~/.vim/bundle')
 
 " ***** plugins that require more stuff (compilation)
-" As-you-type semantic completion. 
+" As-you-type semantic completion.
 " Plug 'Valloric/YouCompleteMe', { 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'], 'do': './install.py'}
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer'}
 autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
 " Linting.. may conflict with YCM
 " Plug 'w0rp/ale'
@@ -37,9 +37,9 @@ Plug 'kana/vim-textobj-user'
 
 " Shows file browser. (replaces netrw and :Explore)
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']}
-" show tabs up on top prettily 
+" show tabs up on top prettily
 Plug 'mkitt/tabline.vim'
-" shows an outline of all Tags in a file 
+" shows an outline of all Tags in a file
 Plug 'majutsushi/tagbar'
 " Snippet completion
 Plug 'SirVer/ultisnips' ", { 'on': []}
@@ -112,7 +112,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Startup time analyzer
 Plug 'tweekmonster/startuptime.vim'
 " Automatically change numbering modes (very small, could be a code snippet in vimrc
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
+" Plug 'jeffkreeftmeijer/vim-numbertoggle'
+" coding in GO
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+" Better ways to deal with extra whitespace
+Plug 'ntpeters/vim-better-whitespace'
 
 
 "SYNTAX Files
@@ -133,6 +137,10 @@ Plug 'nightsense/vim-crunchbang'
 Plug 'gkjgh/cobalt'
 Plug 'exitface/synthwave.vim'
 " Plug 'jnurmine/Zenburn'
+"
+" Plugin to quickly switch color schemes
+Plug 'xolox/vim-misc', { 'on': [ 'NextColorScheme', 'PrevColorScheme', 'RandomColorScheme' ] }
+Plug 'xolox/vim-colorscheme-switcher', { 'on': [ 'NextColorScheme', 'PrevColorScheme', 'RandomColorScheme' ] }
 
 
 "Machine-specific plugins
@@ -143,7 +151,7 @@ Plug 'gisraptor/vim-lilypond-integrator', {'frozen': 1, 'for': ['lilypond']}
 call plug#end()
 
 " augroup load_us_ycm
-    " autocmd! 
+    " autocmd!
     " autocmd! InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
                         " \| call youcompleteme#Enable() | autocmd! load_us_ycm
 " augroup END
@@ -160,7 +168,7 @@ call plug#end()
 
 "{{{ ***** PLUGIN SETTINGS ***** "
 
-" {{{##### PyMode ##### 
+" {{{##### PyMode #####
 "let pymode_lint_ignore="E501,E401,E225,W191,W391,W404"
 " use rope code assist instead of a complete function
 " au FileType python inoremap <expr> <S-Space> '<C-r>=RopeCodeAssistInsertMode()<CR><C-r>=pumvisible() ? "\<lt>C-p>\<lt>Down>" : ""<CR>'
@@ -173,6 +181,8 @@ call plug#end()
 " nmap <Leader><Leader>s <Plug>(easymotion-sn)
 " }}}
 " {{{##### Vim-Sneak #####
+let g:sneak#label = 1
+
 nmap <Leader>s <Plug>Sneak_s
 xmap <Leader>s <Plug>Sneak_s
 omap <Leader>s <Plug>Sneak_s
@@ -185,7 +195,7 @@ omap <Leader>S <Plug>Sneak_S
 nmap <Leader>w <Plug>(SneakStreak)
 nmap <Leader>W <Plug>(SneakStreakBackward)
 "}}}
-" {{{##### Tagbar ##### 
+" {{{##### Tagbar #####
 let g:tagbar_autofocus = 1
 let g:tagbar_left = 1
 let g:tagbar_zoomwidth = 0
@@ -356,6 +366,9 @@ nnoremap <leader>e :Denite file<CR>
 nnoremap <leader>r :Denite file_rec<CR>
 nnoremap <leader>be :Denite -buffer-name=buffer buffer<CR>
 nnoremap <leader>/ :Denite -no-quit -buffer-name=search line:all<CR>
+nnoremap <leader>t :Denite outline<CR>
+nnoremap <leader>vg :Denite grep<CR>
+nnoremap <leader>j :Denite jump<CR>
 " }}}
 " {{{##### JSON.vim #####
 augroup json_autocmd
@@ -423,31 +436,53 @@ let g:cpp_experimental_template_highlight = 0
 " {{{##### Startify #####
 let g:startify_list_order = [
         \ ['    MRU files in current directory  [ ' . tlib#string#Strip(system('pwd')) . ' ]'], 'dir',
-        \ ['    MRU files'], 'files', 
-        \ ['    Sessions'], 'sessions', 
+        \ ['    MRU files'], 'files',
+        \ ['    Sessions'], 'sessions',
+        \ ['    Commands'], 'commands',
         \ ['    Bookmarks'], 'bookmarks']
 
-let g:starify_bookmarks = [ '~/.vim/vimrc' ]
+" let g:startify_bookmarks = [ {'v': '~/.vim/vimrc'} ]
+let g:startify_commands = [
+    \ {'v': 'EditVimrc'},
+    \ {'c': 'EditCustomVimrc'},
+    \ {'p': 'PlugUpdate'}]
 let g:startify_session_delete_buffers = 1
-let g:startify_custom_header =
-        \ map(split(system('cowsay -f dragon Welcome to VIM'), '\n'), '"   ". v:val') + ['','']
-        " \ map(split(system('toilet Welcome to VIM -t -W -F border'), '\n'), '"   ". v:val') + ['','']
+if has('nvim')
+  let g:startify_custom_header =
+        \ map(split(system('toilet Nvim -t -W -F border'), '\n'), '"   ". v:val') + ['','']
+        " \ map(split(system('cowsay -f dragon Welcome to VIM | sed "s/ *$//"'), '\n'), '"   ". v:val') + ['','']
         " \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val') + ['','']
+else
+  let g:startify_custom_header =
+        \ map(split(system('toilet Vim -t -W -F border'), '\n'), '"   ". v:val') + ['','']
+endif
+
 
 " }}}
 " {{{##### Signify #####
-let g:signify_vcs_list = ['git', 'hg', 'perforce', 'svn']
+let g:signify_vcs_list = ['git']
 
 omap ih <plug>(signify-motion-inner-pending)
 xmap ih <plug>(signify-motion-inner-visual)
 omap ah <plug>(signify-motion-outer-pending)
 xmap ah <plug>(signify-motion-outer-visual)
 " }}}
+" {{{ ##### vim-colorscheme switcher #####
+let g:colorscheme_switcher_define_mappings = 0
+let g:colorscheme_switcher_exclude = []
+
+nnoremap <silent> <F9> :NextColorScheme<CR>
+nnoremap <silent> <S-F9> :PrevColorScheme<CR>
+nnoremap <silent> <leader><F9> :RandomColorScheme<CR>
+" }}}
 
 " }}}
 
 "{{{ ***** VIM FEATURES ***** "
 " allow project-specific .vimrc files
+if has('nvim')
+  set shada+=f10
+endif
 set exrc
 set secure
 " allow the use of a modeline
@@ -495,7 +530,7 @@ endif
 " New Splits default to right, or below
 set splitbelow
 set splitright
-set diffopt+=vertical,iwhite
+set diffopt+=vertical
 
 "turn omnicomplete on
 set omnifunc=syntaxcomplete#Complete
@@ -511,10 +546,10 @@ set undodir=~/.vim/undodir
 set autoindent
 set nosmartindent
 set cindent
-set cino=t0,(0,
+set cino=l1,t0,(0
 
 set breakindent
-set showbreak=↳     
+set showbreak=↳
 set breakindentopt=min:20
 
 " TOhtml settings
@@ -533,16 +568,30 @@ au BufNewFile,BufRead *.xsh set filetype=python
 
 set wildmode=longest:full
 
+" switch ' and `
+noremap ' `
+noremap ` '
+
+noremap Y y$
+
 " }}}
 
 
 "{{{ ***** VISUALS ***** "
 set number
 set relativenumber
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter,CmdlineLeave * if &nu | set rnu   | redraw | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave,CmdlineEnter   * if &nu | set nornu | redraw | endif
+augroup END
+
 syntax on
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
 if has('nvim')
-  colorscheme base16-ashes
+  " colorscheme base16-ashes
+  colorscheme base16-ocean
   set termguicolors
 else
   colorscheme cobalt
@@ -577,10 +626,10 @@ endif
 " colorscheme kalisi
 " set background=dark
 
-" colorscheme wombat256 
-" colorscheme zenburn 
-" colorscheme kolor 
-" colorscheme jellybeans 
+" colorscheme wombat256
+" colorscheme zenburn
+" colorscheme kolor
+" colorscheme jellybeans
 " colorscheme hybrid
 " colorscheme devbox-dark-256
 " colorscheme Tomorrow-Night-Eighties
@@ -713,10 +762,16 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Default building/running options
 let g:run_command = 'echo No run command defined'
-autocmd FileType lilypond setlocal makeprg=lilypond
-autocmd FileType python setlocal makeprg=mypy
-nnoremap <F3> :Make %<CR>
 nnoremap <leader>` :execute "Start " . g:run_command<CR>
+
+nnoremap <F3> :Make %<CR>
+autocmd FileType lilypond setlocal makeprg=lilypond
+augroup python_build
+  autocmd FileType python nnoremap <F3> :Dispatch pylint %<CR>
+  autocmd FileType python nnoremap <S-F3> :Dispatch pylint .<CR>
+  autocmd FileType python nnoremap <F4> :Dispatch mypy %<CR>
+  autocmd FileType python nnoremap <S-F4> :Dispatch mypy .<CR>
+augroup END
 
 " Quickly edit a macro
 nnoremap <leader>@  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
@@ -728,13 +783,25 @@ nnoremap <leader>q :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><le
 nnoremap <M-C-O> <C-o>:bd! #<CR>
 
 " toggle relnumber
-nnoremap <silent> <leader>rn :set relativenumber!<CR>
+nnoremap <silent> -- :set relativenumber!<CR>
 
+" toggle cursorcolumn
 nnoremap <silent> scc :set cursorcolumn!<CR>
+
+" insert command at line
+inoremap <C-r>! <C-\><C-O>:let @r=system("")<left><left>
 
 " }}}
 
-"{{{ ***** COMMANDS ***** " 
+"{{{ ***** COMMANDS ***** "
+
+" Terminal commands
+command! -nargs=0 VTerm vsplit term://bash
+command! -nargs=0 STerm split term://bash
+command! -nargs=0 VPyTerm vsplit term://python3
+command! -nargs=0 SPyTerm split term://python3
+
+
 " make todo list
 command! -nargs=* -complete=file Todos execute "Unite -keep-focus -auto-resize -no-quit -buffer-name=Todos vimgrep:*:TODO(" . expand("$USER") . ")"
 
@@ -757,7 +824,7 @@ function! Swap(s1, s2, d1, d2)
         let l:source2 = a:s2
         let l:dest1   = a:d1
         let l:dest2   = a:d2
-    else 
+    else
         let l:dest1   = a:s1
         let l:dest2   = a:s2
         let l:source1 = a:d1
@@ -768,7 +835,7 @@ function! Swap(s1, s2, d1, d2)
 
     execute l:source1 .",". lsource2 . "move " . l:dest2
     execute l:dest1 . "," . l:dest2 . "move " . l:source2
-    
+
     execute l:source1 . ",". l:source2 . "normal =="
     execute l:dest1 . ",". l:dest2 . "normal =="
     execute "normal " . cursor . "G"
@@ -806,7 +873,7 @@ function! VisualSelection(direction) range
         " call CmdLine("%s" . '/'. l:pattern . '/')
     elseif a:direction == 'f'
         " execute "normal /" . l:pattern . "^M"
-        execute "normal /" . l:pattern 
+        execute "normal /" . l:pattern
     endif
 
     let @/ = l:pattern
@@ -817,7 +884,7 @@ endfunction
 " }}}
 
 
-"{{{ ***** MACHINE SPECIFIC CONFIG ***** " 
+"{{{ ***** MACHINE SPECIFIC CONFIG ***** "
 if filereadable($HOME . "/.vimrc_custom")
   source ~/.vimrc_custom
   command! -nargs=0 EditCustomVimrc tabedit ~/.vimrc_custom
