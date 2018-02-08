@@ -1,7 +1,8 @@
 " wreed vimrc
 " vim:foldmethod=marker:foldlevel=0:
 
-let g:python3_host_skip_check = 1
+let g:python_host_prog= expand('$HOME') . '/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog= expand('$HOME') . '/.pyenv/versions/neovim3/bin/python'
 
 "{{{ ***** PLUGINS INSTALLATION ***** "
 
@@ -12,7 +13,7 @@ call plug#begin('~/.vim/bundle')
 " ***** plugins that require more stuff (compilation)
 " As-you-type semantic completion.
 " Plug 'Valloric/YouCompleteMe', { 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'], 'do': './install.py'}
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer'}
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --go-completer'}
 autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
 " Linting.. may conflict with YCM
 " Plug 'w0rp/ale'
@@ -48,7 +49,10 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Asynchonous building and launching of programs
 Plug 'tpope/vim-dispatch'
+Plug '5long/pytest-vim-compiler'
 " Makes motions way better.  lets you jump anywhere on the screen
+" Run tests
+Plug 'janko-m/vim-test'
 " Plug 'Lokaltog/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 " Allows multiple cursors at once.  very useful
@@ -109,6 +113,7 @@ Plug 'vimoutliner/vimoutliner'
 Plug 'chrisbra/vim-diff-enhanced'
 " command line fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 " Startup time analyzer
 Plug 'tweekmonster/startuptime.vim'
 " Automatically change numbering modes (very small, could be a code snippet in vimrc
@@ -117,6 +122,10 @@ Plug 'tweekmonster/startuptime.vim'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Better ways to deal with extra whitespace
 Plug 'ntpeters/vim-better-whitespace'
+"Interactive Code Scratchpad
+Plug 'metakirby5/codi.vim'
+" Code refactoring
+Plug 'apalmer1377/factorus'
 
 
 "SYNTAX Files
@@ -183,13 +192,29 @@ call plug#end()
 " {{{##### Vim-Sneak #####
 let g:sneak#label = 1
 
-nmap <Leader>s <Plug>Sneak_s
-xmap <Leader>s <Plug>Sneak_s
-omap <Leader>s <Plug>Sneak_s
+nmap s <Plug>Sneak_s
+xmap s <Plug>Sneak_s
+omap s <Plug>Sneak_s
 
-nmap <Leader>S <Plug>Sneak_S
-xmap <Leader>S <Plug>Sneak_S
-omap <Leader>S <Plug>Sneak_S
+nmap S <Plug>Sneak_S
+xmap S <Plug>Sneak_S
+omap S <Plug>Sneak_S
+
+" 1-character enhanced 'f'
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+
+" 1-character enhanced 't'
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
 
 " this seems weird, but it's to maintain motor memory with EasyMotion
 nmap <Leader>w <Plug>(SneakStreak)
@@ -219,15 +244,16 @@ let g:airline_powerline_fonts=1
 " autocmd User YouCompleteMe let g:airline#extensions#ycm#enabled = 1 | AirlineRefresh
 
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extentions#tabline#show_splits = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#tab_nr_type = 2
 let g:airline#extensions#tabline#show_close_button =1
 let g:airline#extensions#ycm#enabled = 1
 
 let g:airline#extensions#tagbar#flags = 'f'
 let g:airline#extensions#tagbar#enabled = 1
 
-let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#enabled = 1
 
 let g:airline#extensions#tmuxline#enabled = 1
 
@@ -475,6 +501,16 @@ nnoremap <silent> <F9> :NextColorScheme<CR>
 nnoremap <silent> <S-F9> :PrevColorScheme<CR>
 nnoremap <silent> <leader><F9> :RandomColorScheme<CR>
 " }}}
+" {{{  vim-codi
+let g:codi#interpreters = {
+  \ 'python': {
+  \   'prompt': '(ins)>>> '
+  \ },
+  \}
+" let codi#log='/Users/william.reed/log/codi.log'
+" let codi#autocmd = 'None'
+
+" }}}
 
 " }}}
 
@@ -573,6 +609,33 @@ noremap ' `
 noremap ` '
 
 noremap Y y$
+noremap <leader>y "*y
+noremap <leader>p "*p
+
+" In nvim, open keyword/help in new terminal,
+" as nvim doesn't currently allow terminal scrollback.
+function! KeywordNvim(searchTerm)
+  if &keywordprg == ':Man'
+    exe ':Man ' . a:searchTerm
+  else
+    let l:man = &keywordprg
+    vsplit | enew
+    exe 'terminal ' . l:man a:searchTerm
+    normal i
+  endif
+endfunction
+
+function! KeywordNvimVisual()
+  let l:saved_reg = @"
+  execute "normal! vgvy"
+  call KeywordNvim(@")
+  let @" = l:saved_reg
+endfunction
+
+if has("nvim")
+  nnoremap K :call KeywordNvim(expand("<cword>"))<CR>
+  vnoremap K <Esc>:call KeywordNvimVisual()<CR>
+endif
 
 " }}}
 
@@ -583,16 +646,17 @@ set relativenumber
 
 augroup numbertoggle
   autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter,CmdlineLeave * if &nu | set rnu   | redraw | endif
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter,CmdlineLeave * if &nu | set rnu   |  endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave,CmdlineEnter   * if &nu | set nornu | redraw | endif
 augroup END
 
 syntax on
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
 if has('nvim')
-  " colorscheme base16-ashes
-  colorscheme base16-ocean
   set termguicolors
+  " colorscheme base16-ocean
+  colorscheme base16-eighties
+  " colorscheme base16-solarized-dark
 else
   colorscheme cobalt
 endif
@@ -749,7 +813,7 @@ nnoremap <C-S-Right> <C-W><S-L>
 
 " close annoying windows easily
 nnoremap cq :cclose<CR>
-nnoremap cl :lclose<CR>
+nnoremap cqq :lclose<CR>
 nnoremap cp :pclose<CR>
 
 " Call CopyMode
@@ -767,8 +831,9 @@ nnoremap <leader>` :execute "Start " . g:run_command<CR>
 nnoremap <F3> :Make %<CR>
 autocmd FileType lilypond setlocal makeprg=lilypond
 augroup python_build
-  autocmd FileType python nnoremap <F3> :Dispatch pylint %<CR>
-  autocmd FileType python nnoremap <S-F3> :Dispatch pylint .<CR>
+  autocmd FileType python compiler pylint
+  autocmd FileType python nnoremap <F3> :Make %<CR>
+  autocmd FileType python nnoremap <S-F3> :Make .<CR>
   autocmd FileType python nnoremap <F4> :Dispatch mypy %<CR>
   autocmd FileType python nnoremap <S-F4> :Dispatch mypy .<CR>
 augroup END
@@ -782,8 +847,8 @@ nnoremap <leader>q :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><le
 " you to another buffer
 nnoremap <M-C-O> <C-o>:bd! #<CR>
 
-" toggle relnumber
-nnoremap <silent> -- :set relativenumber!<CR>
+" toggle number
+nnoremap <silent> -- :set number!<CR>
 
 " toggle cursorcolumn
 nnoremap <silent> scc :set cursorcolumn!<CR>
@@ -800,7 +865,6 @@ command! -nargs=0 VTerm vsplit term://bash
 command! -nargs=0 STerm split term://bash
 command! -nargs=0 VPyTerm vsplit term://python3
 command! -nargs=0 SPyTerm split term://python3
-
 
 " make todo list
 command! -nargs=* -complete=file Todos execute "Unite -keep-focus -auto-resize -no-quit -buffer-name=Todos vimgrep:*:TODO(" . expand("$USER") . ")"
@@ -862,7 +926,7 @@ function! VisualSelection(direction) range
     execute "normal! vgvy"
 
     let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+    let l:pattern = substitute(l:pattern, "\n", "", "")
     let l:pattern = '\<'.l:pattern.'\>'
 
     if a:direction == 'b'
