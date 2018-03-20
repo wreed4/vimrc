@@ -131,6 +131,7 @@ Plug 'apalmer1377/factorus'
 "SYNTAX Files
 " Plug 'linkinpark342/xonsh-vim'
 Plug 'stephpy/vim-yaml'
+Plug 'solarnz/thrift.vim'
 
 "COLORSCHEMES
 " about 3 billion colorschemes
@@ -323,8 +324,8 @@ endif
 " }}}
 " {{{##### YouCompleteMe #####
 " Do not open preview window when completing
-set completeopt=menuone
-let g:ycm_add_preview_to_completeopt = 0
+" set completeopt=menuone
+" let g:ycm_add_preview_to_completeopt = 0
 " Auto Close preview window
 let g:ycm_autoclose_preview_window_after_insertion = 1
 " Disable Tab for cycling through commands so that UtilSnips will still work
@@ -342,7 +343,6 @@ let g:ycm_filetype_blacklist = {
             \ 'nerdtree': 1,
             \ 'qf' : 1,
             \ 'notes' : 1,
-            \ 'markdown' : 1,
             \ 'unite' : 1,
             \ 'vimwiki' : 1,
             \ 'pandoc' : 1,
@@ -596,7 +596,7 @@ let g:html_dynamic_folds=1
 set foldlevelstart=99
 set foldmethod=syntax
 augroup folding_settings
-  autocmd FileType python,xonsh,yaml set foldmethod=indent
+  autocmd FileType python,xonsh,yaml,thrift set foldmethod=indent
 augroup END
 
 " see xonsh files as python files
