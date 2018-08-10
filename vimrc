@@ -1,7 +1,7 @@
 " wreed vimrc
 " vim:foldmethod=marker:foldlevel=0:
 
-let g:python_host_prog= expand('$HOME') . '/.pyenv/versions/neovim2/bin/python'
+" let g:python_host_prog= expand('$HOME') . '/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog= expand('$HOME') . '/.pyenv/versions/neovim3/bin/python'
 
 "{{{ ***** PLUGINS INSTALLATION ***** "
@@ -10,11 +10,20 @@ let g:python3_host_prog= expand('$HOME') . '/.pyenv/versions/neovim3/bin/python'
 set nocompatible
 call plug#begin('~/.vim/bundle')
 
-" ***** plugins that require more stuff (compilation)
-" As-you-type semantic completion.
-" Plug 'Valloric/YouCompleteMe', { 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'], 'do': './install.py'}
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --go-completer'}
-autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
+" ***** plugins we only want in true vim. 
+if !exists("g:gui_oni")
+  " As-you-type semantic completion.
+  " Plug 'Valloric/YouCompleteMe', { 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'], 'do': './install.py'}
+  Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --go-completer'}
+  autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
+  " Matching things in insert mode
+  Plug 'Raimondi/delimitMate'
+  " Make vim priiiiity
+  Plug 'bling/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+else
+  Plug 'BurningEther/nvimux'
+endif
 " Linting.. may conflict with YCM
 " Plug 'w0rp/ale'
 
@@ -27,8 +36,6 @@ autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable(
 Plug 'tmhedberg/matchit'
 
 " Comments
-" Provides awesome commenting shortcuts
-" Plug 'scrooloose/nerdcommenter'
 " Way more lightweight comment plugin
 Plug 'tpope/vim-commentary'
 " Comment text objects (depends on the following
@@ -44,9 +51,6 @@ Plug 'mkitt/tabline.vim'
 Plug 'majutsushi/tagbar'
 " Snippet completion
 Plug 'SirVer/ultisnips' ", { 'on': []}
-" Make vim priiiiity
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 " Asynchonous building and launching of programs
 Plug 'tpope/vim-dispatch'
 Plug '5long/pytest-vim-compiler'
@@ -87,8 +91,6 @@ Plug 'simnalamburt/vim-mundo'
 " Git integration
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-" Matching things in insert mode
-Plug 'Raimondi/delimitMate'
 " Easy alignment
 Plug 'junegunn/vim-easy-align'
 " Semantic highlighting
@@ -132,6 +134,7 @@ Plug 'apalmer1377/factorus'
 " Plug 'linkinpark342/xonsh-vim'
 Plug 'stephpy/vim-yaml'
 Plug 'solarnz/thrift.vim'
+Plug 'martinda/Jenkinsfile-vim-syntax'
 
 "COLORSCHEMES
 " about 3 billion colorschemes
@@ -283,43 +286,12 @@ nnoremap <leader>nf :NERDTreeFind<CR>
 
 
 " }}}
-" {{{##### NerdCommenter #####
-imap <C-c> <plug>NERDCommenterInsert
-
-let g:NERDSpaceDelims = 1
-
-
-" }}}
 " {{{##### UltiSnips #####
 let g:UltiSnipsEditSplit = "vertical"
 let g:UltiSnipsExpandTrigger = "<C-Space>"
 let g:UltiSnipsJumpForwardTrigger="<TAB>"
 let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
-
-" }}}
-" {{{##### CCTree #####
-" nnoremap <leader>ct :CCTreeWindowToggle<CR>
-
-" }}}
-" {{{##### ConqueTerm #####
-let g:ConqueTerm_CloseOnEnd = 1
-"Conque spits out an error about CursorHoldI making it run slow.  repress
-"these warnings
-let g:ConqueTerm_StartMessages = 0
-let g:ConqueTerm_ReadUnfocused = 1
-let g:ConqueTerm_ToggleKey = '<F8>'
-
-
-" }}}
-" {{{##### Pyclewn #####
-" Only map keys if we're in Pyclewn
-if has("netbeans_enabled")
-    "nmap <silent> <C-p> :exe ":Cprint " .  expand("<cword>")<CR>
-    nmap <silent> <C-p> "pyiw :Cprint <C-R>p<CR>
-    nmap <silent> <C-x> :exe ":Cdbgvar " .  expand("<cword>")<CR>
-    vmap <silent> <C-p> "py :Cprint <C-R>p<CR>
-endif
 
 " }}}
 " {{{##### YouCompleteMe #####
@@ -388,13 +360,26 @@ let g:multi_cursor_exit_from_insert_mode = 0
 
 " }}}
 " {{{##### Denite #####
-nnoremap <leader>e :Denite file<CR>
-nnoremap <leader>r :Denite file_rec<CR>
-nnoremap <leader>be :Denite -buffer-name=buffer buffer<CR>
-nnoremap <leader>/ :Denite -no-quit -buffer-name=search line:all<CR>
+" nnoremap <leader>e :Denite file<CR>
+" nnoremap <leader>r :Denite file_rec<CR>
+" nnoremap <leader>be :Denite -buffer-name=buffer buffer<CR>
+" nnoremap <leader>/ :Denite -no-quit -buffer-name=search line:all<CR>
 nnoremap <leader>t :Denite outline<CR>
-nnoremap <leader>vg :Denite grep<CR>
-nnoremap <leader>j :Denite jump<CR>
+" nnoremap <leader>vg :Denite grep<CR>
+" nnoremap <leader>j :Denite jump<CR>
+" }}}
+" {{{ ##### FZF #####
+command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap(
+  \ {'source': 'find '.(empty([<f-args>]) ? '.' : expand(<f-args>)).' -type d',
+  \  'sink': 'cd'}))
+
+nnoremap <leader>cd :Cd ~<CR>
+nnoremap <leader><leader>cd :Cd 
+nnoremap <leader>e :Files<CR>
+nnoremap <leader><leader>e :Files ~<CR>
+nnoremap <leader>be :Buffers<CR>
+nnoremap <leader>/ :BLines<CR>
+nnoremap <leader>gst :GFiles!?<CR>
 " }}}
 " {{{##### JSON.vim #####
 augroup json_autocmd
@@ -460,17 +445,18 @@ let g:cpp_experimental_template_highlight = 0
 
 " }}}
 " {{{##### Startify #####
-let g:startify_list_order = [
-        \ ['    MRU files in current directory  [ ' . tlib#string#Strip(system('pwd')) . ' ]'], 'dir',
-        \ ['    MRU files'], 'files',
-        \ ['    Sessions'], 'sessions',
-        \ ['    Commands'], 'commands',
-        \ ['    Bookmarks'], 'bookmarks']
+let g:startify_lists = [
+          \ { 'type': 'dir',       'header': [   'MRU '. getcwd()] },
+          \ { 'type': 'files',     'header': [   'MRU']            },
+          \ { 'type': 'sessions',  'header': [   'Sessions']       },
+          \ { 'type': 'bookmarks', 'header': [   'Bookmarks']      },
+          \ { 'type': 'commands',  'header': [   'Commands']       },
+          \ ]
 
 " let g:startify_bookmarks = [ {'v': '~/.vim/vimrc'} ]
 let g:startify_commands = [
-    \ {'v': 'EditVimrc'},
-    \ {'c': 'EditCustomVimrc'},
+    \ {'rc': 'EditVimrc'},
+    \ {'crc': 'EditCustomVimrc'},
     \ {'p': 'PlugUpdate'}]
 let g:startify_session_delete_buffers = 1
 if has('nvim')
@@ -501,14 +487,45 @@ nnoremap <silent> <F9> :NextColorScheme<CR>
 nnoremap <silent> <S-F9> :PrevColorScheme<CR>
 nnoremap <silent> <leader><F9> :RandomColorScheme<CR>
 " }}}
-" {{{  vim-codi
+" {{{  ##### vim-codi #####
 let g:codi#interpreters = {
   \ 'python': {
-  \   'prompt': '(ins)>>> '
+  \   'prompt': '^(ins)\(>>>\|\.\.\.\) '
   \ },
   \}
-" let codi#log='/Users/william.reed/log/codi.log'
+let codi#log='/home/william/log/codi.log'
 " let codi#autocmd = 'None'
+
+" }}}
+" {{{ ##### nvimux #####
+if exists("g:gui_oni")
+lua << EOF
+local nvimux = require('nvimux')
+
+-- Nvimux configuration
+nvimux.config.set_all{
+  prefix = '<C-a>',
+  new_window = 'term', -- Use 'term' if you want to open a new term for every new window
+  new_tab = nil, -- Defaults to new_window. Set to 'term' if you want a new term for every new tab
+  new_window_buffer = 'single',
+  quickterm_direction = 'botright',
+  quickterm_orientation = 'vertical',
+  quickterm_scope = 't', -- Use 'g' for global quickterm
+  quickterm_size = '80',
+}
+
+-- Nvimux custom bindings
+nvimux.bindings.bind_all{
+  {'-', ':NvimuxHorizontalSplit', {'n', 'v', 'i', 't'}},
+  {'\\|', ':NvimuxVerticalSplit', {'n', 'v', 'i', 't'}},
+  {'<c-l>', ':tabnext', {'n', 'v', 'i', 't'}},
+  {'<c-h>', ':tabprevious', {'n', 'v', 'i', 't'}},
+}
+
+-- Required so nvimux sets the mappings correctly
+nvimux.bootstrap()
+EOF
+endif
 
 " }}}
 
@@ -536,7 +553,14 @@ if has('nvim')
   set inccommand=split
 endif
 " set status line always on
-set laststatus=2
+if exists("g:gui_oni")
+  set noshowmode
+  set noruler
+  set laststatus=0
+  set noshowcmd
+else
+  set laststatus=2
+endif
 " turn vim's mode printing off.  Airline takes care of this
 set noshowmode
 " shorten the pause after leaving insert mode
@@ -599,8 +623,9 @@ augroup folding_settings
   autocmd FileType python,xonsh,yaml,thrift set foldmethod=indent
 augroup END
 
-" see xonsh files as python files
+" set filetype options
 au BufNewFile,BufRead *.xsh set filetype=python
+au BufNewFile,BufRead Dockerfile* set filetype=dockerfile
 
 set wildmode=longest:full
 
@@ -637,6 +662,20 @@ if has("nvim")
   vnoremap K <Esc>:call KeywordNvimVisual()<CR>
 endif
 
+
+let g:clipboard = {
+      \   'name': 'My xsel',
+      \   'copy': {
+      \      '+': 'xsel -i',
+      \      '*': 'xsel -ib',
+      \    },
+      \   'paste': {
+      \      '+': 'xsel -i',
+      \      '*': 'xsel -ib',
+      \   },
+      \   'cache_enabled': 1,
+      \ }
+
 " }}}
 
 
@@ -652,13 +691,15 @@ augroup END
 
 syntax on
 autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000000 | syntax clear | endif
-if has('nvim')
-  set termguicolors
-  " colorscheme base16-ocean
-  colorscheme base16-eighties
-  " colorscheme base16-solarized-dark
-else
-  colorscheme cobalt
+if !exists("g:gui_oni")
+  if has('nvim')
+    set termguicolors
+    " colorscheme base16-ocean
+    colorscheme base16-eighties
+    " colorscheme base16-solarized-dark
+  else
+    colorscheme cobalt
+  endif
 endif
 
 " Solarized settings
@@ -855,6 +896,9 @@ nnoremap <silent> scc :set cursorcolumn!<CR>
 
 " insert command at line
 inoremap <C-r>! <C-\><C-O>:let @r=system("")<left><left>
+
+" terminal escape
+" tnoremap <Esc><Esc> <C-\><C-N>
 
 " }}}
 
