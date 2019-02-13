@@ -14,8 +14,16 @@ call plug#begin('~/.vim/bundle')
 if !exists("g:gui_oni")
   " As-you-type semantic completion.
   " Plug 'Valloric/YouCompleteMe', { 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'], 'do': './install.py'}
-  Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --go-completer'}
-  autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
+  " Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py'}
+  " autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  let g:deoplete#enable_at_startup = 1
+  Plug 'davidhalter/jedi-vim'
+  Plug 'zchee/deoplete-jedi'
+  Plug 'zchee/deoplete-go', { 'do': 'make'}
+  let g:deoplete#sources#go#gocode_binary = '/home/william/go/bin/gocode'
+  Plug 'Shougo/neco-vim'
+
   " Matching things in insert mode
   Plug 'Raimondi/delimitMate'
   " Make vim priiiiity
@@ -60,7 +68,7 @@ Plug 'janko-m/vim-test'
 " Plug 'Lokaltog/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 " Allows multiple cursors at once.  very useful
-Plug 'wreed4/vim-multiple-cursors'
+" Plug 'wreed4/vim-multiple-cursors'
 " Dependency for vim-snippets
 Plug 'tomtom/tlib_vim'
 " A library of snippets that work with Utilsnip
@@ -135,6 +143,7 @@ Plug 'apalmer1377/factorus'
 Plug 'stephpy/vim-yaml'
 Plug 'solarnz/thrift.vim'
 Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'mustache/vim-mustache-handlebars'
 
 "COLORSCHEMES
 " about 3 billion colorschemes
@@ -295,50 +304,52 @@ let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
 " }}}
 " {{{##### YouCompleteMe #####
-" Do not open preview window when completing
-" set completeopt=menuone
-" let g:ycm_add_preview_to_completeopt = 0
-" Auto Close preview window
-let g:ycm_autoclose_preview_window_after_insertion = 1
-" Disable Tab for cycling through commands so that UtilSnips will still work
-let g:ycm_key_list_select_completion=['<Down>']
-let g:ycm_key_list_previous_completion=['<Up>']
-let g:ycm_collect_identifiers_from_tags_files=0
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
-let g:ycm_complete_in_comments = 1
-let g:ycm_key_invoke_completion = '<C-N>'
-"let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_use_ultisnips_completer = 1
-let g:ycm_filetype_blacklist = {
-            \ 'tagbar' : 1,
-            \ 'nerdtree': 1,
-            \ 'qf' : 1,
-            \ 'notes' : 1,
-            \ 'unite' : 1,
-            \ 'vimwiki' : 1,
-            \ 'pandoc' : 1,
-            \ 'infolog' : 1,
-            \ 'mail' : 1
-            \}
+"" Do not open preview window when completing
+"" set completeopt=menuone
+"" let g:ycm_add_preview_to_completeopt = 0
+"" Auto Close preview window
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+"" Disable Tab for cycling through commands so that UtilSnips will still work
+"let g:ycm_key_list_select_completion=['<Down>']
+"let g:ycm_key_list_previous_completion=['<Up>']
+"let g:ycm_collect_identifiers_from_tags_files=0
+"let g:ycm_collect_identifiers_from_comments_and_strings = 0
+"let g:ycm_complete_in_comments = 1
+"let g:ycm_key_invoke_completion = '<C-N>'
+""let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
+"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"let g:ycm_use_ultisnips_completer = 1
+"let g:ycm_filetype_blacklist = {
+"            \ 'tagbar' : 1,
+"            \ 'nerdtree': 1,
+"            \ 'qf' : 1,
+"            \ 'notes' : 1,
+"            \ 'unite' : 1,
+"            \ 'vimwiki' : 1,
+"            \ 'pandoc' : 1,
+"            \ 'infolog' : 1,
+"            \ 'mail' : 1
+"            \}
 
-" Python3 completion by default
-" let g:ycm_python_binary_path = system('readlink -f ' . system('which python3'))
-let g:ycm_python_binary_path = 'python3'
-let g:ycm_server_keep_logfile=1
+"" Python3 completion by default
+"" let g:ycm_python_binary_path = system('readlink -f ' . system('which python3'))
+"let g:ycm_python_binary_path = 'python3'
+"let g:ycm_server_keep_logfile=1
 
-" Mappings
-nnoremap <leader>] :YcmCompleter GoTo<CR>
-nnoremap <leader>[ :YcmCompleter GoToReferences<CR>
-nnoremap <leader>gt :YcmCompleter GetType<CR>
-nnoremap <leader>gp :YcmCompleter GetParent<CR>
-nnoremap <leader>gd :YcmCompleter GetDoc<CR>
-nnoremap <leader>= :YcmCompleter FixIt<CR>
+"" Mappings
+"nnoremap <leader>] :YcmCompleter GoTo<CR>
+"nnoremap <leader>[ :YcmCompleter GoToReferences<CR>
+"nnoremap <leader>gt :YcmCompleter GetType<CR>
+"nnoremap <leader>gp :YcmCompleter GetParent<CR>
+"nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+"nnoremap <leader>= :YcmCompleter FixIt<CR>
 
-nnoremap <silent> <F1> :YcmDiags<CR>
-nnoremap <silent> <leader><F1> :YcmForceCompileAndDiagnostics<CR>
+"nnoremap <silent> <F1> :YcmDiags<CR>
+"nnoremap <silent> <leader><F1> :YcmForceCompileAndDiagnostics<CR>
 
 
+" }}}
+" {{{##### Deoplete #####
 " }}}
 " {{{##### Multiple Cursors #####
 let g:multi_cursor_exit_from_insert_mode = 0
@@ -372,6 +383,21 @@ nnoremap <leader>t :Denite outline<CR>
 command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap(
   \ {'source': 'find '.(empty([<f-args>]) ? '.' : expand(<f-args>)).' -type d',
   \  'sink': 'cd'}))
+
+function! s:delete_items(lines)
+  echo type(a:lines)
+  sleep 3
+endfunction
+
+command! -nargs=* -bang BufferDelete 
+  \ call fzf#vim#buffers(<q-args>, {'sink': function('s:delete_items')}, <bang>0)
+
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:delete_items'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 nnoremap <leader>cd :Cd ~<CR>
 nnoremap <leader><leader>cd :Cd 
@@ -527,6 +553,27 @@ nvimux.bootstrap()
 EOF
 endif
 
+" }}}
+" {{{ ##### vim-fugitive #####
+augroup rebase_tools
+  autocmd!
+  autocmd FileType gitrebase nnoremap <buffer> <leader>] :Gedit <c-r><c-w><CR>
+  autocmd FileType gitrebase nnoremap <buffer> <leader>p :Pick <CR>
+  autocmd FileType gitrebase nnoremap <buffer> <leader>r :Reword <CR>
+  autocmd FileType gitrebase nnoremap <buffer> <leader>e :Edit <CR>
+  autocmd FileType gitrebase nnoremap <buffer> <leader>sq :Squash <CR>
+  autocmd FileType gitrebase nnoremap <buffer> <leader>f :Fixup <CR>
+augroup END
+
+command! Jenkins execute 'Gcommit -a --fixup=HEAD' | Gpush
+" }}}
+" {{{ ##### Jedi #####
+let g:jedi#completions_enabled = 0
+let g:jedi#goto_command = "<leader>]"
+" }}}
+" {{{ ##### vim-go #####
+let g:go_def_mapping_enabled = 0
+autocmd FileType go nmap <leader>] :GoDef<CR>
 " }}}
 
 " }}}
@@ -886,7 +933,7 @@ nnoremap <leader>q :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><le
 
 " go back and delete last buffer (dangerous if the going back doesn't bring
 " you to another buffer
-nnoremap <M-C-O> <C-o>:bd! #<CR>
+nnoremap <M-C-O> <C-^>:bd! #<CR>
 
 " toggle number
 nnoremap <silent> -- :set number!<CR>
@@ -900,9 +947,14 @@ inoremap <C-r>! <C-\><C-O>:let @r=system("")<left><left>
 " terminal escape
 " tnoremap <Esc><Esc> <C-\><C-N>
 
+nnoremap <silent> bn :bn<CR>
+nnoremap <silent> bp :bp<CR>
+
 " }}}
 
 "{{{ ***** COMMANDS ***** "
+" I caved
+command! W w
 
 " Terminal commands
 command! -nargs=0 VTerm vsplit term://bash
