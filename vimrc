@@ -167,6 +167,8 @@ Plug 'xolox/vim-colorscheme-switcher', { 'on': [ 'NextColorScheme', 'PrevColorSc
 
 "Machine-specific plugins
 Plug 'gisraptor/vim-lilypond-integrator', {'frozen': 1, 'for': ['lilypond']}
+Plug 'hashivim/vim-terraform'
+Plug 'andrewstuart/vim-kubernetes'
 
 
 " end installed plugins
