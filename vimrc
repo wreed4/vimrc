@@ -10,19 +10,24 @@ let g:python3_host_prog= expand('$HOME') . '/.pyenv/versions/neovim3/bin/python'
 set nocompatible
 call plug#begin('~/.vim/bundle')
 
-" ***** plugins we only want in true vim. 
+" ***** plugins we only want in true vim.
 if !exists("g:gui_oni")
   " As-you-type semantic completion.
   " Plug 'Valloric/YouCompleteMe', { 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'], 'do': './install.py'}
   " Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py'}
   " autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  let g:deoplete#enable_at_startup = 1
-  Plug 'davidhalter/jedi-vim'
-  Plug 'zchee/deoplete-jedi'
-  Plug 'zchee/deoplete-go', { 'do': 'make'}
-  let g:deoplete#sources#go#gocode_binary = '/home/william/go/bin/gocode'
-  Plug 'Shougo/neco-vim'
+
+  " Deoplete
+  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  " let g:deoplete#enable_at_startup = 1
+  " Plug 'davidhalter/jedi-vim'
+  " Plug 'zchee/deoplete-jedi'
+  " Plug 'zchee/deoplete-go', { 'do': 'make'}
+  " let g:deoplete#sources#go#gocode_binary = '/home/william/go/bin/gocode'
+  " Plug 'Shougo/neco-vim'
+
+  " coc.nvim
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   " Matching things in insert mode
   Plug 'Raimondi/delimitMate'
@@ -136,6 +141,10 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'metakirby5/codi.vim'
 " Code refactoring
 Plug 'apalmer1377/factorus'
+" Markdown viewing
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+" Behave integration
+Plug 'avanzzzi/behave.vim', {'for': 'cucumber'}
 
 
 "SYNTAX Files
@@ -365,7 +374,7 @@ let g:multi_cursor_exit_from_insert_mode = 0
 "nnoremap <leader>r :<C-u>Unite  -buffer-name=mru  -start-insert  file_mru<CR>
 "nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
 "nnoremap <leader>j :<C-u>Unite  -buffer-name=jump    jump<CR>
-"nnoremap <leader>be :<C-u>Unite -buffer-name=buffer buffer<CR>
+" nnoremap <leader>be :<C-u>Unite -buffer-name=buffer buffer<CR>
 "nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search -start-insert line:all<CR>
 "nnoremap <leader>vg :<C-u>Unite -buffer-name=vimgrep vimgrep<CR>
 ""
@@ -386,26 +395,27 @@ command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap(
   \ {'source': 'find '.(empty([<f-args>]) ? '.' : expand(<f-args>)).' -type d',
   \  'sink': 'cd'}))
 
-function! s:delete_items(lines)
-  echo type(a:lines)
-  sleep 3
+function! Bufs()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
 endfunction
 
-command! -nargs=* -bang BufferDelete 
-  \ call fzf#vim#buffers(<q-args>, {'sink': function('s:delete_items')}, <bang>0)
+command! BufferDelete call fzf#run(fzf#wrap({
+  \ 'source': Bufs(),
+  \ 'sink*': { lines -> execute('bwipeout '.join(map(lines, {_, line -> split(line)[0]}))) },
+  \ 'options': '--multi --bind ctrl-a:select-all+accept --prompt BufDelete'
+\ }))
 
-
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:delete_items'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+  " \ 'options': '+m -x --tiebreak=index --header-lines=1 --ansi -d \t -n "2,1..2" --prompt BufDelete>'
 
 nnoremap <leader>cd :Cd ~<CR>
-nnoremap <leader><leader>cd :Cd 
+nnoremap <leader><leader>cd :Cd
 nnoremap <leader>e :Files<CR>
 nnoremap <leader><leader>e :Files ~<CR>
 nnoremap <leader>be :Buffers<CR>
+nnoremap <leader>bd :BufferDelete<CR>
 nnoremap <leader>/ :BLines<CR>
 nnoremap <leader>gst :GFiles!?<CR>
 " }}}
@@ -521,7 +531,7 @@ let g:codi#interpreters = {
   \   'prompt': '^(ins)\(>>>\|\.\.\.\) '
   \ },
   \}
-let codi#log='/home/william/log/codi.log'
+" let codi#log='/home/william/log/codi.log'
 " let codi#autocmd = 'None'
 
 " }}}
@@ -560,11 +570,11 @@ endif
 augroup rebase_tools
   autocmd!
   autocmd FileType gitrebase nnoremap <buffer> <leader>] :Gedit <c-r><c-w><CR>
-  autocmd FileType gitrebase nnoremap <buffer> <leader>p :Pick <CR>
-  autocmd FileType gitrebase nnoremap <buffer> <leader>r :Reword <CR>
-  autocmd FileType gitrebase nnoremap <buffer> <leader>e :Edit <CR>
-  autocmd FileType gitrebase nnoremap <buffer> <leader>sq :Squash <CR>
-  autocmd FileType gitrebase nnoremap <buffer> <leader>f :Fixup <CR>
+  autocmd FileType gitrebase nnoremap <buffer> <leader>p :Pick <CR>j
+  autocmd FileType gitrebase nnoremap <buffer> <leader>r :Reword <CR>j
+  autocmd FileType gitrebase nnoremap <buffer> <leader>e :Edit <CR>j
+  autocmd FileType gitrebase nnoremap <buffer> <leader>sq :Squash <CR>j
+  autocmd FileType gitrebase nnoremap <buffer> <leader>f :Fixup <CR>j
 augroup END
 
 command! Jenkins execute 'Gcommit -a --fixup=HEAD' | Gpush
@@ -575,7 +585,42 @@ let g:jedi#goto_command = "<leader>]"
 " }}}
 " {{{ ##### vim-go #####
 let g:go_def_mapping_enabled = 0
-autocmd FileType go nmap <leader>] :GoDef<CR>
+augroup vimgosettings
+  " autocmd FileType go nmap <leader>] :GoDef<CR>
+  au FileType go nmap <F4> <Plug>(go-test)
+  au FileType go nmap <leader><F4> <Plug>(go-lint)
+  au FileType go nmap <F3> <Plug>(go-build)
+  au FileType go nmap <leader><F3> <Plug>(go-install)
+  au FileType go nmap <F2> <Plug>(go-imports)
+  au FileType go nmap <leader>ie <Plug>(go-iferr)
+augroup END
+" }}}
+" {{{ ##### coc.nvim #####
+nmap <silent> <leader>] <Plug>(coc-definition)
+" nmap <silent> gf <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>r <Plug>(coc-rename)
+" }}}
+" {{{ ##### instant-markdown-viewer #####
+let g:instant_markdown_python = 1
 " }}}
 
 " }}}
@@ -610,6 +655,9 @@ if exists("g:gui_oni")
 else
   set laststatus=2
 endif
+
+set shortmess+=c
+
 " turn vim's mode printing off.  Airline takes care of this
 set noshowmode
 " shorten the pause after leaving insert mode
@@ -649,9 +697,10 @@ set undofile
 set undodir=~/.vim/undodir
 
 " format options
-" set expandtab
+set expandtab
 " set shiftwidth=4
 " set softtabstop=4
+set tabstop=4
 set autoindent
 set nosmartindent
 set cindent
@@ -706,10 +755,10 @@ function! KeywordNvimVisual()
   let @" = l:saved_reg
 endfunction
 
-if has("nvim")
-  nnoremap K :call KeywordNvim(expand("<cword>"))<CR>
-  vnoremap K <Esc>:call KeywordNvimVisual()<CR>
-endif
+" if has("nvim")
+"   nnoremap K :call KeywordNvim(expand("<cword>"))<CR>
+"   vnoremap K <Esc>:call KeywordNvimVisual()<CR>
+" endif
 
 
 let g:clipboard = {
@@ -948,9 +997,6 @@ inoremap <C-r>! <C-\><C-O>:let @r=system("")<left><left>
 
 " terminal escape
 " tnoremap <Esc><Esc> <C-\><C-N>
-
-nnoremap <silent> bn :bn<CR>
-nnoremap <silent> bp :bp<CR>
 
 " }}}
 
