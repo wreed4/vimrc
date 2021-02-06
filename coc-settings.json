@@ -1,21 +1,41 @@
 {
   "python.jediEnabled": false,
- "languageserver": {
+  "languageserver": {
     "golang": {
       "command": "gopls",
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     },
-	"dockerfile": {
+    "dockerfile": {
       "command": "docker-langserver",
       "filetypes": ["dockerfile"],
       "args": ["--stdio"]
     },
-	 "bash": {
+    "bash": {
       "command": "bash-language-server",
       "args": ["start"],
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
+    },
+    "python": {
+      "command": "python",
+      "args": [
+	"-mpyls",
+	"-vv"
+      ],
+      "filetypes": [
+	"python"
+      ],
+      "settings": {
+	"pyls": {
+	  "enable": true,
+	  "plugins": {
+	    "pyls_mypy": {
+	      "enabled": true
+	    }
+	  }
+	}
+      }
     }
   }
 }

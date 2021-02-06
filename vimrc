@@ -620,7 +620,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>r <Plug>(coc-rename)
 " }}}
 " {{{ ##### instant-markdown-viewer #####
-let g:instant_markdown_python = 1
+" let g:instant_markdown_python = 1
 " }}}
 
 " }}}
@@ -725,6 +725,12 @@ augroup END
 au BufNewFile,BufRead *.xsh set filetype=python
 au BufNewFile,BufRead Dockerfile* set filetype=dockerfile
 
+" md options
+augroup md_settings
+  autocmd FileType markdown set textwidth=80
+  autocmd FileType markdown set nocindent
+augroup END
+
 set wildmode=longest:full
 
 " switch ' and `
@@ -774,6 +780,10 @@ let g:clipboard = {
       \   'cache_enabled': 1,
       \ }
 
+" comment strings
+augroup comment_strings
+  autocmd FileType python set commentstring=#\ %s
+augroup END
 " }}}
 
 
