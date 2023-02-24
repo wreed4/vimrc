@@ -585,6 +585,8 @@ let g:jedi#goto_command = "<leader>]"
 " }}}
 " {{{ ##### vim-go #####
 let g:go_def_mapping_enabled = 0
+let g:go_fmt_experimental = 1  " retains folds on save (For some reason) https://github.com/fatih/vim-go/issues/502
+
 augroup vimgosettings
   " autocmd FileType go nmap <leader>] :GoDef<CR>
   au FileType go nmap <F4> <Plug>(go-test)
@@ -605,6 +607,8 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+let g:coc_node_path = '/snap/bin/node'
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -621,6 +625,7 @@ nmap <leader>r <Plug>(coc-rename)
 " }}}
 " {{{ ##### instant-markdown-viewer #####
 " let g:instant_markdown_python = 1
+let g:instant_markdown_autostart = 0
 " }}}
 
 " }}}
@@ -923,7 +928,7 @@ nnoremap <leader>O O<ESC>
 nnoremap <leader>c cc<ESC>
 
 " Exit insert mode and put ';' at the end of the line
-inoremap ;<Esc> <Esc>A;<Esc>
+" inoremap ;<Esc> <Esc>A;<Esc>
 
 " Open tag in new tab
 nnoremap <M-]> <C-W><C-]><C-W>T
