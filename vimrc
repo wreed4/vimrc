@@ -1013,6 +1013,9 @@ inoremap <C-r>! <C-\><C-O>:let @r=system("")<left><left>
 " terminal escape
 " tnoremap <Esc><Esc> <C-\><C-N>
 
+" enter selects menu entry
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+
 " }}}
 
 "{{{ ***** COMMANDS ***** "
