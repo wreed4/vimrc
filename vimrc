@@ -143,6 +143,7 @@ Plug 'metakirby5/codi.vim'
 Plug 'apalmer1377/factorus'
 " Markdown viewing
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Behave integration
 Plug 'avanzzzi/behave.vim', {'for': 'cucumber'}
 
@@ -627,6 +628,13 @@ nmap <leader>r <Plug>(coc-rename)
 " let g:instant_markdown_python = 1
 let g:instant_markdown_autostart = 0
 " }}}
+" {{{ ##### markdown-preview #####
+let g:mkdp_preview_options = {
+  \'maid': {
+  \  "maxTextSize": 99999999,
+   \},
+ \}
+" }}}
 
 " }}}
 
@@ -734,6 +742,7 @@ au BufNewFile,BufRead Dockerfile* set filetype=dockerfile
 augroup md_settings
   autocmd FileType markdown set textwidth=80
   autocmd FileType markdown set nocindent
+  autocmd FileType markdown set spell
 augroup END
 
 set wildmode=longest:full
@@ -1013,8 +1022,13 @@ inoremap <C-r>! <C-\><C-O>:let @r=system("")<left><left>
 " terminal escape
 " tnoremap <Esc><Esc> <C-\><C-N>
 
-" enter selects menu entry
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+" enter selects menu entry (<CR> is already remaped by delimitMate, so
+" hardcode what it does to mimic behavior)
+imap <expr> <CR> pumvisible() ? "\<C-Y>" : "<Plug>delimitMateCR"
+
+" base64 decode selected text
+:vnoremap <leader>64 d:let @@ = system('base64 --decode', @")<cr><esc>o<esc>p
+
 
 " }}}
 
