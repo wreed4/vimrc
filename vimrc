@@ -16,69 +16,31 @@ call plug#begin('~/.vim/bundle')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " tree-sitter - syntax parsing
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-
-" **** Basic editing and functionality
-
-" Matching things in insert mode
-Plug 'Raimondi/delimitMate'
-
-
-" **** UX enhancements
-
-" Make vim priiiiity
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-"
-" Comments
-" Way more lightweight comment plugin
-Plug 'tpope/vim-commentary'
-" Comment text objects (depends on the following
-" Plug 'glts/vim-textobj-comment'
-" define you're own text objects!!
-" Plug 'kana/vim-textobj-user'
-
-" Shows file browser. (replaces netrw and :Explore)
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']}
-" show tabs up on top prettily
-Plug 'mkitt/tabline.vim'
-" shows an outline of all Tags in a file
-Plug 'majutsushi/tagbar'
 " Snippet completion
 Plug 'SirVer/ultisnips' ", { 'on': []}
-" Asynchonous building and launching of programs
-Plug 'tpope/vim-dispatch'
-Plug '5long/pytest-vim-compiler'
-" Makes motions way better.  lets you jump anywhere on the screen
-" Run tests
-" Plug 'janko-m/vim-test'
-" Plug 'Lokaltog/vim-easymotion'
-Plug 'justinmk/vim-sneak'
-" Allows multiple cursors at once.  very useful
-" Plug 'wreed4/vim-multiple-cursors'
 " Dependency for vim-snippets
 Plug 'tomtom/tlib_vim'
 " A library of snippets that work with Utilsnip
 Plug 'honza/vim-snippets'
-" ability to surround text objects with things like quotes or parens
-Plug 'tpope/vim-surround'
+" Asynchonous building and launching of programs
+Plug 'tpope/vim-dispatch'
+Plug '5long/pytest-vim-compiler'
+" Run tests
+" Plug 'janko-m/vim-test'
 " Amazing plugin that makes a lot of things obsolete...
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/denite.nvim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neoyank.vim'
+"Plug 'Shougo/unite.vim'
+"Plug 'Shougo/denite.nvim'
+"Plug 'Shougo/neomru.vim'
+"Plug 'Shougo/neoyank.vim'
 " Plug 'Shougo/unite-outline'
-" Make Tmux pretty
-Plug 'edkolev/tmuxline.vim'
-" switch between header files easily
-Plug 'vim-scripts/a.vim'
-" pretty JSON stuff
-Plug 'elzr/vim-json'
 " Diff directories quickly and powerfully
 Plug 'will133/vim-dirdiff'
-" Enable nested vimrc files
-" Plug 'wreed4/vim-lvimrc'
+" Diff individual sections of code
+Plug 'AndrewRadev/linediff.vim'
+" Show differences with style
+Plug 'mhinz/vim-signify'
+" Better diffs (optionaly)
+Plug 'chrisbra/vim-diff-enhanced'
 " Gives a graphical view of vim's undo tree (replaced by neovim-compatible
 " fork)
 "Plugin 'sjl/gundo.vim'
@@ -89,50 +51,75 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 " Easy alignment
 Plug 'junegunn/vim-easy-align'
-" Fancy start screen
-Plug 'mhinz/vim-startify'
-" Better text objects
-Plug 'wellle/targets.vim'
-" Diff individual sections of code
-Plug 'AndrewRadev/linediff.vim'
-" Pull in code from the internet
-" Plug 'kasandell/Code-Pull'
-" Heuristically set indent settings
-Plug 'tpope/vim-sleuth'
-" Show differences with style
-Plug 'mhinz/vim-signify'
-" Write outlines in vim
-" Plug 'vimoutliner/vimoutliner'
-" Better diffs (optionaly)
-Plug 'chrisbra/vim-diff-enhanced'
 " command line fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Startup time analyzer
-" Plug 'dstein64/vim-startuptime'
-" coding in GO
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+
+
+" **** Basic editing and functionality
+
+" Matching things in insert mode
+Plug 'Raimondi/delimitMate'
+" Comments
+" Way more lightweight comment plugin
+Plug 'tpope/vim-commentary'
+" Makes motions way better.  lets you jump anywhere on the screen
+" Plug 'Lokaltog/vim-easymotion'
+Plug 'justinmk/vim-sneak'
+" ability to surround text objects with things like quotes or parens
+Plug 'tpope/vim-surround'
+" Better text objects
+Plug 'wellle/targets.vim'
+" Heuristically set indent settings
+Plug 'tpope/vim-sleuth'
 " Better ways to deal with extra whitespace
 Plug 'ntpeters/vim-better-whitespace'
-"Interactive Code Scratchpad
-" Plug 'metakirby5/codi.vim'
-" Code refactoring
-" Plug 'apalmer1377/factorus'
+
+" **** Language-specific plugins
+
+" switch between header files easily
+Plug 'vim-scripts/a.vim'
+" pretty JSON stuff
+Plug 'elzr/vim-json'
+" coding in GO
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Markdown viewing
 " Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Behave integration
 Plug 'avanzzzi/behave.vim', {'for': 'cucumber'}
+Plug 'gisraptor/vim-lilypond-integrator', {'frozen': 1, 'for': ['lilypond']}
+Plug 'hashivim/vim-terraform'
+Plug 'andrewstuart/vim-kubernetes'
 
 
-"SYNTAX Files
+" **** UX enhancements
+
+" Make vim priiiiity
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Make Tmux pretty
+Plug 'edkolev/tmuxline.vim'
+" Shows file browser. (replaces netrw and :Explore)
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']}
+" show tabs up on top prettily
+Plug 'mkitt/tabline.vim'
+" shows an outline of all Tags in a file
+Plug 'majutsushi/tagbar'
+" Fancy start screen
+Plug 'mhinz/vim-startify'
+
+
+" **** SYNTAX Files
+
 " Plug 'linkinpark342/xonsh-vim'
 Plug 'stephpy/vim-yaml'
 Plug 'solarnz/thrift.vim'
 Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'mustache/vim-mustache-handlebars'
 
-"COLORSCHEMES
+" **** COLORSCHEMES
+
 " about 3 billion colorschemes
 " Plug 'flazz/vim-colorschemes'
 " Plug 'altercation/vim-colors-solarized'
@@ -146,56 +133,19 @@ Plug 'nightsense/vim-crunchbang'
 Plug 'gkjgh/cobalt'
 Plug 'exitface/synthwave.vim'
 " Plug 'jnurmine/Zenburn'
-
-" Semantic highlighting
-" Plug 'jaxbot/semantic-highlight.vim'
-" Additional highlighting for cpp
-" Plug 'octol/vim-cpp-enhanced-highlight'
-"
 " Plugin to quickly switch color schemes
 Plug 'xolox/vim-misc', { 'on': [ 'NextColorScheme', 'PrevColorScheme', 'RandomColorScheme' ] }
 Plug 'xolox/vim-colorscheme-switcher', { 'on': [ 'NextColorScheme', 'PrevColorScheme', 'RandomColorScheme' ] }
 
 
-"Machine-specific plugins
-Plug 'gisraptor/vim-lilypond-integrator', {'frozen': 1, 'for': ['lilypond']}
-Plug 'hashivim/vim-terraform'
-Plug 'andrewstuart/vim-kubernetes'
-
 
 " end installed plugins
 call plug#end()
-
-" augroup load_us_ycm
-    " autocmd!
-    " autocmd! InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
-                        " \| call youcompleteme#Enable() | autocmd! load_us_ycm
-" augroup END
-
-
-
-
-
-" #####Pathogen#####
-" call pathogen#infect()
-" call pathogen#helptags()
 
 " }}}
 
 "{{{ ***** PLUGIN SETTINGS ***** "
 
-" {{{##### PyMode #####
-"let pymode_lint_ignore="E501,E401,E225,W191,W391,W404"
-" use rope code assist instead of a complete function
-" au FileType python inoremap <expr> <S-Space> '<C-r>=RopeCodeAssistInsertMode()<CR><C-r>=pumvisible() ? "\<lt>C-p>\<lt>Down>" : ""<CR>'
-" }}}
-" {{{##### Tlist #####
-" Toggle tag list
-"nnoremap <C-T> :TlistToggle<CR>
-"}}}
-" {{{##### EasyMotion #####
-" nmap <Leader><Leader>s <Plug>(easymotion-sn)
-" }}}
 " {{{##### Vim-Sneak #####
 let g:sneak#label = 1
 
@@ -297,82 +247,6 @@ let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
 " }}}
-" {{{##### YouCompleteMe #####
-"" Do not open preview window when completing
-"" set completeopt=menuone
-"" let g:ycm_add_preview_to_completeopt = 0
-"" Auto Close preview window
-"let g:ycm_autoclose_preview_window_after_insertion = 1
-"" Disable Tab for cycling through commands so that UtilSnips will still work
-"let g:ycm_key_list_select_completion=['<Down>']
-"let g:ycm_key_list_previous_completion=['<Up>']
-"let g:ycm_collect_identifiers_from_tags_files=0
-"let g:ycm_collect_identifiers_from_comments_and_strings = 0
-"let g:ycm_complete_in_comments = 1
-"let g:ycm_key_invoke_completion = '<C-N>'
-""let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
-"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-"let g:ycm_use_ultisnips_completer = 1
-"let g:ycm_filetype_blacklist = {
-"            \ 'tagbar' : 1,
-"            \ 'nerdtree': 1,
-"            \ 'qf' : 1,
-"            \ 'notes' : 1,
-"            \ 'unite' : 1,
-"            \ 'vimwiki' : 1,
-"            \ 'pandoc' : 1,
-"            \ 'infolog' : 1,
-"            \ 'mail' : 1
-"            \}
-
-"" Python3 completion by default
-"" let g:ycm_python_binary_path = system('readlink -f ' . system('which python3'))
-"let g:ycm_python_binary_path = 'python3'
-"let g:ycm_server_keep_logfile=1
-
-"" Mappings
-"nnoremap <leader>] :YcmCompleter GoTo<CR>
-"nnoremap <leader>[ :YcmCompleter GoToReferences<CR>
-"nnoremap <leader>gt :YcmCompleter GetType<CR>
-"nnoremap <leader>gp :YcmCompleter GetParent<CR>
-"nnoremap <leader>gd :YcmCompleter GetDoc<CR>
-"nnoremap <leader>= :YcmCompleter FixIt<CR>
-
-"nnoremap <silent> <F1> :YcmDiags<CR>
-"nnoremap <silent> <leader><F1> :YcmForceCompileAndDiagnostics<CR>
-
-
-" }}}
-" {{{##### Deoplete #####
-" }}}
-" {{{##### Multiple Cursors #####
-let g:multi_cursor_exit_from_insert_mode = 0
-
-" }}}
-" {{{##### Unite #####
-"let g:unite_source_history_yank_enable = 1
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-""nnoremap <leader>t :<C-u>Unite  -buffer-name=files   -start-insert file_rec/async:!<CR>
-"nnoremap <leader>e :<C-u>Unite -buffer-name=files -toggle file<CR>
-"nnoremap <leader>r :<C-u>Unite  -buffer-name=mru  -start-insert  file_mru<CR>
-"nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
-"nnoremap <leader>j :<C-u>Unite  -buffer-name=jump    jump<CR>
-" nnoremap <leader>be :<C-u>Unite -buffer-name=buffer buffer<CR>
-"nnoremap <leader>/ :<C-u>Unite -keep-focus -no-quit -buffer-name=search -start-insert line:all<CR>
-"nnoremap <leader>vg :<C-u>Unite -buffer-name=vimgrep vimgrep<CR>
-""
-"nnoremap <leader>t :<C-u>Unite -buffer-name=outline -no-split -start-insert outline<CR>
-
-" }}}
-" {{{##### Denite #####
-" nnoremap <leader>e :Denite file<CR>
-" nnoremap <leader>r :Denite file_rec<CR>
-" nnoremap <leader>be :Denite -buffer-name=buffer buffer<CR>
-" nnoremap <leader>/ :Denite -no-quit -buffer-name=search line:all<CR>
-nnoremap <leader>t :Denite outline<CR>
-" nnoremap <leader>vg :Denite grep<CR>
-" nnoremap <leader>j :Denite jump<CR>
-" }}}
 " {{{ ##### FZF #####
 command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap(
   \ {'source': 'find '.(empty([<f-args>]) ? '.' : expand(<f-args>)).' -type d',
@@ -393,8 +267,8 @@ command! BufferDelete call fzf#run(fzf#wrap({
 
   " \ 'options': '+m -x --tiebreak=index --header-lines=1 --ansi -d \t -n "2,1..2" --prompt BufDelete>'
 
-nnoremap <leader>cd :Cd ~<CR>
-nnoremap <leader><leader>cd :Cd
+nnoremap <leader>cd :Cd<CR>
+nnoremap <leader><leader>cd :Cd ~<CR>
 nnoremap <leader>e :Files<CR>
 nnoremap <leader><leader>e :Files ~<CR>
 nnoremap <leader>be :Buffers<CR>
@@ -425,13 +299,6 @@ let g:mundo_playback_delay = 300
 let g:mundo_preview_bottom = 1
 
 " }}}
-" {{{##### UndoTree #####
-" nnoremap <leader>u :UndotreeToggle<CR>
-" let g:undotree_WindowLayout = 2
-" let g:undotree_SetFocusWhenToggle = 1
-
-
-" }}}
 " {{{##### EasyAlign #####
 vmap <Enter> <Plug>(LiveEasyAlign)
 
@@ -440,29 +307,6 @@ vmap <Enter> <Plug>(LiveEasyAlign)
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 1
 imap <c-l> <Plug>delimitMateS-Tab
-
-" }}}
-" {{{##### Semantic-Highlight.vim #####
-let g:semanticBlacklistOverride = {
-    \'cpp': [
-    \   'auto', 'const', 'double', 'float', 'int', 'short',
-    \   'struct', 'unsigned', 'break', 'continue', 'else', 'for',
-    \   'long', 'signed', 'switch', 'void', 'case', 'default',
-    \    'enum', 'goto', 'register', 'sizeof', 'typedef', 'volatile',
-    \   'char', 'do', 'extern', 'if', 'return', 'static',
-    \   'union', 'while', 'asm', 'dynamic_cast', 'namespace', 'reinterpret_cast',
-    \   'try', 'bool', 'explicit', 'new', 'static_cast', 'typeid',
-    \    'catch', 'false', 'operator', 'template', 'typename', 'class',
-    \   'friend', 'private', 'this', 'using', 'const_cast', 'inline',
-    \   'public', 'throw', 'virtual', 'delete', 'mutable', 'protected',
-    \   'true', 'wchar_t', 'assert'
-    \ ]
-\ }
-
-" }}}
-" {{{##### vim-cpp-enhanced-highlight #####
-let g:cpp_class_scope_highlight=0
-let g:cpp_experimental_template_highlight = 0
 
 " }}}
 " {{{##### Startify #####
@@ -508,47 +352,6 @@ nnoremap <silent> <F9> :NextColorScheme<CR>
 nnoremap <silent> <S-F9> :PrevColorScheme<CR>
 nnoremap <silent> <leader><F9> :RandomColorScheme<CR>
 " }}}
-" {{{  ##### vim-codi #####
-let g:codi#interpreters = {
-  \ 'python': {
-  \   'prompt': '^(ins)\(>>>\|\.\.\.\) '
-  \ },
-  \}
-" let codi#log='/home/william/log/codi.log'
-" let codi#autocmd = 'None'
-
-" }}}
-" {{{ ##### nvimux #####
-if exists("g:gui_oni")
-lua << EOF
-local nvimux = require('nvimux')
-
--- Nvimux configuration
-nvimux.config.set_all{
-  prefix = '<C-a>',
-  new_window = 'term', -- Use 'term' if you want to open a new term for every new window
-  new_tab = nil, -- Defaults to new_window. Set to 'term' if you want a new term for every new tab
-  new_window_buffer = 'single',
-  quickterm_direction = 'botright',
-  quickterm_orientation = 'vertical',
-  quickterm_scope = 't', -- Use 'g' for global quickterm
-  quickterm_size = '80',
-}
-
--- Nvimux custom bindings
-nvimux.bindings.bind_all{
-  {'-', ':NvimuxHorizontalSplit', {'n', 'v', 'i', 't'}},
-  {'\\|', ':NvimuxVerticalSplit', {'n', 'v', 'i', 't'}},
-  {'<c-l>', ':tabnext', {'n', 'v', 'i', 't'}},
-  {'<c-h>', ':tabprevious', {'n', 'v', 'i', 't'}},
-}
-
--- Required so nvimux sets the mappings correctly
-nvimux.bootstrap()
-EOF
-endif
-
-" }}}
 " {{{ ##### vim-fugitive #####
 augroup rebase_tools
   autocmd!
@@ -561,10 +364,6 @@ augroup rebase_tools
 augroup END
 
 command! Jenkins execute 'Gcommit -a --fixup=HEAD' | Gpush
-" }}}
-" {{{ ##### Jedi #####
-let g:jedi#completions_enabled = 0
-let g:jedi#goto_command = "<leader>]"
 " }}}
 " {{{ ##### vim-go #####
 let g:go_def_mapping_enabled = 0
@@ -617,8 +416,7 @@ let g:mkdp_preview_options = {
    \},
  \}
 " }}}
-
-" Tree-sitter
+" {{{ ##### Tree-sitter #####
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the listed parsers MUST always be installed)
@@ -662,7 +460,7 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
-
+" }}}
 " }}}
 
 "{{{ ***** VIM FEATURES ***** "
@@ -1070,11 +868,7 @@ command! -nargs=0 VPyTerm vsplit term://python3
 command! -nargs=0 SPyTerm split term://python3
 
 " make todo list
-command! -nargs=* -complete=file Todos execute "Unite -keep-focus -auto-resize -no-quit -buffer-name=Todos vimgrep:*:TODO(" . expand("$USER") . ")"
-
-"Wrapper for make sequence
-"replaced by vim-dispatch plugin
-command! -nargs=* MyMake execute '!clear' | make! <args> | cw
+"command! -nargs=* -complete=file Todos execute "Unite -keep-focus -auto-resize -no-quit -buffer-name=Todos vimgrep:*:TODO(" . expand("$USER") . ")"
 
 " Edit ~/.vim/vimrc in a new tab
 command! -nargs=0 EditVimrc tabedit ~/.vim/vimrc
@@ -1152,8 +946,8 @@ endfunction
 
 
 "{{{ ***** MACHINE SPECIFIC CONFIG ***** "
+command! -nargs=0 EditCustomVimrc tabedit ~/.vimrc_custom
 if filereadable($HOME . "/.vimrc_custom")
   source ~/.vimrc_custom
-  command! -nargs=0 EditCustomVimrc tabedit ~/.vimrc_custom
 endif
 "}}}
