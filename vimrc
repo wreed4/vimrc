@@ -10,51 +10,34 @@ let g:python3_host_prog= expand('$HOME') . '/.pyenv/versions/neovim3/bin/python'
 set nocompatible
 call plug#begin('~/.vim/bundle')
 
-" ***** plugins we only want in true vim.
-if !exists("g:gui_oni")
-  " As-you-type semantic completion.
-  " Plug 'Valloric/YouCompleteMe', { 'on': ['YcmCompleter', 'YcmDiags', 'YcmForceCompileAndDiagnostics'], 'do': './install.py'}
-  " Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py'}
-  " autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
+" **** Major Functionality Plugins
 
-  " Deoplete
-  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  " let g:deoplete#enable_at_startup = 1
-  " Plug 'davidhalter/jedi-vim'
-  " Plug 'zchee/deoplete-jedi'
-  " Plug 'zchee/deoplete-go', { 'do': 'make'}
-  " let g:deoplete#sources#go#gocode_binary = '/home/william/go/bin/gocode'
-  " Plug 'Shougo/neco-vim'
+" coc.nvim - code completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" tree-sitter - syntax parsing
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-  " coc.nvim
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-  " Matching things in insert mode
-  Plug 'Raimondi/delimitMate'
-  " Make vim priiiiity
-  Plug 'bling/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-else
-  Plug 'BurningEther/nvimux'
-endif
-" Linting.. may conflict with YCM
-" Plug 'w0rp/ale'
+" **** Basic editing and functionality
 
-" ***** simple plugins
-" can launch an interactive program within an Vim buffer (like bash or other shells)
-" Plug 'oplatek/Conque-Shell', { 'on': ['ConqueTerm', 'ConqueTermSplit', 'ConqueTermVSplit']}
-" easy buffer management. Replaced by Unite
-"Plugin 'jlanzarotta/bufexplorer'
-" supposedly make '%' more powerful
-Plug 'tmhedberg/matchit'
+" Matching things in insert mode
+Plug 'Raimondi/delimitMate'
 
+
+" **** UX enhancements
+
+" Make vim priiiiity
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+"
 " Comments
 " Way more lightweight comment plugin
 Plug 'tpope/vim-commentary'
 " Comment text objects (depends on the following
-Plug 'glts/vim-textobj-comment'
+" Plug 'glts/vim-textobj-comment'
 " define you're own text objects!!
-Plug 'kana/vim-textobj-user'
+" Plug 'kana/vim-textobj-user'
 
 " Shows file browser. (replaces netrw and :Explore)
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind']}
@@ -69,7 +52,7 @@ Plug 'tpope/vim-dispatch'
 Plug '5long/pytest-vim-compiler'
 " Makes motions way better.  lets you jump anywhere on the screen
 " Run tests
-Plug 'janko-m/vim-test'
+" Plug 'janko-m/vim-test'
 " Plug 'Lokaltog/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 " Allows multiple cursors at once.  very useful
@@ -106,10 +89,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 " Easy alignment
 Plug 'junegunn/vim-easy-align'
-" Semantic highlighting
-" Plug 'jaxbot/semantic-highlight.vim'
-" Additional highlighting for cpp
-Plug 'octol/vim-cpp-enhanced-highlight'
 " Fancy start screen
 Plug 'mhinz/vim-startify'
 " Better text objects
@@ -123,27 +102,25 @@ Plug 'tpope/vim-sleuth'
 " Show differences with style
 Plug 'mhinz/vim-signify'
 " Write outlines in vim
-Plug 'vimoutliner/vimoutliner'
+" Plug 'vimoutliner/vimoutliner'
 " Better diffs (optionaly)
 Plug 'chrisbra/vim-diff-enhanced'
 " command line fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Startup time analyzer
-Plug 'tweekmonster/startuptime.vim'
-" Automatically change numbering modes (very small, could be a code snippet in vimrc
-" Plug 'jeffkreeftmeijer/vim-numbertoggle'
+" Plug 'dstein64/vim-startuptime'
 " coding in GO
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Better ways to deal with extra whitespace
 Plug 'ntpeters/vim-better-whitespace'
 "Interactive Code Scratchpad
-Plug 'metakirby5/codi.vim'
+" Plug 'metakirby5/codi.vim'
 " Code refactoring
-Plug 'apalmer1377/factorus'
+" Plug 'apalmer1377/factorus'
 " Markdown viewing
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+" Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Behave integration
 Plug 'avanzzzi/behave.vim', {'for': 'cucumber'}
 
@@ -169,6 +146,11 @@ Plug 'nightsense/vim-crunchbang'
 Plug 'gkjgh/cobalt'
 Plug 'exitface/synthwave.vim'
 " Plug 'jnurmine/Zenburn'
+
+" Semantic highlighting
+" Plug 'jaxbot/semantic-highlight.vim'
+" Additional highlighting for cpp
+" Plug 'octol/vim-cpp-enhanced-highlight'
 "
 " Plugin to quickly switch color schemes
 Plug 'xolox/vim-misc', { 'on': [ 'NextColorScheme', 'PrevColorScheme', 'RandomColorScheme' ] }
@@ -635,6 +617,51 @@ let g:mkdp_preview_options = {
    \},
  \}
 " }}}
+
+" Tree-sitter
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+  ensure_installed = { "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "python" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = false,
+
+  -- List of parsers to ignore installing (or "all")
+  -- ignore_install = { "javascript" },
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    -- disable = { "c", "rust" },
+    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+    -- disable = function(lang, buf)
+    --     local max_filesize = 100 * 1024 -- 100 KB
+    --     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+    --     if ok and stats and stats.size > max_filesize then
+    --         return true
+    --     end
+    -- end,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
 
 " }}}
 
